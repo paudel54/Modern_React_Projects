@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 const StateContext = createContext();
 
-const initalState = {
+const initialState = {
     chat: false,
     cart: false,
     userProfile: false,
@@ -11,8 +11,18 @@ const initalState = {
 
 export const ContextProvider = ({ children }) => {
     const [activeMenu, setActiveMenu] = useState(true);
+    const [isClicked, setIsClicked] = useState(initialState);
+    const [screenSize, setScreenSize] = useState(undefined);
+
+    const handleClick = (clicked) => {
+        // important concept use of spread operator to change content dynamically
+        setIsClicked({ ...initialState, [clicked]: true });
+    }
     return (
-        <StateContext.Provider value={{ activeMenu: activeMenu, setActiveMenu }}>
+        <StateContext.Provider value={{
+            activeMenu: activeMenu, setActiveMenu,
+            isClicked, setIsClicked, handleClick, screenSize, setScreenSize
+        }}>
             {children}
         </StateContext.Provider>
     )
