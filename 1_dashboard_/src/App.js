@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Form } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
+import { useSateContext, useStateContext } from './contexts/ContextProvider';
+
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components/index';
 // import Sidebar from './components/Sidebar';
 // import Navbar from './components/Navbar'
@@ -13,7 +15,8 @@ import {
 
 import './App.css'
 const App = () => {
-    const activeMenu = true;
+    const { activeMenu } = useStateContext();
+
     return (
         <div>
             <BrowserRouter>
