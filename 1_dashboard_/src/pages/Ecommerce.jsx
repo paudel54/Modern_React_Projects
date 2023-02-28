@@ -62,7 +62,70 @@ const Ecommerce = () => {
             </div>
           ))}
         </div>
-        {/* section with revenue update and expense chart */}
+      </div>
+      <div className="flex gap-10 flex-wrap justify-center">
+        <div className="bg-slate-300 dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780">
+          <div className="flex justify-between">
+            <p className="font-semibold text-xl">Revenue Updates</p>
+            <div className="flex items-center gap-4">
+              <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
+                <span>
+                  <GoPrimitiveDot />
+                </span>
+                <span>Expense</span>
+              </p>
+              {/* next p tag */}
+              <p className="flex items-center gap-2 text-green-600 hover:drop-shadow-xl">
+                <span>
+                  <GoPrimitiveDot />
+                </span>
+                <span>Budget</span>
+              </p>
+            </div>
+          </div>
+          <div className="mt-10 flex gap-10 flex-wrap justify-center">
+            {/* Revenue Details */}
+            <div className="border-color pr-10 m-4 border-r-1">
+              <div>
+                <p>
+                  <span className="text-3xl font-semibold">$98,243</span>
+                  <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
+                    23%
+                  </span>
+                </p>
+                <p className="text-gray">Budget</p>
+              </div>
+              <div className="mt-8">
+                <p>
+                  <span className="text-3xl font-semibold">$31,148</span>
+                </p>
+                <p className="text-gray">Expense</p>
+              </div>
+              <div className="mt-5">
+                <SparkLine
+                  currentColor="blue"
+                  id="line-sparkline"
+                  type="Line"
+                  height="80px"
+                  width="250px"
+                  data={SparklineAreaData}
+                  color="blue"
+                />
+              </div>
+              <div className="mt-10">
+                <Button
+                  color="white"
+                  bgColor="blue"
+                  text="Download Report"
+                  borderRadius="10px"
+                ></Button>
+              </div>
+            </div>
+            <div>
+              <Stacked width="320" height="360px" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
