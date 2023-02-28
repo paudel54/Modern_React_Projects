@@ -34,7 +34,7 @@ const Sidebar = () => {
               font-extrabold tracking-tight dark:text-white text-slate-900"
             >
               <SiShopware />
-              <span>Shoppy</span>
+              <span>AR Origin</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
