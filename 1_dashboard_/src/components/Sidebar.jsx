@@ -9,7 +9,8 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
   // const activeMenu = true;
-  const { activeMenu, setActiveMenu, screenSize } = useStateContext();
+  const { activeMenu, setActiveMenu, screenSize, currentColor } =
+    useStateContext();
 
   const handleCLoseSidebar = () => {
     if (activeMenu && screenSize <= 900) {
@@ -55,10 +56,15 @@ const Sidebar = () => {
                 <p className="text-gray-400 m-3 mt-4 uppercase">{item.title}</p>
 
                 {item.links.map((link) => (
+                  // Navlink is special comp belonging to react Router
                   <NavLink
                     to={`/${link.name}`}
                     key={link.name}
                     onClick={handleCLoseSidebar}
+                    // style for sidebar button terniary
+                    style={({ isActive }) => ({
+                      backgroundColor: isActive ? currentColor : "",
+                    })}
                     className={({ isActive }) =>
                       isActive ? activeLink : normalLink
                     }
