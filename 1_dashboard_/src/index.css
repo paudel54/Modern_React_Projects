@@ -9,3 +9,7 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.banner {
+  background-image: url("https://media.istockphoto.com/id/840607214/photo/call-center-worker-accompanied-by-her-team.jpg?s=612x612&w=0&k=20&c=FQcuzI-GIYCoqVV3JIABCSHr-VqqtmOXGS90E4HnjRQ=");
+}
