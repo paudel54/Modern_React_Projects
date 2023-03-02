@@ -48,6 +48,12 @@ function App() {
           })
         }
       );
+      spotify.getUserPlaylists().then((playlists) => (
+        dispatch({
+          type: "SET_PLAYLISTS",
+          playlists: playlists
+        })
+      ))
     }
 
   }, []);
@@ -58,7 +64,7 @@ function App() {
       {
         token ? (<Player />) : (<Login />)
       }
-      {/* <Login /> */}
+      <Login />
 
     </div>
 
