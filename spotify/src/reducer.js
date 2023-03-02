@@ -3,7 +3,7 @@ export const initialState = {
     playlist: [],
     playing: false,
     item: null,
-    // token: "BQDbcwNlYZlRiMP9YFLj_a2fYiLUpGYSHxNywnxo7oiJpW5ney_Z3HBdoBwJ3uNPKJNnjMoQVLe3eSDtjt_JQ8IkGQDFJKWTgRl8mYtfiwZ4kW4aqXvUzpaiF6kMgPCAFmnqmAagTgGJ8wwAJiaLfygOR213z07ZIsSVvG0VOE9NblBcljUBrxrE21VsEdVbRAMQxw6xfansYIh74s9YXQ",
+    token: "BQDbcwNlYZlRiMP9YFLj_a2fYiLUpGYSHxNywnxo7oiJpW5ney_Z3HBdoBwJ3uNPKJNnjMoQVLe3eSDtjt_JQ8IkGQDFJKWTgRl8mYtfiwZ4kW4aqXvUzpaiF6kMgPCAFmnqmAagTgGJ8wwAJiaLfygOR213z07ZIsSVvG0VOE9NblBcljUBrxrE21VsEdVbRAMQxw6xfansYIh74s9YXQ",
 }
 
 // action has type and payload: when action is dispatched to data layer action and payload is sent:
@@ -27,6 +27,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 playlists: action.playlists,
+            }
+        case "SET_DISCOVER_WEEKLY":
+            return {
+                ...state,
+                discover_weekly: action.discover_weekly,
             }
         default:
             return state;
