@@ -71,7 +71,7 @@ function App() {
       {
         token ? (<Player />) : (<Login />)
       }
-      <Login />
+      {/* <Login /> */}
 
     </div>
 

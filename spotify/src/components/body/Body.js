@@ -5,6 +5,8 @@ import { useDataLayerValue } from '../../DataLayer';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Songrow from '../songrow/Songrow'
+
 const Body = ({ spotify }) => {
     // pulling out data from data layer:
     const [{ discover_weekly }, dispatch] = useDataLayerValue();
@@ -27,7 +29,7 @@ const Body = ({ spotify }) => {
                 </div>
                 {/* lists of songs */}
                 {discover_weekly?.tracks.items.map(item => (
-                    <SongRow track={item.track} />
+                    <Songrow track={item.track} />
                 ))}
             </div>
         </div>
