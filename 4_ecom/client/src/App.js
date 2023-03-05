@@ -1,11 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './pages/auth/Login'
+import Register from './pages/auth/Register'
+import Home from './pages/Home'
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      Ecom New Init
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
