@@ -3,6 +3,7 @@ import Register from './pages/auth/Register'
 import Home from './pages/Home'
 import Header from './components/nav/Header'
 
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
