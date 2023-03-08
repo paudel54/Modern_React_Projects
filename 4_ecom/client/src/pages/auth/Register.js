@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import { auth } from '../../firebase';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 const Register = () => {
     const [email, setEmail] = useState("");
     // making form submit handler an async function 
     const handleSubmit = async (e) => {
         // send email with a link  : this is an event handler we provide event to execute
         e.preventDefault();
-
-        // firebase config for email link authentication
+        console.log("ENV --->", process.env.REACT_APP_REGISTER_REDIRECT_URL);
         const config = {
-            url: 'http://localhost:3000/register',
+            // url: 'http://localhost:3000/register/complete', 
+            url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
             handleCodeInApp: true,
-        }
+        };
+
 
         await auth.sendSignInLinkToEmail(email, config)
         // once this process is completed 
@@ -34,7 +35,7 @@ const Register = () => {
     // }
     return (
         <div className='bg-blue-300 h-full w-full absolute'>
-            <ToastContainer />
+
             <div className='flex justify-center h-[80%] items-center'>
                 <div className='drop-shadow-xl rounded-lg py-48 px-28 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
                     <h1 className='text-2xl mb-4 font-bold text-white'>Register Here</h1>
