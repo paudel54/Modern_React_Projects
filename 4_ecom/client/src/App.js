@@ -7,10 +7,10 @@ import Home from './pages/Home'
 import Header from './components/nav/Header'
 import RegisterComplete from './pages/auth/RegisterComplete';
 
-// REDUX
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+
+import React, { useEffect } from 'react';
+import { auth } from './firebase';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -18,6 +18,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import RegisterComplete from './pages/auth/RegisterComplete';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubcribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const idTokenResult = await user.getIdTokenResult()
+        // console.log('user from useEffect', user)
+        dispatch({
+          type: 'LOGGED_IN_USER',
+          payload: {
+            email: user.email,
+            token: idTokenResult.token
+          }
+        })
+
+      }
+    })
+    // cleanUp
+    return () => unsubcribe();
+  }, []);
+
   return (
     <BrowserRouter>
       <>
