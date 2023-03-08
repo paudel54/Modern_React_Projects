@@ -7,6 +7,10 @@ import Home from './pages/Home'
 import Header from './components/nav/Header'
 import RegisterComplete from './pages/auth/RegisterComplete';
 
+// REDUX
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 
 
