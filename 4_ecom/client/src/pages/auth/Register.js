@@ -26,13 +26,7 @@ const Register = () => {
 
     }
 
-    // const registerForm = () => {
-    //     <form onSubmit={handleSubmit}>
-    //         <input type="email" className='form-control' value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
-    //         <button type='submit'> Register /{email}</button>
-    //     </form>
 
-    // }
     return (
         <div className='bg-blue-300 h-full w-full absolute'>
 
@@ -40,7 +34,7 @@ const Register = () => {
                 <div className='drop-shadow-xl rounded-lg py-48 px-28 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
                     <h1 className='text-2xl mb-4 font-bold text-white'>Register Here</h1>
                     <form onSubmit={handleSubmit} className="flex flex-col items-start ">
-                        <input className="px-4 py-2 form-control rounded-sm" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
+                        <input placeholder='Enter your valid email ' className=" outline-none px-4 py-2 form-control rounded-sm" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
                         <button className='drop-shadow-xl mt-4 py-2 px-4 bg-rose-300 rounded-md' type='submit'> Register </button>
                     </form>
                 </div>
