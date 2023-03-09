@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { auth, googleAuthProvider } from '../../firebase';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -80,11 +82,13 @@ const Login = () => {
                         <button onClick={handleSubmit} className='hover:shadow-lg hover:bg-blue-500 hover:text-white transition-all mt-4 py-2 px-4 w-[12rem] bg-rose-300 rounded-lg' type='submit' > Login with Email </button>
                         <button onClick={googleLogin} className='hover:shadow-lg hover:bg-blue-500 hover:text-white transition-all mt-2 py-2 px-4 w-[12rem] bg-green-400 rounded-lg' type='submit' > Login with Google</button>
                     </form>
-                    {/* if bug occurs check button onClick={handleSubmite} */}
-                </div>
-            </div>
+                    <Link to='/forgot/password' className='text-white p-2 float-right mr-7'>Forgot Password?</Link>
 
-        </div>
+                    {/* if bug occurs check button onClick={handleSubmite} */}
+                </div >
+            </div >
+
+        </div >
     )
 }
 
