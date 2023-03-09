@@ -9,7 +9,7 @@ import {
     UserAddOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 const { SubMenu, Item } = Menu;
@@ -17,6 +17,9 @@ const { SubMenu, Item } = Menu;
 const Header = () => {
     const [current, setCurrent] = useState("home");
     let dispatch = useDispatch();
+    // useSelector hooks takes fn as arguments
+    let { user } = useSelector((state) => ({ ...state }));
+    console.log(user);
     const navigate = useNavigate();
 
     const handleClick = (e) => {
@@ -38,22 +41,27 @@ const Header = () => {
     return (
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
             <Item key="home" icon={<AppstoreOutlined />}>
-                <Link to="/">Home</Link>
+                <Link to="/">Home </Link>
+                {/* {JSON.stringify(state)} */}
+                {/* -{JSON.stringify(user)} */}
             </Item>
 
-            <Item key="register" icon={<UserAddOutlined />} className="float-right">
+            {(!user && (<Item key="register" icon={<UserAddOutlined />} className="float-right">
                 <Link to="/register">Register</Link>
-            </Item>
+            </Item>))}
 
-            <Item key="login" icon={<UserOutlined />} className="float-right">
+
+            {(!user && (<Item key="login" icon={<UserOutlined />} className="float-right">
                 <Link to="/login">Login</Link>
-            </Item>
+            </Item>))}
 
-            <SubMenu icon={<SettingOutlined />} title="Username">
+
+            {(user && <SubMenu icon={<SettingOutlined />} title={user.email && user.email.split('@')[0]} style={{ marginLeft: 'auto' }} >
                 <Item key="setting:1">Option 1</Item>
                 <Item key="setting:2">Option 2</Item>
                 <Item icon={<UserOutlined />} onClick={logout}>Logout</Item>
-            </SubMenu>
+            </SubMenu>)}
+
         </Menu>
     );
 };
