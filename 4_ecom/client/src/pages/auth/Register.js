@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+// send a email link to register::::
+import React, { useState, useEffect } from 'react'
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     // making form submit handler an async function 
     const handleSubmit = async (e) => {
@@ -25,6 +30,11 @@ const Register = () => {
         setEmail('');
 
     }
+    const { user } = useSelector((state) => ({ ...state }));
+
+    useEffect(() => {
+        if ((user && user.token)) navigate('/')
+    }, [user]);
 
 
     return (

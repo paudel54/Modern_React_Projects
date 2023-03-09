@@ -30,6 +30,7 @@ const RegisterComplete = () => {
             return;
         }
 
+
         //  sign in with email link: auth api browser url
         // 2nd arg is total url of email which can be grabbed with window.location.href: console to check it out
         try {
@@ -68,7 +69,7 @@ const RegisterComplete = () => {
                     <h1 className='text-2xl mb-4 font-bold text-white'>Email Verified ✅ </h1>
                     <form onSubmit={handleSubmit} className="flex flex-col items-start ">
                         <input className="px-4 py-2  rounded-sm" type="email" value={email} disabled />
-                        <input className="px-4 py-2 mt-2 rounded-sm outline-none" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                        <input className="px-4 py-2 mt-2 rounded-sm outline-none" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Set Your Password" />
                         <button className=' mt-4 py-2 px-4 bg-rose-300 rounded-md shadow hover:shadow-lg hover:text-white hover:bg-blue-500 transition-all' type='submit'> Proceed </button>
                     </form>
                 </div>
