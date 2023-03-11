@@ -3,10 +3,9 @@ import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 // {/* <Navigate to="/dashboard" replace={true} /> */ }
 // if i take Naivgate import directly in app.js some how then. it can be made availale to anycomponents. 
-
+import { createOrUpdateUser } from "../../functions/auth";
 
 const RegisterComplete = () => {
     const navigate = useNavigate();
@@ -17,17 +16,6 @@ const RegisterComplete = () => {
     const { user } = useSelector((state) => ({ ...state }));
 
 
-
-    const createOrUpdateUser = async (authtoken) => {
-        return await axios.post(
-            `${process.env.REACT_APP_API}/create-or-update-user`, {},
-            {
-                headers: {
-                    authtoken,
-                },
-            }
-        );
-    };
 
     useEffect(() => {
         // console.log(window.localStorage.getItem('emailForRegistration'))

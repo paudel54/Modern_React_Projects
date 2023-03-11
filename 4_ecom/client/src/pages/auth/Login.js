@@ -4,16 +4,9 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
-import axios from 'axios';
+import { createOrUpdateUser } from "../../functions/auth";
 
-const createOrUpdateUser = async (authtoken) => {
-    // not sending on request body so empty obj {body} 
-    return await axios.post(`${process.env.REACT_APP_API}/create-or-update-user`, {}, {
-        headers: {
-            authtoken: authtoken,
-        }
-    })
-}
+
 
 
 const Login = () => {
@@ -45,6 +38,7 @@ const Login = () => {
             createOrUpdateUser(idTokenResult.token)
                 // .then(res => console.log("create or update response", res))
                 .then((res) => {
+                    console.log('RESPONSE FROM SERVER ', res)
                     dispatch({
                         type: "LOGGED_IN_USER",
                         payload: {
