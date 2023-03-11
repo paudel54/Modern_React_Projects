@@ -10,7 +10,7 @@ const { authCheck } = require("../middlewares/auth.js");
 
 // imports
 //!!!We can have exports from routes with multiple methods so on import must be destructred : regular var name results in ERROR
-const { createOrUpdateUser } = require('../controllers/auth')
+const { createOrUpdateUser, currentUser } = require('../controllers/auth')
 
 // testing middleware
 // const myMiddleware = (req, res, next) => {
@@ -27,6 +27,9 @@ const { createOrUpdateUser } = require('../controllers/auth')
 // we get req auth check middleware runs and then controller function gets executed!
 // application of middleware
 router.post('/create-or-update-user', authCheck, createOrUpdateUser);
+
+// create end point for current user to send user profile onto client Side!
+router.post('/current-user', authCheck, currentUser);
 
 // middleware on test 
 // router.get('/testing', myMiddleware, (req, res) => {

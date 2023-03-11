@@ -10,6 +10,7 @@ import { createOrUpdateUser } from "../../functions/auth";
 
 
 const Login = () => {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -20,6 +21,14 @@ const Login = () => {
     useEffect(() => {
         if ((user && user.token)) navigate('/')
     }, [user]);
+
+    const roleBasedRedirect = (res) => {
+        if (res.data.role === 'admin') {
+            navigate('/admin/dashboard');
+        } else {
+            navigate('/user/history')
+        }
+    }
 
     // making form submit handler an async function 
     const handleSubmit = async (e) => {
@@ -51,6 +60,7 @@ const Login = () => {
                         }
 
                     });
+                    roleBasedRedirect(res);
                 })
                 .catch();
 
@@ -62,7 +72,8 @@ const Login = () => {
             //     }
             // });
             console.log('you are about to navigate');
-            navigate('/');
+            // navigate('/');
+            // role based redirect
         }
         catch (error) {
             console.log(error);
@@ -101,10 +112,11 @@ const Login = () => {
                             }
 
                         });
+                        roleBasedRedirect(res);
                     })
-                    .catch();
-
-                navigate('/');
+                    .catch((e) => console.log(e));
+                // redirect based on roles
+                // navigate('/');
             })
             .catch((e) => {
                 console.log(e);

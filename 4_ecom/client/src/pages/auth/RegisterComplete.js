@@ -71,7 +71,7 @@ const RegisterComplete = () => {
 
                         });
                     })
-                    .catch();
+                    .catch((err) => console.log(err));
                 // redirect
                 navigate('/');
 

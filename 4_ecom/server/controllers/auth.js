@@ -2,6 +2,7 @@
 const User = require('../models/user');
 
 
+
 exports.createOrUpdateUser = async (req, res) => {
     const { name, picture, email } = req.user;
 
@@ -39,3 +40,14 @@ exports.createOrUpdateUser = async (req, res) => {
     // })
 }
 // We can have exports with multiple methods so on import must be destructred : regular var name results in ERROR
+
+exports.currentUser = async (req, res) => {
+    User.findOne({ email: req.user.email }).then((user) => {
+        res.json(user);
+    }).catch((e) => { console.log(e) })
+};
+
+// User.findOne({ email: req.user.email }).exec((err, user) => {
+//     if (err) throw new Error(err);
+//     res.json(user);
+// });
