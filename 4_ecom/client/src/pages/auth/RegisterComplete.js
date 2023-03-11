@@ -2,14 +2,32 @@ import React, { useState, useEffect } from 'react'
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 // {/* <Navigate to="/dashboard" replace={true} /> */ }
 // if i take Naivgate import directly in app.js some how then. it can be made availale to anycomponents. 
 
 
 const RegisterComplete = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState('');
+
+    const { user } = useSelector((state) => ({ ...state }));
+
+
+
+    const createOrUpdateUser = async (authtoken) => {
+        return await axios.post(
+            `${process.env.REACT_APP_API}/create-or-update-user`, {},
+            {
+                headers: {
+                    authtoken,
+                },
+            }
+        );
+    };
 
     useEffect(() => {
         // console.log(window.localStorage.getItem('emailForRegistration'))
@@ -49,6 +67,23 @@ const RegisterComplete = () => {
                 console.log(idTokenResult);
                 // we got user and json web token we can use to access secure route
                 // populate user in redux store
+                createOrUpdateUser(idTokenResult.token)
+                    // .then(res => console.log("create or update response", res))
+                    .then((res) => {
+                        dispatch({
+                            type: "LOGGED_IN_USER",
+                            payload: {
+                                name: res.data.name,
+                                email: res.data.email,
+                                // token taking from client side:
+                                token: idTokenResult.token,
+                                role: res.data.role,
+                                _id: res.data._id
+                            }
+
+                        });
+                    })
+                    .catch();
                 // redirect
                 navigate('/');
 

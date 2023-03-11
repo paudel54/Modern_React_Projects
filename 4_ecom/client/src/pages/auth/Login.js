@@ -4,6 +4,16 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
+import axios from 'axios';
+
+const createOrUpdateUser = async (authtoken) => {
+    // not sending on request body so empty obj {body} 
+    return await axios.post(`${process.env.REACT_APP_API}/create-or-update-user`, {}, {
+        headers: {
+            authtoken: authtoken,
+        }
+    })
+}
 
 
 const Login = () => {
@@ -31,13 +41,32 @@ const Login = () => {
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult()
 
-            dispatch({
-                type: "LOGGED_IN_USER",
-                payload: {
-                    email: user.email,
-                    token: idTokenResult.token
-                }
-            });
+            // get response from server we created
+            createOrUpdateUser(idTokenResult.token)
+                // .then(res => console.log("create or update response", res))
+                .then((res) => {
+                    dispatch({
+                        type: "LOGGED_IN_USER",
+                        payload: {
+                            name: res.data.name,
+                            email: res.data.email,
+                            // token taking from client side:
+                            token: idTokenResult.token,
+                            role: res.data.role,
+                            _id: res.data._id
+                        }
+
+                    });
+                })
+                .catch();
+
+            // dispatch({
+            //     type: "LOGGED_IN_USER",
+            //     payload: {
+            //         email: user.email,
+            //         token: idTokenResult.token
+            //     }
+            // });
             console.log('you are about to navigate');
             navigate('/');
         }
@@ -56,13 +85,31 @@ const Login = () => {
                 const { user } = result
                 const idTokenResult = await user.getIdTokenResult();
 
-                dispatch({
-                    type: "LOGGED_IN_USER",
-                    payload: {
-                        email: user.email,
-                        token: idTokenResult.token
-                    }
-                });
+                // dispatch({    !! previous version:
+                //     type: "LOGGED_IN_USER",
+                //     payload: {
+                //         email: user.email,
+                //         token: idTokenResult.token
+                //     }
+                // });
+                createOrUpdateUser(idTokenResult.token)
+                    // .then(res => console.log("create or update response", res))
+                    .then((res) => {
+                        dispatch({
+                            type: "LOGGED_IN_USER",
+                            payload: {
+                                name: res.data.name,
+                                email: res.data.email,
+                                // token taking from client side:
+                                token: idTokenResult.token,
+                                role: res.data.role,
+                                _id: res.data._id
+                            }
+
+                        });
+                    })
+                    .catch();
+
                 navigate('/');
             })
             .catch((e) => {
