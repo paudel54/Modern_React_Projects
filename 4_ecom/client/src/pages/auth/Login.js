@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { createOrUpdateUser } from "../../functions/auth";
+import { createOrUpdateUser } from "../../components/nav/routes/functions/auth";
 
 
 
@@ -19,12 +19,12 @@ const Login = () => {
     const { user } = useSelector((state) => ({ ...state }));
 
     useEffect(() => {
-        if ((user && user.token)) navigate('/')
+        // if ((user && user.token)) navigate('/')
     }, [user]);
 
     const roleBasedRedirect = (res) => {
         if (res.data.role === 'admin') {
-            navigate('/admin/dashboard');
+            navigate('/admin/dashboard')
         } else {
             navigate('/user/history')
         }

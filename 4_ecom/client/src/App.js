@@ -8,12 +8,16 @@ import Header from './components/nav/Header'
 import RegisterComplete from './pages/auth/RegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword'
 
+import History from './pages/user/History';
+// implement protected Routes:
+import UserRoute from './components/nav/routes/UserRoute';
+
 
 import React, { useEffect } from 'react';
 import { auth } from './firebase';
 import { useDispatch } from 'react-redux';
 
-import { currentUser } from './functions/auth';
+import { currentUser } from './components/nav/routes/functions/auth';
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -68,6 +72,13 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/register/complete" element={<RegisterComplete />} />
           <Route path="/forgot/password" element={<ForgotPassword />} />
+          {/* <UserRoute path="/user/history" element={<History />} /> */}
+          {/* private Route : protected Routes */}
+          {/* can access this routes only if you are logged in: if not would navigte to login page */}
+          <Route element={<UserRoute />}>
+            <Route path='/user/history' element={<History />} />
+          </Route>
+
         </Routes>
 
       </>
