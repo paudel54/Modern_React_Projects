@@ -4,14 +4,17 @@
 
 import React from 'react'
 //Route changes to Outlet and lint to Navigate
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+import LoadingToRedirect from './LoadingToRedirect';
 
 
 // children props implies whatever passed to this route:  ...rest rest of the props
 const UserRoute = () => {
     const { user } = useSelector((state) => ({ ...state }));
-    return user && user.token ? <Outlet /> : <Navigate to="/login" />
+    return user && user.token ? <Outlet /> : <LoadingToRedirect />
+    // return user && user.token ? <Outlet /> : <Navigate to="/login" />
     // return user && user.token ? <Route {...rest} render={() => children} /> : (<h1 className='bg-red-400'>Loading...</h1>)
 }
 
