@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { createOrUpdateUser } from "../../components/nav/routes/functions/auth";
+import { createOrUpdateUser } from "../../components/functions/auth";
 
 
 

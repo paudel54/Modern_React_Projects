@@ -10,14 +10,17 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 
 import History from './pages/user/History';
 // implement protected Routes:
-import UserRoute from './components/nav/routes/UserRoute';
+import UserRoute from './components/routes/UserRoute';
+
+import UserNav from './components/nav/UserNav';
+import Main from './pages/test/Main';
 
 
 import React, { useEffect } from 'react';
 import { auth } from './firebase';
 import { useDispatch } from 'react-redux';
 
-import { currentUser } from './components/nav/routes/functions/auth';
+import { currentUser } from './components/functions/auth';
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -67,6 +70,7 @@ function App() {
         <ToastContainer />
 
         <Routes>
+          <Route path="/test" element={<Main />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

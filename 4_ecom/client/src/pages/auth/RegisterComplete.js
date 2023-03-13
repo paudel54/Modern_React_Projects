@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 // {/* <Navigate to="/dashboard" replace={true} /> */ }
 // if i take Naivgate import directly in app.js some how then. it can be made availale to anycomponents. 
-import { createOrUpdateUser } from "../../components/nav/routes/functions/auth";
+import { createOrUpdateUser } from "../../components/functions/auth";
 
 const RegisterComplete = () => {
     const navigate = useNavigate();
