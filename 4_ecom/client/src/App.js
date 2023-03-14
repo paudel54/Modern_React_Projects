@@ -9,11 +9,14 @@ import RegisterComplete from './pages/auth/RegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword'
 
 import History from './pages/user/History';
+import Password from './pages/user/Password';
+import Wishlist from './pages/user/Wishlist';
+
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
 
 import UserNav from './components/nav/UserNav';
-import Main from './pages/test/Main';
+// import Main from './pages/test/Main';
 
 
 import React, { useEffect } from 'react';
@@ -70,7 +73,7 @@ function App() {
         <ToastContainer />
 
         <Routes>
-          <Route path="/test" element={<Main />} />
+          <Route path="/test" element={<UserNav />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -81,6 +84,9 @@ function App() {
           {/* can access this routes only if you are logged in: if not would navigte to login page */}
           <Route element={<UserRoute />}>
             <Route path='/user/history' element={<History />} />
+            <Route path='/user/password' element={<Password />} />
+            <Route path='/user/wishlist' element={<Wishlist />} />
+
           </Route>
 
         </Routes>
