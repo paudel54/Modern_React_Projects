@@ -15,6 +15,7 @@ const Password = () => {
         await auth.currentUser.updatePassword(password)
             .then(() => {
                 setLoading(false);
+                setPassword('');
                 toast.success('Password Updated')
             })
             .catch(err => {
@@ -30,6 +31,7 @@ const Password = () => {
                 className="outline-none border border-rounded ml-5 p-2"
                 placeholder='Enter new Password'
                 disabled={loading}
+                value={password}
             />
             <button className='bg-red-300 px-2 py-1 rounded text-gray-600 ml-2' disabled={!password || loading}>Submit</button>
         </div>

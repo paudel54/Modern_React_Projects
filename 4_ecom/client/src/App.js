@@ -11,9 +11,11 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 import History from './pages/user/History';
 import Password from './pages/user/Password';
 import Wishlist from './pages/user/Wishlist';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
+import AdminRoute from './components/routes/AdminRoute';
 
 import UserNav from './components/nav/UserNav';
 // import Main from './pages/test/Main';
@@ -63,7 +65,7 @@ function App() {
     })
     // cleanUp
     return () => unsubcribe();
-  }, []);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -88,6 +90,10 @@ function App() {
             <Route path='/user/wishlist' element={<Wishlist />} />
 
           </Route>
+          {/* Protected Route For Admin */}
+          <Route element={<AdminRoute />}>
+            <Route path='/admin/dashboard' element={< AdminDashboard />} />
+          </Route>
 
         </Routes>
 
@@ -98,3 +104,6 @@ function App() {
 }
 
 export default App;
+
+
+//subscriber

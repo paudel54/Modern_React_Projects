@@ -1,4 +1,5 @@
 const admin = require('../firebase')
+const User = require('../models/user')
 
 // we need req reponse and callback: here called next
 exports.authCheck = async (req, res, next) => {
@@ -21,3 +22,18 @@ exports.authCheck = async (req, res, next) => {
     }
 
 }
+
+// auth middleware for admin varification
+exports.adminCheck = async (req, res, next) => {
+    const { email } = req.user
+
+    const adminUser = await User.findOne({ email: email }).exec()
+
+    if (adminUser.role !== 'admin') {
+        res.status(403).json({
+            err: 'Admin Resource. Access Denied',
+        });
+    } else {
+        next();
+    }
+};

@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 // middlewares to import
-const { authCheck } = require("../middlewares/auth.js");
+const { authCheck, adminCheck } = require("../middlewares/auth.js");
 
 // controllers to import
 
@@ -30,6 +30,7 @@ router.post('/create-or-update-user', authCheck, createOrUpdateUser);
 
 // create end point for current user to send user profile onto client Side!
 router.post('/current-user', authCheck, currentUser);
+router.post('/current-admin', authCheck, adminCheck, currentUser);
 
 // middleware on test 
 // router.get('/testing', myMiddleware, (req, res) => {
