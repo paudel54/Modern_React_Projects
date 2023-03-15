@@ -22,7 +22,8 @@ export const updateCategory = async (slug, category, authtoken) =>
         },
     });
 
-//category info is passed from axios to create category!
+//category info consists of input feild of newly created form is passed from axios to create category!
+//category is a payload on request: with json {name: "value"}
 export const createCategory = async (category, authtoken) =>
     await axios.post(`${process.env.REACT_APP_API}/category`, category, {
         headers: {
