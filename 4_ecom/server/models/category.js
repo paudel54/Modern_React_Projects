@@ -9,7 +9,7 @@ const categorySchema = new mongoose.Schema({
         trim: true,
         required: true,
         //minimum length must be 3 character if not would throw message as too short
-        minlength: [3, 'Too short'],
+        minlength: [2, 'Too short'],
         maxlength: [32, 'Too long'],
     },
     //slug would be genereated on own controller not from frontend> 

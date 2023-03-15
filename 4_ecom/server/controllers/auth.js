@@ -44,6 +44,7 @@ exports.createOrUpdateUser = async (req, res) => {
 exports.currentUser = async (req, res) => {
     User.findOne({ email: req.user.email }).then((user) => {
         res.json(user);
+        // console.log('Current User controller resoponse', res)
     }).catch((e) => { console.log(e) })
 };
 
