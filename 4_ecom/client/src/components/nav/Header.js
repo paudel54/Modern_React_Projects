@@ -72,8 +72,6 @@ const Header = () => {
                     </Item>
                 }
 
-
-
                 {/* <Item key="setting:1">Dashboard</Item> */}
                 <Item key="setting:2">Option 2</Item>
                 <Item icon={<UserOutlined />} onClick={logout}>Logout</Item>

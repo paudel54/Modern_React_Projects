@@ -13,6 +13,8 @@ import Password from './pages/user/Password';
 import Wishlist from './pages/user/Wishlist';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
+import CategoryCreate from './pages/admin/category/CategoryCreate';
+
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
 import AdminRoute from './components/routes/AdminRoute';
@@ -93,6 +95,7 @@ function App() {
           {/* Protected Route For Admin */}
           <Route element={<AdminRoute />}>
             <Route path='/admin/dashboard' element={< AdminDashboard />} />
+            <Route path='/admin/category' element={< CategoryCreate />} />
           </Route>
 
         </Routes>
