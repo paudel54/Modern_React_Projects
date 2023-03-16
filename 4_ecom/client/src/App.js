@@ -14,6 +14,7 @@ import Wishlist from './pages/user/Wishlist';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 import CategoryCreate from './pages/admin/category/CategoryCreate';
+import CategoryUpdate from './pages/admin/category/CategoryUpdate';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -96,6 +97,7 @@ function App() {
           <Route element={<AdminRoute />}>
             <Route path='/admin/dashboard' element={< AdminDashboard />} />
             <Route path='/admin/category' element={< CategoryCreate />} />
+            <Route path="/admin/category/:slug" element={< CategoryUpdate />} />
           </Route>
 
         </Routes>
