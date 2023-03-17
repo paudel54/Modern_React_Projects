@@ -3,26 +3,29 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 //creating element requires token to verify admin can only create so use create
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
+//import single category getcategory
+import { createCategory, getCategory, updateCategory } from "../../../components/functions/category"
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { getCategories, updateCategory } from "../../../components/functions/category"
 
 
 
-
-
-const CategoryUpdate = () => {
+const CategoryUpdate = ({ match }) => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => ({ ...state }));
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
 
-
+    let { slug } = useParams();
     useEffect(() => {
-        loadCategories();
+        loadCategory();
+        // console.log('Its a match', slug)
     }, [])
 
-    const loadCategories = () =>
-        getCategories().then((c) => setCategories(c.data));
+    const loadCategory = () =>
+        //updates the name variable stored by setter function.
+        getCategory(slug).then((c) => setName(c.data.name));
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,42 +34,21 @@ const CategoryUpdate = () => {
         //when form input is clicked submit it's loading and make async fn until then loading and afterward , its toggled to true
         setLoading(true);
         //sending name as an object
-        createCategory({ name }, user.token)
+        updateCategory(slug, { name }, user.token)
             .then((res) => {
                 //data from backend //console.log(res)
                 setLoading(false)
                 setName('')
-                toast.success(`${res.data.name} is created`)
-                //making sure ui is update
-                loadCategories();
+                toast.success(`${res.data.name} is updated`)
+                //navigate to admin categroy section after editing
+                navigate('/admin/category');
+                // loadCategories();
             })
             .catch((err) => {
                 console.log(err);
                 setLoading(false);
                 if (err.response.status === 400) toast.error(err.response.data);
             });
-    }
-
-    const handleRemove = async (slug) => {
-        // let answer = window.confirm("You are about to delete this category!");
-        //if pop up pressed ok value of ans will be true if clicked cancel value will be false
-        // console.log(answer, slug);
-        if (window.confirm("You are about to delete this category!")) {
-            setLoading(true);
-            removeCategory(slug, user.token)
-                .then(res => {
-                    setLoading(false);
-                    toast.error(`${res.data.name} deleted`)
-                    //refreshing page internally to show data after deletion
-                    loadCategories();
-                })
-                .catch((err) => {
-                    if (err.response.status === 400) {
-                        toast.error(err.response.data)
-                    };
-                }
-                )
-        }
     }
 
     //creating category Form UI
@@ -88,22 +70,11 @@ const CategoryUpdate = () => {
         <div className='bg-purple-200 font-bold border p-4 grid  grid-cols-4 '>
             <AdminNav />
             <div className="col-span-3 text-center flex flex-col items-center">
-                {loading ? <h4 className='text-red-500 text-sm'>Loading.....</h4> : <h4>Create Category</h4>}
+                {loading ? <h4 className='text-red-500 text-sm'>Loading.....</h4> : <h4>Update Category</h4>}
                 {categoryForm()}
                 <hr className='mt-5' />
-                {/* information from backend categories */}
-                {/* {JSON.stringify(categories)} */}
-                {categories.map((c) => (
-                    <div className='bg-gray-400 mb-2 p-4 flex w-1/2 justify-between' key={c._id}>
-                        {c.name}
-                        <div className='flex space-x-5 text-2xl items-center'>
-                            <span onClick={() => (handleRemove(c.slug))} className='text-red-800 cursor-pointer'><MdDeleteSweep /></span>
-                            <Link to={`/admin/category/${c.slug}`}>
-                                <FaRegEdit style={{ color: 'green' }} />
-                            </Link>
-                        </div>
-                    </div>
-                ))}
+
+
             </div>
         </div>
     )

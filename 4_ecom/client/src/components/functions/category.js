@@ -16,7 +16,7 @@ export const removeCategory = async (slug, authtoken) =>
 
 //updated name is sent as mid argument called as category: its update info
 export const updateCategory = async (slug, category, authtoken) =>
-    await axios.put(`${process.env.REACT_APP_API}/category/${slug}`, {
+    await axios.put(`${process.env.REACT_APP_API}/category/${slug}`, category, {
         headers: {
             authtoken,
         },
