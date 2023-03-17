@@ -17,8 +17,13 @@ const CategoryCreate = () => {
     const { user } = useSelector((state) => ({ ...state }));
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
-
+    //categores contains list of object that we get from backend server getCategories();
     const [categories, setCategories] = useState([]);
+
+    //searching and filtering
+    //step1 add search keyword or query
+    //step2 need input feild to search
+    const [keyword, setKeyword] = useState('');
 
     useEffect(() => {
         loadCategories();
@@ -85,6 +90,18 @@ const CategoryCreate = () => {
     //     </form>
     // )
 
+    //step3: handler to execute Search.
+    const handleSearchChange = (e) => {
+        e.preventDefault()
+        setKeyword(e.target.value.toLowerCase())
+    }
+
+    //step4: 
+    //checkes if the categories list contins incoming input keyword. 
+    //arg keyword contins user input and contains the list of category when input and categores list matches
+    //filter keyword returns the selected. 
+    const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
+
 
     return (
         //UserNav and AdminNav has consistent layout
@@ -94,10 +111,15 @@ const CategoryCreate = () => {
                 {loading ? <h4 className='text-red-500 text-sm'>Loading.....</h4> : <h4>Create Category</h4>}
                 {/* {categoryForm()} */}
                 <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
+
+                {/* step2 search input feild */}
+                <input className=" bg-green-300 w-1/5 mt-10 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg block  p-2.5 " type="search" placeholder='Search Items' value={keyword} onChange={handleSearchChange} />
+
                 <hr className='mt-5' />
                 {/* information from backend categories */}
                 {/* {JSON.stringify(categories)} */}
-                {categories.map((c) => (
+                {/* Step5: use of search fn */}
+                {categories.filter(searched(keyword)).map((c) => (
                     <div className='bg-gray-400 mb-2 p-4 flex w-1/2 justify-between' key={c._id}>
                         {c.name}
                         <div className='flex space-x-5 text-2xl items-center'>
