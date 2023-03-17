@@ -9,6 +9,7 @@ import { FaRegEdit } from 'react-icons/fa';
 import { MdDeleteSweep } from 'react-icons/md';
 
 import CategoryForm from '../../../components/forms/CategoryForm';
+import LocalSearch from '../../../components/forms/LocalSearch';
 
 
 
@@ -91,10 +92,10 @@ const CategoryCreate = () => {
     // )
 
     //step3: handler to execute Search.
-    const handleSearchChange = (e) => {
-        e.preventDefault()
-        setKeyword(e.target.value.toLowerCase())
-    }
+    // const handleSearchChange = (e) => {
+    //     e.preventDefault()
+    //     setKeyword(e.target.value.toLowerCase())
+    // }
 
     //step4: 
     //checkes if the categories list contins incoming input keyword. 
@@ -113,8 +114,10 @@ const CategoryCreate = () => {
                 <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
 
                 {/* step2 search input feild */}
-                <input className=" bg-green-300 w-1/5 mt-10 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg block  p-2.5 " type="search" placeholder='Search Items' value={keyword} onChange={handleSearchChange} />
-
+                {/* the input feild is migrated into components localSearch  */}
+                {/* <input className=" bg-green-300 w-1/5 mt-10 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg block  p-2.5 " type="search" placeholder='Search Items' value={keyword} onChange={handleSearchChange} /> */}
+                {/* 8888888888888888localsearch component to work with reuseable code */}
+                <LocalSearch keyword={keyword} setKeyword={setKeyword} />
                 <hr className='mt-5' />
                 {/* information from backend categories */}
                 {/* {JSON.stringify(categories)} */}
