@@ -15,6 +15,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 
 import CategoryCreate from './pages/admin/category/CategoryCreate';
 import CategoryUpdate from './pages/admin/category/CategoryUpdate';
+import SubCreate from './pages/admin/sub/SubCreate';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -98,6 +99,7 @@ function App() {
             <Route path='/admin/dashboard' element={< AdminDashboard />} />
             <Route path='/admin/category' element={< CategoryCreate />} />
             <Route path="/admin/category/:slug" element={< CategoryUpdate />} />
+            <Route path="/admin/sub" element={< SubCreate />} />
           </Route>
 
         </Routes>
