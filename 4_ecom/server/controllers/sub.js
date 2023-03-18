@@ -5,12 +5,12 @@ exports.create = async (req, res) => {
     try {
         //name we get from frontend and based on the name we create a slug
         // console.log('this is category request ', req.body)
-        const { name } = req.body;
+        const { name, parent } = req.body;
         //uses the schema model to fillup category and send response back after filling up data into db
-        const category = await new Sub({ name: name, slug: slugify(name) }).save();
+        const category = await new Sub({ name: name, parent, slug: slugify(name) }).save();
         res.json(category);
     } catch (e) {
-        console.log(e);
+        console.log('Sub Create Error', e);
         res.status(400).send('Create Sub  Failed');
     }
 };
@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
 // list to show public withoud admin check or auth check 
 //lists out all the availabel data from database model:
 exports.list = async (req, res) => {
-    res.json(await Subs.find({}).sort({ createdAt: -1 }).exec());
+    res.json(await Sub.find({}).sort({ createdAt: -1 }).exec());
 };
 
 // if i want to have only one types of category then: it's done by targeting slug
@@ -55,3 +55,5 @@ exports.update = async (req, res) => {
         res.status(400).send("category update failed")
     }
 };
+
+
