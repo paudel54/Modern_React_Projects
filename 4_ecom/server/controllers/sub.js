@@ -41,13 +41,13 @@ exports.remove = async (req, res) => {
 exports.update = async (req, res) => {
     //update based on slug or category name
     //category have only one name feild  
-    const { name } = req.body; //HP to dell
+    const { name, parent } = req.body; //HP to dell
     try {
         //based on the first argument, we find category: once we find we need update: 2nd arg  name from req.body destrucrtured
         //3rd arg: to send recent json info
         const updated = await Sub.findOneAndUpdate(
             { slug: req.params.slug },
-            { name, slug: slugify(name) },
+            { name, parent, slug: slugify(name) },
             { new: true }
         );
         res.json(updated)

@@ -7,6 +7,9 @@
 
 // </div>
 
+//client side sends input feild name on create: token and categoryname:
+//server side response with:  name, parent-ID-linked: slug. createdat, updatedat
+
 import AdminNav from '../../../components/nav/AdminNav';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -26,6 +29,7 @@ import LocalSearch from '../../../components/forms/LocalSearch';
 
 const SubCreate = () => {
     const { user } = useSelector((state) => ({ ...state }));
+    //to tack user input form name: setName
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
     //categores contains list of object that we get from backend server getCategories();
@@ -102,7 +106,7 @@ const SubCreate = () => {
 
 
     return (
-        //UserNav and AdminNav has consistent layout
+        //UserNav and AdminNav has consistent layout-
         <div className='bg-purple-200 font-bold border p-4 grid  grid-cols-4 '>
             <AdminNav />
             <div className="col-span-3 text-center flex flex-col items-center">
@@ -122,8 +126,8 @@ const SubCreate = () => {
                         {categories.length > 0 && categories.map((c) => (
                             <option key={c._id} value={c._id} >{c.name}</option>
                         ))}
-
                     </select>
+
                 </div>
                 {/* shows up parent category ID: */}
                 {/* {JSON.stringify(category)} */}
