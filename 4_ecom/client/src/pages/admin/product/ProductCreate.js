@@ -7,20 +7,20 @@ import { useSelector } from 'react-redux';
 import { createProduct } from "../../../components/functions/product";
 
 const initialState = {
-    title: '',
-    description: '',
-    price: '',
+    title: 'Macbook Pro',
+    description: 'Base model',
+    price: "3200",
     category: '',
     categories: [],
     subs: [],
-    shipping: '',
-    quantity: '',
+    shipping: 'Yes',
+    quantity: '40',
     images: [],
     //predefined array colors and brands will be shown on dropdown whereas color will be used to be get populated.
     colors: ["Black", "Brown", "Silver", "White", "Blue"],
     brands: ["Apple", "Samsung", "Microsoft", "Lenevo", "Asus"],
-    color: '',
-    brand: '',
+    color: 'White',
+    brand: 'Apple',
 };
 
 const ProductCreate = () => {
@@ -52,6 +52,10 @@ const ProductCreate = () => {
         createProduct(values, user.token)
             .then((res) => {
                 console.log(res);
+                window.alert(`${res.data.title} is Created!`)
+                //page gets reload to blank spaces.
+                window.location.reload();
+
             })
             .catch((err) => {
                 console.log(err);
