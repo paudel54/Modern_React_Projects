@@ -15,7 +15,7 @@ exports.authCheck = async (req, res, next) => {
         // console.log('request user from controller', req.user);
         next();
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         res.status(401).json({
             err: 'Invalid or expired Token',
         })

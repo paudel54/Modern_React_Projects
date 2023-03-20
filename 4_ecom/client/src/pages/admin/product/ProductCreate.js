@@ -4,42 +4,66 @@ import { toast } from 'react-toastify';
 //creating element requires token to verify admin can only create so use create
 import { useSelector } from 'react-redux';
 
-import { createProduct } from "../../../components/functions/product"
+import { createProduct } from "../../../components/functions/product";
 
+const initialState = {
+    title: '',
+    description: '',
+    price: '',
+    category: '',
+    categories: [],
+    subs: [],
+    shipping: '',
+    quantity: '',
+    images: [],
+    //predefined array colors and brands will be shown on dropdown whereas color will be used to be get populated.
+    colors: ["Black", "Brown", "Silver", "White", "Blue"],
+    brands: ["Apple", "Samsung", "Microsoft", "Lenevo", "Asus"],
+    color: '',
+    brand: '',
+};
 
 const ProductCreate = () => {
-
-    const initialState = {
-        title: '',
-        description: '',
-        price: '',
-        category: '',
-        categories: [],
-        subs: [],
-        shipping: '',
-        quantity: '',
-        images: [],
-        //predefined array colors and brands will be shown on dropdown whereas color will be used to be get populated.
-        colors: ["Black", "Brown", "Silver", "White", "Blue"],
-        brands: ["Apple", "Samsung", "Microsoft", "Lenevo", "Asus"],
-        color: '',
-        brand: '',
-    };
-
-
     const [values, setValues] = useState(initialState);
 
-    //destructure
+    // redux
+    const { user } = useSelector((state) => ({ ...state }));
+
+    //destructure 
     const { title, description, price, category, categories, subs, shipping, quanity, images, colors, brands, color, brand } = values;
 
-    // const ram = ['krishna', 'balaram', 'hari', 'Raja'];
+    // const handleSubmit = (e) => {
+    //     console.log('checking handler to submit!!!!!!!!')
+    //     e.prevent.default();
+    //     //send into server
+    //     createProduct(values, user.token)
+    //         .then((res) => {
+    //             console.log('RESPONSE FORM handle submit PRODUCTcreate.....!!', res);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             if (err.response.status === 400) toast.error(err.response.data);
+    //         })
+    // }
+
+
     const handleSubmit = (e) => {
-        e.prevent.default();
-        console.log('hello handleSubmit');
-    }
+        e.preventDefault();
+        createProduct(values, user.token)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 400) toast.error(err.response.data);
+            });
+    };
 
     const handleChange = (e) => {
         // e.prevent.default();
+        //updates the targeted state from list of obj
+        setValues({ ...values, [e.target.name]: e.target.value });
+        // console.log('testtttttt', e.target.name, e.target.value)
     }
 
     return (
@@ -52,10 +76,11 @@ const ProductCreate = () => {
 
                     <h4> Product Create </h4>
                     <hr />
-
+                    {/* {JSON.stringify(values)} */}
                     <form onSubmit={handleSubmit}>
                         <div className='container'>
                             <label>Title</label>
+
                             <input
                                 type="text"
                                 name="title"
@@ -85,7 +110,7 @@ const ProductCreate = () => {
 
                         <div className='container mt-5'>
                             <label>Shipping</label>
-                            <select name="Shipping" className='' onChange={handleChange}>
+                            <select name="shipping" className='' onChange={handleChange}>
                                 <option>Please Select</option>
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
@@ -111,10 +136,10 @@ const ProductCreate = () => {
                         {/* //Brands */}
                         <div className='container mt-5'>
                             <label>Brands</label>
-                            <select name="color" className='' onChange={handleChange}>
+                            <select name="brand" className='' onChange={handleChange}>
                                 <option>Please Select</option>
-                                {brands.map((b, id) => (
-                                    <option key={id} value={b}>
+                                {brands.map((b) => (
+                                    <option key={b} value={b}>
                                         {b}
                                     </option>
                                 ))}
@@ -124,7 +149,6 @@ const ProductCreate = () => {
                         <button className=' mt-5 border rounded border-green-600 bg-blue-500 hover:shadow-xl text-white px-4 py-1'>
                             Save
                         </button>
-
                     </form>
 
                 </div >

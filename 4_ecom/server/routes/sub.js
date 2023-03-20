@@ -13,7 +13,7 @@ const {
     list
 } = require("../controllers/sub");
 
-console.log('We are onto routes: backed checking category middlewares controllers. ')
+// console.log('We are onto routes: backed checking category middlewares controllers. ')
 router.post("/sub", authCheck, adminCheck, create);
 router.get("/subs", list);
 router.get("/sub/:slug", read);
