@@ -71,6 +71,22 @@ const ProductCreateForm = ({ handleSubmit, handleChange, values }) => {
                     ))}
                 </select>
             </div>
+            {/* {categories.length} */}
+            <div>
+                <label>Category</label>
+                <select name='category' className='mt-5' onChange={handleChange}>
+                    <option> Please Select</option>
+                    {
+                        categories.length > 0 && categories.map((c) => (
+                            //sending id to backend for particular dropdown list element with value prop
+                            <option key={c._id} value={c._id}>
+                                {c.name}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
+
 
             <button className=' mt-5 border rounded border-green-600 bg-blue-500 hover:shadow-xl text-white px-4 py-1'>
                 Save

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { objectId } = mongoose.Schema;
+const { ObjectId } = mongoose.Schema;
 
 const productSchema = new mongoose.Schema(
     {
@@ -34,11 +34,11 @@ const productSchema = new mongoose.Schema(
             maxlength: 32,
         },
 
-        // category: {
-        //     type: ObjectId,
-        //     //ref to category model
-        //     ref: "Category",
-        // },
+        category: {
+            type: ObjectId,
+            //ref to category model
+            ref: "Category",
+        },
         //based on category there would be many  sub cateegories so subs for proper indication
         //subs would be type of array containning objects
         // subs: [{

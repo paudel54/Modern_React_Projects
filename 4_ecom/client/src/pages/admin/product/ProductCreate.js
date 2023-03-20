@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import { createProduct } from "../../../components/functions/product";
 import ProductCreateForm from '../../../components/forms/ProductCreateForm';
 
+//fetching data form backend:
+import { getCategories } from "../../../components/functions/category"
+
 const initialState = {
     title: 'Macbook Pro',
     description: 'Base model',
@@ -19,7 +22,7 @@ const initialState = {
     images: [],
     //predefined array colors and brands will be shown on dropdown whereas color will be used to be get populated.
     colors: ["Black", "Brown", "Silver", "White", "Blue"],
-    brands: ["Apple", "Samsung", "Microsoft", "Lenevo", "Asus"],
+    brands: ["Apple", "Samsung", "Microsoft", "Lenevo", "Asus", "Dell"],
     color: 'White',
     brand: 'Apple',
 };
@@ -27,8 +30,17 @@ const initialState = {
 const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
 
+
     // redux
     const { user } = useSelector((state) => ({ ...state }));
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = () =>
+        //get all categories list from backend and save into categories array: spread operater to update the array
+        getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
     //destructure 
     //passing values to destrustruect within component
@@ -86,6 +98,7 @@ const ProductCreate = () => {
                     <h4> Product Create </h4>
                     <hr />
                     {/* {JSON.stringify(values)} */}
+                    {/* {JSON.stringify(values.categories)} */}
                     <ProductCreateForm handleSubmit={handleSubmit} handleChange={handleChange} values={values} />
                 </div >
             </div>
