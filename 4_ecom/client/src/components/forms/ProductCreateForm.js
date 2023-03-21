@@ -91,18 +91,25 @@ const ProductCreateForm = ({ handleSubmit, handleChange, handleCategoryChange, v
             </div>
 
             {/* {subOptions.length} */}
-            <div>
-                <Select
-                    mode="multiple"
-                    style={{ width: '100%' }}
-                    placeholder="Please Select"
-                    value={subs}
-                    onChange={(value) => setValues({ ...values, subs: value })}
-                >
-                    <Option value="One">Opt 1</Option>
-                    <Option value="Two"> Opt 2</Option>
-                </Select>
-            </div>
+            {showSub &&
+                <div>
+                    <label>Sub Categories</label>
+                    {/* ant desing component */}
+                    <Select
+                        mode="multiple"
+                        style={{ width: '100%' }}
+                        placeholder="Please Select"
+                        value={subs}
+                        onChange={(value) => setValues({ ...values, subs: value })}
+                    >
+                        {/* value would be sent into backend:  */}
+                        {subOptions.length &&
+                            subOptions.map((s) => <Option key={s._id} value={s._id}>{s.name}</Option>)
+                        }
+                        {/* <Option value="Two"> Opt 2</Option> */}
+                    </Select>
+                </div>
+            }
 
             <button className=' mt-5 border rounded border-green-600 bg-blue-500 hover:shadow-xl text-white px-4 py-1'>
                 Save

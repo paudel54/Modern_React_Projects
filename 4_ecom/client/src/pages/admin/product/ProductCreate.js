@@ -94,13 +94,14 @@ const ProductCreate = () => {
     const handleCategoryChange = (e) => {
         e.preventDefault();
         // console.log('clickd category id', e.target.value);
-        setValues({ ...values, category: e.target.value });
+        setValues({ ...values, subs: [], category: e.target.value });
         // sending id to fn to send to backend
         // console.log('Sending ID', e.target.value);
         getCategorySubs(e.target.value).then((res) => {
             console.log('SUB Optoions on category Click', res);
             setSubOptions(res.data);
         });
+        setShowSub(true);
     }
 
     return (
