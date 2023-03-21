@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { createProduct } from "../../../components/functions/product";
 import ProductCreateForm from '../../../components/forms/ProductCreateForm';
 
+import FileUpload from '../../../components/forms/FileUpload';
+
 //fetching data form backend:
 //getCategorySubs only executed if dropdown is selected then the id get released so it executes
 import { getCategories, getCategorySubs } from "../../../components/functions/category"
@@ -20,6 +22,7 @@ const initialState = {
     subs: [],
     shipping: 'Yes',
     quantity: '40',
+    //images will have array of url form cloudinary ;)
     images: [],
     //predefined array colors and brands will be shown on dropdown whereas color will be used to be get populated.
     colors: ["Black", "Brown", "Silver", "White", "Blue"],
@@ -119,6 +122,9 @@ const ProductCreate = () => {
                     {/* {JSON.stringify(values)} */}
                     {/* {JSON.stringify(values.categories)} */}
                     {JSON.stringify(values.subs)}
+
+                    <div className='p-3  mb-4'> <FileUpload /> </div>
+
                     <ProductCreateForm handleSubmit={handleSubmit} handleChange={handleChange}
                         values={values} setValues={setValues}
                         handleCategoryChange={handleCategoryChange}
