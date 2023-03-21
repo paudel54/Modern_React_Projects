@@ -39,6 +39,7 @@ const ProductCreate = () => {
     const [subOptions, setSubOptions] = useState([]);
     //show only when category have been clicked. :)
     const [showSub, setShowSub] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // redux
     const { user } = useSelector((state) => ({ ...state }));
@@ -119,11 +120,13 @@ const ProductCreate = () => {
 
                     <h4> Product Create </h4>
                     <hr />
-                    {/* {JSON.stringify(values)} */}
+                    {JSON.stringify(values.images)}
                     {/* {JSON.stringify(values.categories)} */}
                     {JSON.stringify(values.subs)}
 
-                    <div className='p-3  mb-4'> <FileUpload /> </div>
+                    <div className='p-3  mb-4'>
+                        <FileUpload values={values} setValues={setValues} setLoading={setLoading} />
+                    </div>
 
                     <ProductCreateForm handleSubmit={handleSubmit} handleChange={handleChange}
                         values={values} setValues={setValues}

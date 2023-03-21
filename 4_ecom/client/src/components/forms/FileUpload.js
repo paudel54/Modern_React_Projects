@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 
-const FileUpload = () => {
+const FileUpload = ({ values, setValues, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
     const fileUploadAndResize = (e) => {
         console.log(e.target.files);
@@ -13,10 +13,32 @@ const FileUpload = () => {
         //multiple upload get all files and loop on all 
         let files = e.target.files;
         //files contains object with files info: {name:..}
+        let allUploadedFiles = values.images;
+
         if (files) {
+            setLoading(true);
             for (let i = 0; i < files.length; i++) {
                 Resizer.imageFileResizer(files[i], 720, 720, 'JPEG', 100, 0, (uri) => {
-                    console.log(uri);
+                    //uri consists of image converted into text form sent to backend resized based 64 data
+                    // console.log(uri);
+                    //sending based 64 image converted text data to server:
+                    //since its protected route need to send token on header
+                    axios.post(`${process.env.REACT_APP_API}/uploadimages`, { image: uri }, {
+                        headers: {
+                            authtoken: user ? user.token : '',
+                        }
+                    })
+                        .then(res => {
+                            console.log('Image upload res data', res);
+                            setLoading(false);
+                            allUploadedFiles.push(res.data);
+
+                            setValues({ ...values, images: allUploadedFiles });
+                        })
+                        .catch(err => {
+                            setLoading(false);
+                            console.log('CLOUDINARY UPLOAD ERROR | FAILED');
+                        })
                 },
                     "base64"
                 );
