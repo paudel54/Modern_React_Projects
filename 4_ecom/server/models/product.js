@@ -41,10 +41,10 @@ const productSchema = new mongoose.Schema(
         },
         //based on category there would be many  sub cateegories so subs for proper indication
         //subs would be type of array containning objects
-        // subs: [{
-        //     type: ObjectId,
-        //     ref: "sub",
-        // }],
+        subs: [{
+            type: ObjectId,
+            ref: "sub",
+        }],
 
         quantity: Number,
 
