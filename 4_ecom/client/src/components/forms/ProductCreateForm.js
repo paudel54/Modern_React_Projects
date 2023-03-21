@@ -1,6 +1,8 @@
 import React from 'react'
+import { Select } from 'antd';
+const { Option } = Select;
 
-const ProductCreateForm = ({ handleSubmit, handleChange, values }) => {
+const ProductCreateForm = ({ handleSubmit, handleChange, handleCategoryChange, values, subOptions, showSub, setValues }) => {
     const { title, description, price, category, categories, subs, shipping, quanity, images, colors, brands, color, brand } = values;
     return (
         <form onSubmit={handleSubmit}>
@@ -74,12 +76,13 @@ const ProductCreateForm = ({ handleSubmit, handleChange, values }) => {
             {/* {categories.length} */}
             <div>
                 <label>Category</label>
-                <select name='category' className='mt-5' onChange={handleChange}>
+                <select name='category' className='mt-5' onChange={handleCategoryChange}>
                     <option> Please Select</option>
                     {
                         categories.length > 0 && categories.map((c) => (
                             //sending id to backend for particular dropdown list element with value prop
                             <option key={c._id} value={c._id}>
+                                {/* displays name but sends and id: */}
                                 {c.name}
                             </option>
                         ))
@@ -87,6 +90,19 @@ const ProductCreateForm = ({ handleSubmit, handleChange, values }) => {
                 </select>
             </div>
 
+            {/* {subOptions.length} */}
+            <div>
+                <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="Please Select"
+                    value={subs}
+                    onChange={(value) => setValues({ ...values, subs: value })}
+                >
+                    <Option value="One">Opt 1</Option>
+                    <Option value="Two"> Opt 2</Option>
+                </Select>
+            </div>
 
             <button className=' mt-5 border rounded border-green-600 bg-blue-500 hover:shadow-xl text-white px-4 py-1'>
                 Save

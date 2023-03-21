@@ -8,7 +8,8 @@ import { createProduct } from "../../../components/functions/product";
 import ProductCreateForm from '../../../components/forms/ProductCreateForm';
 
 //fetching data form backend:
-import { getCategories } from "../../../components/functions/category"
+//getCategorySubs only executed if dropdown is selected then the id get released so it executes
+import { getCategories, getCategorySubs } from "../../../components/functions/category"
 
 const initialState = {
     title: 'Macbook Pro',
@@ -29,7 +30,10 @@ const initialState = {
 
 const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
-
+    //sub category options
+    const [subOptions, setSubOptions] = useState([]);
+    //show only when category have been clicked. :)
+    const [showSub, setShowSub] = useState(false);
 
     // redux
     const { user } = useSelector((state) => ({ ...state }));
@@ -87,6 +91,18 @@ const ProductCreate = () => {
         // console.log('testtttttt', e.target.name, e.target.value)
     }
 
+    const handleCategoryChange = (e) => {
+        e.preventDefault();
+        // console.log('clickd category id', e.target.value);
+        setValues({ ...values, category: e.target.value });
+        // sending id to fn to send to backend
+        // console.log('Sending ID', e.target.value);
+        getCategorySubs(e.target.value).then((res) => {
+            console.log('SUB Optoions on category Click', res);
+            setSubOptions(res.data);
+        });
+    }
+
     return (
         <div className='main'>
             <div className=' grid grid-cols-12'>
@@ -99,7 +115,11 @@ const ProductCreate = () => {
                     <hr />
                     {/* {JSON.stringify(values)} */}
                     {/* {JSON.stringify(values.categories)} */}
-                    <ProductCreateForm handleSubmit={handleSubmit} handleChange={handleChange} values={values} />
+                    {JSON.stringify(values.subs)}
+                    <ProductCreateForm handleSubmit={handleSubmit} handleChange={handleChange}
+                        values={values} setValues={setValues}
+                        handleCategoryChange={handleCategoryChange}
+                        showSub={showSub} subOptions={subOptions} />
                 </div >
             </div>
         </div>
