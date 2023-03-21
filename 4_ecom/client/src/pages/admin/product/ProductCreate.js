@@ -29,8 +29,10 @@ const initialState = {
 };
 
 const ProductCreate = () => {
+    //updates the list name with values:)
     const [values, setValues] = useState(initialState);
-    //sub category options
+    //sub subOption comes form response getCategorySubs:
+    //contains array of subCategory  obj:
     const [subOptions, setSubOptions] = useState([]);
     //show only when category have been clicked. :)
     const [showSub, setShowSub] = useState(false);
