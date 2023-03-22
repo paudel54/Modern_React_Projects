@@ -43,7 +43,7 @@ const productSchema = new mongoose.Schema(
         //subs would be type of array containning objects
         subs: [{
             type: ObjectId,
-            ref: "sub",
+            ref: "Sub",
         }],
 
         quantity: Number,

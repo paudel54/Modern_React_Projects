@@ -18,8 +18,20 @@ exports.create = async (req, res) => {
     }
 };
 
-exports.read = async (req, res) => {
-    //query to database: shows list of products in from db 
-    let products = await Product.find({});
+// exports.read = async (req, res) => {
+//     //query to database: shows list of products in from db 
+//     let products = await Product.find({});
+//     res.json(products);
+// }
+
+//fetch product based on count
+exports.listAll = async (req, res) => {
+    let products = await Product.find({})
+        .limit(parseInt(req.params.count))
+        //populate gives entire info, if not used then would only provide an id:
+        .populate('category')
+        .populate('subs')
+        .sort([['createdAt', 'desc']])
+        .exec()
     res.json(products);
 }
