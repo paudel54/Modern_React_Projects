@@ -8,6 +8,7 @@ import { createProduct } from "../../../components/functions/product";
 import ProductCreateForm from '../../../components/forms/ProductCreateForm';
 
 import FileUpload from '../../../components/forms/FileUpload';
+import { Spin } from 'antd';
 
 //fetching data form backend:
 //getCategorySubs only executed if dropdown is selected then the id get released so it executes
@@ -118,7 +119,7 @@ const ProductCreate = () => {
                 </div>
                 < div className='col-span-10'>
 
-                    <h4> Product Create </h4>
+                    {loading ? <Spin /> : <h4> Product Create </h4>}
                     <hr />
                     {JSON.stringify(values.images)}
                     {/* {JSON.stringify(values.categories)} */}

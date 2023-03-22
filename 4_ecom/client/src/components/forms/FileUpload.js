@@ -2,12 +2,14 @@ import React from 'react'
 import Resizer from 'react-image-file-resizer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { Avatar, Badge, Spin } from 'antd';
+
 
 
 const FileUpload = ({ values, setValues, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
     const fileUploadAndResize = (e) => {
-        console.log(e.target.files);
+        // console.log('logging image upload event', e.target.files);
         //resize
         //if upload was single then would be much easier: let files = e.target.files[0];
         //multiple upload get all files and loop on all 
@@ -47,8 +49,41 @@ const FileUpload = ({ values, setValues, setLoading }) => {
         //send back to server to upload to cloudinary- cloudinary will give to server- server to cient
         //set url to images [] array in parent componet- productCreate
     }
+
+    const handleImageRemove = (public_id) => {
+        setLoading(true);
+        // console.log('Remove Image', id)
+        axios.post(`${process.env.REACT_APP_API}/removeimage`, { public_id }, {
+            headers: {
+                authtoken: user ? user.token : '',
+            },
+        })
+            .then(res => {
+                setLoading(false);
+                //destructure from state
+                const { images } = values;
+                let filteredImages = images.filter((item) => {
+                    return item.public_id !== public_id;
+                });
+                //update the state
+                setValues({ ...values, images: filteredImages });
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+            })
+    }
+
     return (
         <div>
+            <div className='p-5'>
+                {values.images && values.images.map((image) => (
+                    <Badge count="X" key={image.public_id} onClick={() => handleImageRemove(image.public_id)} style={{ cursor: "pointer" }}>
+                        <Avatar src={image.url} size={100} shape="square" className='ml-3' />
+                    </Badge>
+                ))}
+            </div>
+
             <div className=''>
                 <label className='bg-blue-500 text-white px-2 py-1 rounded '>
                     Choose File
