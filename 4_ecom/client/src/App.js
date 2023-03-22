@@ -18,6 +18,7 @@ import CategoryUpdate from './pages/admin/category/CategoryUpdate';
 import SubUpdate from './pages/admin/sub/SubUpdate';
 import SubCreate from './pages/admin/sub/SubCreate';
 import ProductCreate from './pages/admin/product/ProductCreate';
+import AllProducts from './pages/admin/product/AllProducts';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -35,6 +36,7 @@ import { currentUser } from './components/functions/auth';
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PresetColors } from 'antd/es/theme/internal';
 // import RegisterComplete from './pages/auth/RegisterComplete';
 
 function App() {
@@ -103,7 +105,9 @@ function App() {
             <Route path="/admin/category/:slug" element={< CategoryUpdate />} />
             <Route path="/admin/sub/:slug" element={< SubUpdate />} />
             <Route path="/admin/sub" element={< SubCreate />} />
-            <Route path="admin/products" element={<ProductCreate />} />
+            <Route path="admin/products" element={<AllProducts />} />
+            <Route path="admin/product" element={<ProductCreate />} />
+
           </Route>
 
         </Routes>
