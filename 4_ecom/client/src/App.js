@@ -19,6 +19,7 @@ import SubUpdate from './pages/admin/sub/SubUpdate';
 import SubCreate from './pages/admin/sub/SubCreate';
 import ProductCreate from './pages/admin/product/ProductCreate';
 import AllProducts from './pages/admin/product/AllProducts';
+import ProductUpdate from './pages/admin/product/ProductUpdate';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -107,7 +108,7 @@ function App() {
             <Route path="/admin/sub" element={< SubCreate />} />
             <Route path="admin/products" element={<AllProducts />} />
             <Route path="admin/product" element={<ProductCreate />} />
-
+            <Route path="admin/product/:slug" element={<ProductUpdate />} />
           </Route>
 
         </Routes>
