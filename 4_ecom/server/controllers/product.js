@@ -48,3 +48,13 @@ exports.remove = async (req, res) => {
 
     }
 }
+
+exports.read = async (req, res) => {
+
+    const product = await Product.findOne({ slug: req.params.slug })
+        //populate implies please display linked object id all of their entities and atrributes:
+        .populate('category')
+        .populate('subs')
+        .exec();
+    res.json(product);
+}
