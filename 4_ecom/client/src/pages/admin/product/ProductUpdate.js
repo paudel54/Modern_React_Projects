@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 
 //controllers send req  with slug to backend to get product:
 import { getProduct } from "../../../components/functions/product";
@@ -50,7 +51,15 @@ const ProductUpdate = () => {
                 // console.log('single Product', p)
                 //all the data that we get on response will be populated on values state object:(,);
                 setValues({ ...values, ...p.data })
+
             })
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
     }
 
     return (
@@ -63,6 +72,13 @@ const ProductUpdate = () => {
 
                     <h4>Product Update</h4>
                     {JSON.stringify(values)}
+                    {JSON.stringify(values.quantity)}
+
+                    <ProductUpdateForm
+                        handleSubmit={handleSubmit}
+                        handleChange={handleChange}
+                        setValues={setValues}
+                        values={values} />
                     <hr />
 
                 </div>
