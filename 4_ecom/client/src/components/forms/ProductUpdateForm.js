@@ -2,13 +2,16 @@ import React from 'react'
 import { Select } from 'antd';
 const { Option } = Select;
 
-const ProductUpdateForm = ({ handleSubmit, handleChange, values, setValues }) => {
-    const { title, description, price, category, categories, subs, shipping, quantity, images, colors, brands, color, brand } = values;
+const ProductUpdateForm = ({
+    handleSubmit,
+    handleChange, values,
+    setValues, handleCategoryChange,
+    categories, subOptions, arrayOfSubIds, setArrayOfSubIds }) => {
+    const { title, description, price, category, subs, shipping, quantity, images, colors, brands, color, brand } = values;
     return (
         <form onSubmit={handleSubmit}>
             <div className='container'>
                 <label>Title</label>
-
                 <input
                     type="text"
                     name="title"
@@ -72,10 +75,41 @@ const ProductUpdateForm = ({ handleSubmit, handleChange, values, setValues }) =>
                 </select>
             </div>
             {/* categories section */}
-
+            <div>
+                <label>Category</label>
+                <select name='category' className='mt-5' onChange={handleCategoryChange}>
+                    <option> {category ? category.name : 'Please Select'}</option>
+                    {
+                        categories.length > 0 && categories.map((c) => (
+                            //sending id to backend for particular dropdown list element with value prop
+                            <option key={c._id} value={c._id}>
+                                {/* displays name but sends and id: */}
+                                {c.name}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
             {/* {subOptions.length} */}
             {/* Sub categories Sections */}
-
+            <div>
+                <label>Sub Categories</label>
+                {/* ant desing component */}
+                <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="Please Select"
+                    //value must be on array [a,b] so it gets displays on multiple selector menues
+                    value={arrayOfSubIds}
+                    onChange={(value) => setArrayOfSubIds(value)}
+                >
+                    {/* value would be sent into backend:  */}
+                    {subOptions.length &&
+                        subOptions.map((s) => <Option key={s._id} value={s._id}>{s.name}</Option>)
+                    }
+                    {/* <Option value="Two"> Opt 2</Option> */}
+                </Select>
+            </div>
             <button className=' mt-5 border rounded border-green-600 bg-blue-500 hover:shadow-xl text-white px-4 py-1'>
                 Save
             </button>
