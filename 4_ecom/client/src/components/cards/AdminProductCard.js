@@ -5,9 +5,9 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const AdminProductCard = ({ product }) => {
+const AdminProductCard = ({ product, handleRemove }) => {
     //destructure
-    const { title, description, images } = product;
+    const { title, description, images, slug } = product;
     return (
         <div>
             {/* {product.title} */}
@@ -19,7 +19,7 @@ const AdminProductCard = ({ product }) => {
                 cover={<img alt="laptops" src={images && images.length ? images[0].url : laptop} />}
 
                 actions={
-                    [<EditOutlined class='text-blue-500 flex justify-center text-xl' />, <DeleteOutlined class='text-red-500 flex justify-center text-xl' />]
+                    [<EditOutlined class='text-blue-500 flex justify-center text-xl' />, <DeleteOutlined class='text-red-500 flex justify-center text-xl' onClick={() => handleRemove(slug)} />]
                 }
             >
                 <Meta title={title} description={`${description && description.substring(0, 40)}...`} />

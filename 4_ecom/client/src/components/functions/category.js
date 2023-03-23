@@ -35,6 +35,3 @@ export const createCategory = async (category, authtoken) =>
 export const getCategorySubs = async (_id) =>
     await axios.get(`${process.env.REACT_APP_API}/category/subs/${_id}`);
 
-//get req to backend 
-export const getProductsByCount = async (count) =>
-    await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
