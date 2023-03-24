@@ -6,7 +6,8 @@ const ProductUpdateForm = ({
     handleSubmit,
     handleChange, values,
     setValues, handleCategoryChange,
-    categories, subOptions, arrayOfSubIds, setArrayOfSubIds }) => {
+    categories, subOptions, arrayOfSubIds,
+    selectedCategory, setArrayOfSubIds }) => {
     const { title, description, price, category, subs, shipping, quantity, images, colors, brands, color, brand } = values;
     return (
         <form onSubmit={handleSubmit}>
@@ -77,7 +78,8 @@ const ProductUpdateForm = ({
             {/* categories section */}
             <div>
                 <label>Category</label>
-                <select name='category' className='mt-5' onChange={handleCategoryChange}>
+                {/* selected category  consist of current selected element from dropdown */}
+                <select name='category' className='mt-5' onChange={handleCategoryChange} value={selectedCategory ? selectedCategory : category._id}>
                     <option> {category ? category.name : 'Please Select'}</option>
                     {
                         categories.length > 0 && categories.map((c) => (

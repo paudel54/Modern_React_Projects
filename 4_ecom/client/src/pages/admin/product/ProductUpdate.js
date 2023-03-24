@@ -35,10 +35,12 @@ const initialState = {
 const ProductUpdate = () => {
     //state for product Update:
     const [values, setValues] = useState(initialState);
+    //categories subcategory option
     const [subOptions, setSubOptions] = useState([]);
     const [categories, setCategories] = useState([]);
     //array of subs: containing IDS arrayOfSubs: setArrayOfSubs
     const [arrayOfSubIds, setArrayOfSubIds] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
     // redux
     const { user } = useSelector((state) => ({ ...state }));
     //snipping out the params or slug from browser url
@@ -78,7 +80,7 @@ const ProductUpdate = () => {
     const loadCategories = () => {
         getCategories()
             .then((c) => {
-                console.log('GET CATEGORIES IN UPDATE PRODUCT', c.data)
+                // console.log('GET CATEGORIES IN UPDATE PRODUCT', c.data)
                 setCategories(c.data);
             });
     }
@@ -95,11 +97,23 @@ const ProductUpdate = () => {
     const handleCategoryChange = (e) => {
         e.preventDefault();
         console.log('clicked category', e.target.value);
-        setValues({ ...values, subs: [], category: e.target.value });
+        setValues({ ...values, subs: [], });
+
+        setSelectedCategory(e.target.value);
         getCategorySubs(e.target.value).then((res) => {
             // console.log('SUB Optoions on category Click', res);
+            //set state keeps reacord of categories, sub category
             setSubOptions(res.data);
         });
+
+        // console.log('existing category values.category', values.category);
+        //if user clicks back to the original category
+        //show its sub categories in default
+        if (values.category._id === e.target.value) {
+            loadProduct();
+        }
+        //state to hold subcategory options. When category is changed from default the subcategory feild would be wiped out!
+        setArrayOfSubIds([]);
     }
 
     return (
@@ -113,7 +127,7 @@ const ProductUpdate = () => {
                     <h4>Product Update</h4>
                     {/* {JSON.stringify(values)}
                     {JSON.stringify(values.quantity)} */}
-                    {JSON.stringify(arrayOfSubIds)}
+                    {/* {JSON.stringify(arrayOfSubIds)} */}
 
                     <ProductUpdateForm
                         handleSubmit={handleSubmit}
@@ -126,6 +140,7 @@ const ProductUpdate = () => {
                         subOptions={subOptions}
                         arrayOfSubIds={arrayOfSubIds}
                         setArrayOfSubIds={setArrayOfSubIds}
+                        selectedCategory={selectedCategory}
                     />
                     <hr />
 
