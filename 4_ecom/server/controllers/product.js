@@ -58,3 +58,21 @@ exports.read = async (req, res) => {
         .exec();
     res.json(product);
 }
+
+exports.update = async (req, res) => {
+    try {
+        //on update slug would be updated so, old web links can still sustain.
+        if (req.body.title) {
+            req.body.slug = slugify(req.body.title);
+        }
+        //findOneAndUpdate takes copule args, 1st: based on what you want to update
+        //2nd arg: once product is found what do you want to update: updates form feild on product db schema
+        //3rd arg to send recently updated information 
+        const updated = await Product.findOneAndUpdate({ slug: req.params.slug }, req.body, { new: true }).exec();
+        res.json(updated);
+    }
+    catch (e) {
+        console.log('PRODUCT UPDATE ERROR---->', e)
+        return res.status(400).send('Message from backend product, product update failed');
+    }
+}

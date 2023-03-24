@@ -41,6 +41,7 @@ const ProductUpdate = () => {
     //array of subs: containing IDS arrayOfSubs: setArrayOfSubs
     const [arrayOfSubIds, setArrayOfSubIds] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [loading, setLoading] = useState(false);
     // redux
     const { user } = useSelector((state) => ({ ...state }));
     //snipping out the params or slug from browser url
@@ -124,11 +125,20 @@ const ProductUpdate = () => {
                 </div>
                 < div className='col-span-10'>
 
-                    <h4>Product Update</h4>
+                    {loading ? <h1 className='text-red-600'>Loading.....</h1> : <h4>Product Update</h4>}
                     {/* {JSON.stringify(values)}
                     {JSON.stringify(values.quantity)} */}
                     {/* {JSON.stringify(arrayOfSubIds)} */}
 
+                    <div className='mb-6'>
+                        <FileUpload
+                            values={values}
+                            //setValues to update image back to State
+                            setValues={setValues}
+                            setLoading={setLoading}
+                        />
+                    </div>
+                    <hr className='mb-5' />
                     <ProductUpdateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
@@ -142,7 +152,7 @@ const ProductUpdate = () => {
                         setArrayOfSubIds={setArrayOfSubIds}
                         selectedCategory={selectedCategory}
                     />
-                    <hr />
+
 
                 </div>
             </div>
