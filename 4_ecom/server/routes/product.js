@@ -5,7 +5,7 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // controller
-const { create, listAll, remove, read, update } = require("../controllers/product");
+const { create, listAll, remove, read, update, list } = require("../controllers/product");
 
 // routes
 router.post("/product", authCheck, adminCheck, create);
@@ -17,4 +17,5 @@ router.get("/product/:slug", read);
 router.put("/product/:slug", authCheck, adminCheck, update);
 
 //with post request is is very easy to send data on req body
+router.post('/products', list)
 module.exports = router;

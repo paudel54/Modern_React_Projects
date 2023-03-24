@@ -32,3 +32,12 @@ export const updateProduct = async (slug, product, authtoken) =>
             authtoken,
         },
     });
+
+export const getProducts = async (sort, order, limit) =>
+    await axios.post(`${process.env.REACT_APP_API}/products`, {
+        //this will be accessable to backend as request body
+        sort,
+        order,
+        limit
+    });
+
