@@ -78,3 +78,22 @@ exports.update = async (req, res) => {
         });
     }
 }
+
+exports.list = async (req, res) => {
+    try {
+        //query product from database: and sort on basis of time for new 
+        //sort createdAt/UpdatedAt order desc/asc, limit 3: no of  
+        const { sort, order, limit } = req.body
+        //query to Product schema
+        const products = await Product.find({})
+            .populate('category')
+            .populate('subs')
+            .sort([[sort, order]])
+            .limit(limit)
+            .exec();
+        res.json(products);
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

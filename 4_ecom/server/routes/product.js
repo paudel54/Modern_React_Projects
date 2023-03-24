@@ -15,4 +15,6 @@ router.delete("/product/:slug", authCheck, adminCheck, remove)
 router.get("/product/:slug", read);
 //update product
 router.put("/product/:slug", authCheck, adminCheck, update);
+
+//with post request is is very easy to send data on req body
 module.exports = router;

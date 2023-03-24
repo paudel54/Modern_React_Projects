@@ -14,7 +14,6 @@ const LoadingCard = ({ count }) => {
                         </Skeleton>
                     </Card>
                 </div>
-
             )
         }
         // console.log('Total Cards after looping', totalCards);
