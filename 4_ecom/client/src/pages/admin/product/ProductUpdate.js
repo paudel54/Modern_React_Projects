@@ -6,7 +6,9 @@ import { useParams } from 'react-router-dom';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 
 //controllers send req  with slug to backend to get product:
-import { getProduct } from "../../../components/functions/product";
+import { getProduct, updateProduct } from "../../../components/functions/product";
+
+import { useNavigate } from 'react-router-dom';
 
 import FileUpload from '../../../components/forms/FileUpload';
 import { Spin } from 'antd';
@@ -33,6 +35,7 @@ const initialState = {
 
 
 const ProductUpdate = () => {
+    const navigate = useNavigate();
     //state for product Update:
     const [values, setValues] = useState(initialState);
     //categories subcategory option
@@ -89,6 +92,25 @@ const ProductUpdate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //update Product
+        setLoading(true);
+
+        values.subs = arrayOfSubIds;
+        //if selectedCategory is an updated from dropdown then use it if not use old : dont let it fill empty
+        values.category = selectedCategory ? selectedCategory : values.category;
+        console.log('here are values', values);
+        updateProduct(slug, values, user.token)
+            .then((res) => {
+                setLoading(false);
+                toast.success(`"${res.data.title}" is updated`);
+                navigate("/admin/products");
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+                toast.error(err.response.data.err);
+            });
+
     };
 
     const handleChange = (e) => {

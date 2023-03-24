@@ -73,6 +73,8 @@ exports.update = async (req, res) => {
     }
     catch (e) {
         console.log('PRODUCT UPDATE ERROR---->', e)
-        return res.status(400).send('Message from backend product, product update failed');
+        return res.status(400).json({
+            err: err.message,
+        });
     }
 }

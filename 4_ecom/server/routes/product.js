@@ -5,7 +5,7 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // controller
-const { create, listAll, remove, read } = require("../controllers/product");
+const { create, listAll, remove, read, update } = require("../controllers/product");
 
 // routes
 router.post("/product", authCheck, adminCheck, create);
