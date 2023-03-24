@@ -25,8 +25,8 @@ const Home = () => {
             {/* Home */}
             {loading ? <h2 className='bg-red-600'>Loading....</h2> : <h2 className='text-2xl font-bold bg-blue-300 text-white p-10'>All Products</h2>}
             {/* {JSON.stringify(products)} */}
-            <div className='h-screen-w-screen ml-10 mr-20'>
-                <div className=' flex justify-between mt-10 items-center '>
+            <div className='container ml-40'>
+                <div className=' flex justify-between mt-10  items-center '>
                     {products.map((product) => (
                         <div key={product._id} >
                             <ProductCard product={product} />
