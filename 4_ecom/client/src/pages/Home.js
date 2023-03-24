@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getProductsByCount } from '../components/functions/product';
 import ProductCard from '../components/cards/ProductCard';
 import Jumbotron from '../components/cards/Jumbotron';
+import LoadingCard from '../components/cards/LoadingCard';
 
 const Home = () => {
     //state to hold the response of products from db through backend
@@ -30,13 +31,13 @@ const Home = () => {
             </div>
             {/* {JSON.stringify(products)} */}
             <div className='container ml-40'>
-                <div className=' flex justify-between mt-10  items-center flex-wrap '>
+                {loading ? <LoadingCard count={3} /> : (<div className=' flex justify-between mt-10  items-center flex-wrap '>
                     {products.map((product) => (
                         <div key={product._id} >
                             <ProductCard product={product} />
                         </div>
                     ))}
-                </div>
+                </div>)}
             </div>
         </div>
     )
