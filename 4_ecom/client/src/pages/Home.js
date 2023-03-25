@@ -1,9 +1,8 @@
 import React from 'react'
 
-import ProductCard from '../components/cards/ProductCard';
 import Jumbotron from '../components/cards/Jumbotron';
-import LoadingCard from '../components/cards/LoadingCard';
 import NewArrivals from '../components/home/NewArrivals';
+import BestSellers from '../components/home/BestSellers';
 
 const Home = () => {
 
@@ -16,6 +15,10 @@ const Home = () => {
 
             <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>New Arrivals</h4>
             <NewArrivals />
+            <br />
+
+            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>Best Sellers</h4>
+            <BestSellers />
             <br />
         </div>
     )

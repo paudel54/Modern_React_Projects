@@ -3,7 +3,7 @@ import { getProducts } from '../functions/product';
 import ProductCard from '../cards/ProductCard';
 import LoadingCard from '../cards/LoadingCard';
 
-const NewArrivals = () => {
+const BestSellers = () => {
     //state to hold the response of products from db through backend
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -12,10 +12,10 @@ const NewArrivals = () => {
         loadAllProducts();
     }, [])
 
-    //pass sort:sortByDate order limit
+    //pass sort:sortByNumberOfSoldItems order limit
     const loadAllProducts = () => {
         setLoading(true);
-        getProducts('createdAt', 'desc', 3)
+        getProducts('sold', 'desc', 3)
             .then(r => {
                 setProducts(r.data);
                 setLoading(false);
@@ -37,4 +37,4 @@ const NewArrivals = () => {
     )
 }
 
-export default NewArrivals
+export default BestSellers
