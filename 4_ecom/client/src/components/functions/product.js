@@ -1,4 +1,4 @@
-//functions to send req with header and body to backend:
+//functions to send req with header and body to backend routes: and then to controller and back to frontend with result:
 
 import axios from "axios";
 //porducts contains object of product created info
@@ -33,11 +33,13 @@ export const updateProduct = async (slug, product, authtoken) =>
         },
     });
 
-export const getProducts = async (sort, order, limit) =>
+export const getProducts = async (sort, order, page) =>
     await axios.post(`${process.env.REACT_APP_API}/products`, {
         //this will be accessable to backend as request body
         sort,
         order,
-        limit
+        page,
     });
 
+export const getProductsCount = async () =>
+    await axios.get(`${process.env.REACT_APP_API}/products/total`);

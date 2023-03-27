@@ -80,16 +80,21 @@ exports.update = async (req, res) => {
 }
 
 exports.list = async (req, res) => {
+    // console.table(req.body);
     try {
         //query product from database: and sort on basis of time for new 
         //sort createdAt/UpdatedAt order desc/asc, limit 3: no of  
-        const { sort, order, limit } = req.body
+        const { sort, order, page } = req.body
+        //if no page default 1
+        const currentPage = page || 1;
+        const perPage = 3; //3
         //query to Product schema
         const products = await Product.find({})
+            .skip((currentPage - 1) * perPage)
             .populate('category')
             .populate('subs')
             .sort([[sort, order]])
-            .limit(limit)
+            .limit(perPage)
             .exec();
         res.json(products);
     }
@@ -98,9 +103,9 @@ exports.list = async (req, res) => {
     }
 }
 
+//mongoose method to get total count: estimated total count:
+//backend controller to fetch collection from db and send it to server
 exports.productsCount = async (req, res) => {
-    //mongoose method to get total count: estimated total count:
-    //backend controller to fetch collection from db and send it to server
     let total = await Product.find({}).estimatedDocumentCount().exec();
     res.json(total);
-}
+};
