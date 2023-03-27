@@ -97,3 +97,10 @@ exports.list = async (req, res) => {
         console.log(e);
     }
 }
+
+exports.productsCount = async (req, res) => {
+    //mongoose method to get total count: estimated total count:
+    //backend controller to fetch collection from db and send it to server
+    let total = await Product.find({}).estimatedDocumentCount().exec();
+    res.json(total);
+}
