@@ -90,6 +90,7 @@ exports.list = async (req, res) => {
         const perPage = 3; //3
         //query to Product schema
         const products = await Product.find({})
+            //skip here is only fretching out  
             .skip((currentPage - 1) * perPage)
             .populate('category')
             .populate('subs')
