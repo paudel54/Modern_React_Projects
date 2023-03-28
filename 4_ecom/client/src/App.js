@@ -20,6 +20,7 @@ import SubCreate from './pages/admin/sub/SubCreate';
 import ProductCreate from './pages/admin/product/ProductCreate';
 import AllProducts from './pages/admin/product/AllProducts';
 import ProductUpdate from './pages/admin/product/ProductUpdate';
+import Product from './pages/Product';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -90,6 +91,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/register/complete" element={<RegisterComplete />} />
           <Route path="/forgot/password" element={<ForgotPassword />} />
+          <Route path="/product/:slug" element={<Product />} />
           {/* <UserRoute path="/user/history" element={<History />} /> */}
           {/* private Route : protected Routes */}
           {/* can access this routes only if you are logged in: if not would navigte to login page */}
@@ -97,7 +99,6 @@ function App() {
             <Route path='/user/history' element={<History />} />
             <Route path='/user/password' element={<Password />} />
             <Route path='/user/wishlist' element={<Wishlist />} />
-
           </Route>
           {/* Protected Route For Admin */}
           <Route element={<AdminRoute />}>

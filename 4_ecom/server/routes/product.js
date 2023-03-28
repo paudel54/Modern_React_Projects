@@ -12,6 +12,7 @@ router.post("/product", authCheck, adminCheck, create);
 router.get("/products/:count", listAll);
 router.delete("/product/:slug", authCheck, adminCheck, remove)
 //route to get single Product:
+//giving detail info into form and single product
 router.get("/product/:slug", read);
 //update product
 router.put("/product/:slug", authCheck, adminCheck, update);

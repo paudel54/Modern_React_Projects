@@ -50,7 +50,7 @@ exports.remove = async (req, res) => {
 }
 
 exports.read = async (req, res) => {
-
+    //find product based on slug and return that
     const product = await Product.findOne({ slug: req.params.slug })
         //populate implies please display linked object id all of their entities and atrributes:
         .populate('category')
