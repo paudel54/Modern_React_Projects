@@ -15,12 +15,16 @@ const Product = () => {
     const loadSingleProduct = () => getProduct(slug).then(res => setProduct(res.data));
 
     return (
-        <div className='container'>
+        <div className=''>
             <div>
                 <SingleProduct product={product} />
             </div>
-            <div>
-                <div>Related Product from parent product page</div>
+            <div className='p-5'>
+                <div className='mt-20'>
+                    <hr />
+                    <div className='P-10 flex justify-center text-3xl font-bold'>Related Products </div>
+                    <hr />
+                </div>
             </div>
             {/* {slug} */}
             {/* {JSON.stringify(product)} */}

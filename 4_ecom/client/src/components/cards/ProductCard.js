@@ -14,7 +14,8 @@ const ProductCard = ({ product }) => {
     const { Meta } = Card;
     return (
         <div className=' w-[400px]  h-[400px] mb-40' >
-            {/* {product.title} */}
+            {/* {JSON.stringify(product)} */}
+            {/* {JSON.stringify(product.slug)} */}
             < Card
                 cover={< img className='w-[250px] h-[350px] object-cover' alt="laptops" src={images && images.length ? images[0].url : laptop
                 } />}
