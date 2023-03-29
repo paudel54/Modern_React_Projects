@@ -9,3 +9,8 @@
 body::-webkit-scrollbar {
   display: none;
 }
+
+.slider img {
+  height: 450px;
+  object-fit: contain;
+}

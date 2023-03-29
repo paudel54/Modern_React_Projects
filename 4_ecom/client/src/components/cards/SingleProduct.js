@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { Component } from 'react';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // react carousel
+import { Carousel } from 'react-responsive-carousel';
 import { Card } from 'antd'
 import { Link } from 'react-router-dom';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 const SingleProduct = ({ product }) => {
-    const { title, description, image, slug } = product;
+    const { title, description, images, slug } = product;
     const { Meta } = Card
     return (
-        <div className='grid grid-cols-12'>
+        <div className='grid grid-cols-12 '>
             <div className='col-span-7'>
-                7/12=58% image carousel
+                {/* 7/12=58% image carousel */}
+                <Carousel showArrows={true} autoPlay infiniteLoop>
+                    {images && images.map((i, id) => <img alt='carousel' src={i.url} key={id} />)}
+                </Carousel>
             </div>
             <div className='col-span-5'>
                 <div className='text-2xl font-bold'>
@@ -20,7 +25,6 @@ const SingleProduct = ({ product }) => {
                         </>,
                         <Link to="/"><HeartOutlined className='text-blue-400' /> <br />
                             Add to Wishlist</Link>
-
                     ]}>
                         <Meta title={title} description={description} />
                         <p>price/category/subs/shipping/color/brnad/quantity/available/sold</p>
