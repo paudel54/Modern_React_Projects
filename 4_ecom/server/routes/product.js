@@ -5,7 +5,7 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // controllers
-const { create, listAll, remove, read, update, list, productsCount } = require("../controllers/product");
+const { create, listAll, remove, read, update, list, productsCount, productStar } = require("../controllers/product");
 
 // routes
 router.post("/product", authCheck, adminCheck, create);
@@ -21,5 +21,7 @@ router.put("/product/:slug", authCheck, adminCheck, update);
 router.post('/products', list)
 //to display onto pagination creating backed rotes and controller to get all items from db
 router.get('/products/total', productsCount)
+//endpoint for rating
+router.put('/product/star/:productId', authCheck, productStar);
 
 module.exports = router;

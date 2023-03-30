@@ -110,3 +110,42 @@ exports.productsCount = async (req, res) => {
     let total = await Product.find({}).estimatedDocumentCount().exec();
     res.json(total);
 };
+
+exports.productStar = async (req, res) => {
+    const product = await Product.findById(req.params.productId).exec()
+    //we can access user from middleware auth res and use it to find from db
+    //User Module; User here would be logged in user that are eligible for rating
+    const user = await User.findOne({ email: req.user.email }).exec()
+    //req.body comes from client side for star value:
+    const { star } = req.body
+    //who is updating?
+    //check if currently logged in user have already added rating to this product?
+    //find existing rating object from rating array
+    let existingRatingObject = product.ratings.find(
+        (ele) => (ele.postedBy.toString() === user._id.toString())
+    );
+    //if user haven't left rating yet, push it 
+    if (existingRatingObject === undefined) {
+        //if no rating given initially
+        let ratingAdded = await Product.findByIdAndUpdate(product._id, {
+            $push: { ratings: { star: star, postedBy: user._id } },
+        }, { new: true }).exec();
+        //new true helps to update into db as well as send updated resposne to client
+        //if the parameter new true is not used it would update onto db but not update onto client side
+        console.log(ratingAdded);
+        res.json(ratingAdded);
+    } else {
+        //if user have already left rating, update it
+        //find product and it's rating and update it.
+        const ratingUpdated = await Product.updateOne(
+            { ratings: { $elemMatch: existingRatingObject } },
+            //update star
+            { $set: { "ratings.$.star": star } },
+            { new: true }
+        ).exec();
+        console.log('ratingUpdated', ratingUpdated);
+        res.json(ratingUpdated);
+    }
+
+
+}
