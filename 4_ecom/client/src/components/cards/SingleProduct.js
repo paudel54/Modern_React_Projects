@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import Laptop from '../../images/computer/laptop.png'
 import ProductListItems from './ProductListItems';
+import StarRatings from 'react-star-ratings';
 
 const { TabPane } = Tabs;
 
 const SingleProduct = ({ product }) => {
-    const { title, images, description } = product;
+    const { title, images, description, _id } = product;
     // const { Meta } = Card
     return (
         <div className='grid grid-cols-12 '>
@@ -38,6 +39,17 @@ const SingleProduct = ({ product }) => {
             </div>
             <div className='col-span-5'>
                 <h1 className='text-2xl font-bold p-3 bg-blue-400 text-center'>{title} </h1>
+                {/* star rating npm */}
+                <div>
+                    <StarRatings
+                        name={_id}
+                        numberOfStars={5}
+                        rating={2}
+                        changeRating={(newRating, name) => console.log('newRating', newRating, 'name', name)}
+                        isSelectable={true}
+                        starRatedColor="red"
+                    />
+                </div>
                 <div className='text-2xl font-bold'>
                     <Card actions={[
                         <>
