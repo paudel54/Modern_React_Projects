@@ -7,6 +7,7 @@ import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import Laptop from '../../images/computer/laptop.png'
 import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
+import RatingModal from '../modal/RatingModal';
 
 const { TabPane } = Tabs;
 
@@ -41,14 +42,7 @@ const SingleProduct = ({ product }) => {
                 <h1 className='text-2xl font-bold p-3 bg-blue-400 text-center'>{title} </h1>
                 {/* star rating npm */}
                 <div>
-                    <StarRatings
-                        name={_id}
-                        numberOfStars={5}
-                        rating={2}
-                        changeRating={(newRating, name) => console.log('newRating', newRating, 'name', name)}
-                        isSelectable={true}
-                        starRatedColor="red"
-                    />
+
                 </div>
                 <div className='text-2xl font-bold'>
                     <Card actions={[
@@ -57,7 +51,17 @@ const SingleProduct = ({ product }) => {
                             Add to Cart
                         </>,
                         <Link to="/"><HeartOutlined className='text-blue-400' /> <br />
-                            Add to Wishlist</Link>
+                            Add to Wishlist</Link>,
+                        <RatingModal>
+                            <StarRatings
+                                name={_id}
+                                numberOfStars={5}
+                                rating={2}
+                                changeRating={(newRating, name) => console.log('newRating', newRating, 'name', name)}
+                                isSelectable={true}
+                                starRatedColor="red"
+                            />
+                        </RatingModal>
                     ]}>
                         {/* <Meta title={title} description={description} /> */}
                         {/* <p>price/category/subs/shipping/color/brnad/quantity/available/sold</p> */}

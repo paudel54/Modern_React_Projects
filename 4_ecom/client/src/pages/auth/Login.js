@@ -2,34 +2,43 @@ import React, { useState, useEffect } from 'react'
 import { auth, googleAuthProvider } from '../../firebase';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, redirect } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { createOrUpdateUser } from "../../components/functions/auth";
-
-
-
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+
     let dispatch = useDispatch();
     let navigate = useNavigate();
+    const location = useLocation();
     const { user } = useSelector((state) => ({ ...state }));
 
-    useEffect(() => {
-        // if ((user && user.token)) navigate('/')
-    }, [user]);
+
+    // useEffect(() => {
+    //     // if ((user && user.token)) navigate('/')
+    // }, [user]);
 
     const roleBasedRedirect = (res) => {
-        if (res.data.role === 'admin') {
-            navigate('/admin/dashboard')
+        //check if intented page on 
+        const { redirect } = location.state;
+        if (redirect) {
+            navigate(`/${redirect}`);
         } else {
-            navigate('/user/history')
+            //else section consists of prev working code
+            if (res.data.role === 'admin') {
+                navigate('/admin/dashboard')
+            } else {
+                navigate('/user/history')
+            }
         }
-    }
 
+    }
+    const { redirect } = location.state;
     // making form submit handler an async function 
     const handleSubmit = async (e) => {
         setLoading(true);
@@ -143,6 +152,9 @@ const Login = () => {
                     <Link to='/forgot/password' className='text-white p-2 float-right mr-7'>Forgot Password?</Link>
 
                     {/* if bug occurs check button onClick={handleSubmite} */}
+                    {redirect}
+
+                    <br />
                 </div >
             </div >
 
