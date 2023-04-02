@@ -12,9 +12,9 @@ const RatingModal = ({ children }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const navigate = useNavigate();
     let slug = useParams()
-    console.log('slug test', slug)
-    console.log('type of slug jangam', typeof (slug.slug));
-    console.log('stringified slug', (slug.slug));
+    // console.log('slug test', slug)
+    // console.log('type of slug jangam', typeof (slug.slug));
+    // console.log('stringified slug', (slug.slug));
     const handleModal = () => {
         if (user && user.token) {
             setModalVisible(true)
@@ -22,7 +22,6 @@ const RatingModal = ({ children }) => {
             //resolveit!!
             console.log('i clicked login');
             navigate('/login', { state: { redirect: `product/${slug.slug}` } })
-
         }
     }
     return (
@@ -44,6 +43,7 @@ const RatingModal = ({ children }) => {
             >
                 {children}
             </Modal>
+
         </div>
     )
 }

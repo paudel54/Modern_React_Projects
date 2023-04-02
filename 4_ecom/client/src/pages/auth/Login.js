@@ -19,13 +19,22 @@ const Login = () => {
     const { user } = useSelector((state) => ({ ...state }));
 
 
-    // useEffect(() => {
-    //     // if ((user && user.token)) navigate('/')
-    // }, [user]);
+    useEffect(() => {
+        let { redirect } = location.state || {};
+        // console.log('logging redirect data', redirect)
+        if (redirect) {
+            return;
+        } else {
+            if ((user && user.token)) navigate('/');
+        }
+
+    }, [user]);
 
     const roleBasedRedirect = (res) => {
         //check if intented page on 
-        const { redirect } = location.state;
+
+        let { redirect } = location.state;
+
         if (redirect) {
             navigate(`/${redirect}`);
         } else {
@@ -38,7 +47,6 @@ const Login = () => {
         }
 
     }
-    const { redirect } = location.state;
     // making form submit handler an async function 
     const handleSubmit = async (e) => {
         setLoading(true);
@@ -152,7 +160,6 @@ const Login = () => {
                     <Link to='/forgot/password' className='text-white p-2 float-right mr-7'>Forgot Password?</Link>
 
                     {/* if bug occurs check button onClick={handleSubmite} */}
-                    {redirect}
 
                     <br />
                 </div >

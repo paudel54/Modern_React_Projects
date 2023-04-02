@@ -4,7 +4,6 @@ import ProductCard from '../cards/ProductCard';
 import LoadingCard from '../cards/LoadingCard';
 import { Pagination } from 'antd';
 
-
 const NewArrivals = () => {
     //state to hold the response of products from db through backend
     const [products, setProducts] = useState([]);
