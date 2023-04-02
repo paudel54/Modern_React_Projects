@@ -18,7 +18,6 @@ const Login = () => {
     const location = useLocation();
     const { user } = useSelector((state) => ({ ...state }));
 
-
     useEffect(() => {
         let { redirect } = location.state || {};
         // console.log('logging redirect data', redirect)

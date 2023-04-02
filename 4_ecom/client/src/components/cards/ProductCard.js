@@ -5,7 +5,7 @@ import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 //defalut image if no image is available
 import laptop from '../../images/computer/laptop.png';
 import { useNavigate, Link } from 'react-router-dom';
-
+import { showAverage } from '../functions/rating';
 
 
 const ProductCard = ({ product }) => {
@@ -16,6 +16,8 @@ const ProductCard = ({ product }) => {
         <div className=' w-[400px]  h-[400px] mb-40' >
             {/* {JSON.stringify(product)} */}
             {/* {JSON.stringify(product.slug)} */}
+
+            {product && product.ratings && product.ratings.length > 0 ? showAverage(product) : <div className='text-center pb-3 pt-1'> No rating yet</div>}
             < Card
                 cover={< img className='w-[250px] h-[350px] object-cover' alt="laptops" src={images && images.length ? images[0].url : laptop
                 } />}
