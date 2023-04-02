@@ -3,7 +3,8 @@ import { getProduct, productStar } from '../components/functions/product';
 import { useParams } from 'react-router-dom';
 import SingleProduct from '../components/cards/SingleProduct';
 import { useSelector } from 'react-redux';
-import { showAverage } from '../components/functions/rating';
+import { getRelated } from '../components/functions/product';
+import ProductCard from '../components/cards/ProductCard';
 
 const Product = () => {
     const { slug } = useParams();
@@ -13,6 +14,8 @@ const Product = () => {
 
     //controls stars state
     const [star, setStar] = useState(0);
+    //related Products
+    const [related, setRelated] = useState([]);
 
     //redux user
     const { user } = useSelector((state) => ({ ...state }))
@@ -32,7 +35,12 @@ const Product = () => {
         }
     }, []);
 
-    const loadSingleProduct = () => getProduct(slug).then(res => setProduct(res.data));
+    const loadSingleProduct = () => getProduct(slug).then((res) => {
+        setProduct(res.data);
+        //load related
+        getRelated(res.data._id).then(res => setRelated(res.data))
+    });
+
     const onStarClick = (newRating, name) => {
         // console.table(newRating, name);
         setStar(newRating);
@@ -53,7 +61,14 @@ const Product = () => {
                 <div className='mt-20'>
                     <hr />
                     <div className='P-10 flex justify-center text-3xl font-bold'>Related Products </div>
+                    {/* {JSON.stringify(related)} */}
+                    {/* Related Products */}
                     <hr />
+                </div>
+                <div className='flex gap-20'>
+                    {related.length ? related.map((r) => <div key={r._id} >
+                        <ProductCard product={r} />
+                    </div>) : <div className='text-center text-2xl text-red-600'> No Products Found </div>}
                 </div>
             </div>
         </div>

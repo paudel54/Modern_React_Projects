@@ -150,3 +150,23 @@ exports.productStar = async (req, res) => {
 
 
 }
+
+//listRelated
+exports.listRelated = async (req, res) => {
+    //Making asyc call to db Product Schema to find product based on request params or url
+    const product = await Product.findById(req.params.productId).exec();
+    const related = await Product.find({
+        //multiple query
+        //find product except exisiting product
+        //$ne =>not including or except
+        _id: { $ne: product._id },
+        category: product.category,
+    })
+        .limit(3)
+        .populate('category')
+        .populate('subs')
+        // .populate('postedBy')
+        .exec();
+
+    res.json(related);
+}
