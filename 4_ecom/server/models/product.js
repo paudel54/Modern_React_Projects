@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema(
             trim: true,
             required: true,
             maxlength: 32,
+            //text true helps in making filter with query from  filter controller, supporting advance Search Feature;
             text: true
         },
 

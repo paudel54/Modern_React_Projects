@@ -14,7 +14,9 @@ const {
     list,
     productsCount,
     productStar,
-    listRelated } = require("../controllers/product");
+    listRelated,
+    searchFilters
+} = require("../controllers/product");
 
 // routes
 router.post("/product", authCheck, adminCheck, create);
@@ -34,4 +36,7 @@ router.get('/products/total', productsCount)
 router.put('/product/star/:productId', authCheck, productStar);
 //related Products
 router.get("/product/related/:productId", listRelated)
+//Search [----]
+//get method is normally used for fetching or getting data but using post for similar functionality to send additional paramaters:
+router.post('/search/filters', searchFilters)
 module.exports = router;

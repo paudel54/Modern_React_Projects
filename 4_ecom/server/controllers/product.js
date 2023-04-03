@@ -168,3 +168,27 @@ exports.listRelated = async (req, res) => {
 
     res.json(related);
 }
+
+
+
+//Search / Filter controller
+const handleQuery = async (req, res, query) => {
+    //find Product Based on text
+    //Search product db with what we get as query
+    //text Based Search:  :::: "_id name"
+    const products = await Product.find({ $text: { $search: query } })
+        .populate('category', "_id name")
+        .populate('subs', "_id name")
+        .exec();
+    res.json(products)
+}
+
+//everytime the query input we might get be different
+//for example one can be from slider, next be form , next filter star and so on!
+exports.searchFilters = async (req, res) => {
+    const { query } = req.body
+    if (query) {
+        console.log('query', query)
+        await handleQuery(req, res, query);
+    }
+}
