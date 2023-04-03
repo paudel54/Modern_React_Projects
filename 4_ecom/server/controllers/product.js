@@ -147,8 +147,6 @@ exports.productStar = async (req, res) => {
         console.log('ratingUpdated', ratingUpdated);
         res.json(ratingUpdated);
     }
-
-
 }
 
 //listRelated

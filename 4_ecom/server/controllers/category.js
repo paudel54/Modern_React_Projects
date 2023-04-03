@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const Product = require('../models/product')
 const slugify = require('slugify');
 const Sub = require("../models/sub")
 
@@ -26,7 +27,16 @@ exports.list = async (req, res) => {
 exports.read = async (req, res) => {
     let category = await Category.findOne({ slug: req.params.slug }).exec();
     // if async and await was not used on then exec() this fn contains call back handlers. with (err, data)
-    res.json(category);
+    // res.json(category);
+    //query to db to find products realated to the slug / params req sent from categoryHome
+    const products = await Product.find({ category: category })
+        .populate('category')
+        .exec();
+
+    res.json({
+        category,
+        products
+    })
 };
 
 exports.remove = async (req, res) => {

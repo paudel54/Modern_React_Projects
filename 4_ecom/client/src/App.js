@@ -21,6 +21,8 @@ import ProductCreate from './pages/admin/product/ProductCreate';
 import AllProducts from './pages/admin/product/AllProducts';
 import ProductUpdate from './pages/admin/product/ProductUpdate';
 import Product from './pages/Product';
+import CategoryHome from './pages/category/CategoryHome';
+import SubHome from './pages/sub/SubHome';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -38,7 +40,7 @@ import { currentUser } from './components/functions/auth';
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { PresetColors } from 'antd/es/theme/internal';
+// import { PresetColors } from 'antd/es/theme/internal';
 // import RegisterComplete from './pages/auth/RegisterComplete';
 
 function App() {
@@ -92,6 +94,8 @@ function App() {
           <Route path="/register/complete" element={<RegisterComplete />} />
           <Route path="/forgot/password" element={<ForgotPassword />} />
           <Route path="/product/:slug" element={<Product />} />
+          <Route path="/category/:slug" element={<CategoryHome />} />
+          <Route path="/sub/:slug" element={<SubHome />} />
           {/* <UserRoute path="/user/history" element={<History />} /> */}
           {/* private Route : protected Routes */}
           {/* can access this routes only if you are logged in: if not would navigte to login page */}

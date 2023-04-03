@@ -1,4 +1,5 @@
 const Sub = require('../models/sub');
+const Product = require('../models/product');
 const slugify = require('slugify');
 
 exports.create = async (req, res) => {
@@ -24,8 +25,14 @@ exports.list = async (req, res) => {
 // if i want to have only one types of category then: it's done by targeting slug
 exports.read = async (req, res) => {
     let sub = await Sub.findOne({ slug: req.params.slug }).exec();
-    // if async and await was not used on then exec() this fn contains call back handlers. with (err, data)
-    res.json(sub);
+    //lookinto subs array onto sub data model and find based on sub and give all the product based on it
+    const products = await Product.find({ subs: sub })
+        .populate("category")
+        .exec();
+    res.json({
+        sub,
+        products,
+    });
 };
 
 exports.remove = async (req, res) => {
