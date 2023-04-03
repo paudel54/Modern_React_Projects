@@ -3,6 +3,7 @@ import React from 'react'
 import Jumbotron from '../components/cards/Jumbotron';
 import NewArrivals from '../components/home/NewArrivals';
 import BestSellers from '../components/home/BestSellers';
+import CategoryList from '../components/category/CategoryList';
 
 const Home = () => {
 
@@ -19,6 +20,10 @@ const Home = () => {
 
             <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>Best Sellers</h4>
             <BestSellers />
+            <br />
+
+            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>Categories List</h4>
+            <CategoryList />
             <br />
         </div>
     )
