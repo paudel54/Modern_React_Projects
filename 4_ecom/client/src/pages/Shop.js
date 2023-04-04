@@ -1,7 +1,7 @@
 //when landing on Shop show default page:
 
 import React, { useState, useEffect } from 'react'
-import { getProductsByCount } from '../components/functions/product'
+import { getProductsByCount, fetchProductsByFilter } from '../components/functions/product'
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../components/cards/ProductCard';
 
@@ -11,6 +11,10 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    let { search } = useSelector((state) => ({ ...state }))
+    const { text } = search;
+
+    //1.load products on  page load by default
     useEffect(() => {
         loadAllProducts();
     }, []);
@@ -22,6 +26,26 @@ const Shop = () => {
                 setLoading(false);
             })
     };
+
+    //2.Load Product on user search input, when text changes on redux store make req  to backend to display data onto card. 
+    useEffect(() => {
+        // console.log('Load Products on user Search input', text)
+
+        //setting up delay to slower request rate
+        const delayed = setTimeout(() => {
+            fetchProducts({ query: text })
+        }, 400)
+        return () => clearTimeout(delayed)
+
+    }, [text]);
+
+    const fetchProducts = (arg) => {
+        fetchProductsByFilter(arg)
+            .then((res) => {
+                setProducts(res.data);
+            });
+    }
+
 
     return (
         <div>
