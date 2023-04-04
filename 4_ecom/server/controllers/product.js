@@ -192,3 +192,4 @@ exports.searchFilters = async (req, res) => {
         await handleQuery(req, res, query);
     }
 }
+

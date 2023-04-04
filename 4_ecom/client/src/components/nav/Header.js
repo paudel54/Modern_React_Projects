@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Menu } from "antd";
 import firebase from 'firebase/compat/app';
 
+import Search from "../forms/Search";
+
 
 import {
     AppstoreOutlined,
@@ -76,7 +78,7 @@ const Header = () => {
                 <Item key="setting:2">Option 2</Item>
                 <Item icon={<UserOutlined />} onClick={logout}>Logout</Item>
             </SubMenu>)}
-
+            <span className="p-1"> <Search /> </span>
         </Menu>
     );
 };
