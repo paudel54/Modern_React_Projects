@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
 import firebase from 'firebase/compat/app';
-
 import Search from "../forms/Search";
-
 
 import {
     AppstoreOutlined,
     SettingOutlined,
     UserOutlined,
     UserAddOutlined,
+    ShoppingOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,12 +38,16 @@ const Header = () => {
         });
         navigate('/login');
     }
-
-
     return (
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
             <Item key="home" icon={<AppstoreOutlined />}>
                 <Link to="/">Home </Link>
+                {/* {JSON.stringify(state)} */}
+                {/* -{JSON.stringify(user)} */}
+            </Item>
+
+            <Item key="shop" icon={<ShoppingOutlined />}>
+                <Link to="/shop">Shop </Link>
                 {/* {JSON.stringify(state)} */}
                 {/* -{JSON.stringify(user)} */}
             </Item>
