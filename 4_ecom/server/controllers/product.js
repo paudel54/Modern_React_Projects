@@ -235,17 +235,20 @@ const handleStar = (req, res, stars) => {
         }
     ])
         .limit(12)
-        .exec((err, aggregates) => {
-            if (err) console.log('AGGREGATES ERROR', err)
-            Product.find({ _id: aggregates })
-                .populate('category')
-                .populate('subs')
-                .exec((err, products) => {
-                    if (err) console.log('PRODUCT AGGREGATE ERROR', err)
-                    res.json(products);
-                });
-        })
-};
+    // .exec((err, aggregates) => {
+    //     if (err) console.log('AGGREGATES ERROR', err)
+    //     Product.find({ _id: aggregates })
+    //         .populate('category')
+    //         .populate('subs')
+    //         .exec((err, products) => {
+    //             if (err) console.log('PRODUCT AGGREGATE ERROR', err)
+    //             res.json(products);
+    //         });
+
+    // })
+
+}
+
 
 
 //everytime the query input we might get be different
