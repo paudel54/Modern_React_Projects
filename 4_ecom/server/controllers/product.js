@@ -183,13 +183,41 @@ const handleQuery = async (req, res, query) => {
     res.json(products)
 }
 
+//get product between two price value
+//gte is greater then lte is less than
+const handlePrice = async (req, res, price) => {
+    try {
+        let products = await Product.find({
+            price: {
+                $gte: price[0],
+                $lte: price[1]
+            },
+        })
+            .populate('category')
+            .populate('subs')
+            .exec()
+
+        res.json(products);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 //everytime the query input we might get be different
 //for example one can be from slider, next be form , next filter star and so on!
 exports.searchFilters = async (req, res) => {
-    const { query } = req.body
+
+    const { query, price } = req.body
     if (query) {
         console.log('query', query)
         await handleQuery(req, res, query);
+    }
+
+    //price range say [10,200] find and show : show only if value is undefined!
+    if (price !== undefined) {
+        console.log('price------>', price)
+        await handlePrice(req, res, price)
     }
 }
 

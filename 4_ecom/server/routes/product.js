@@ -38,5 +38,6 @@ router.put('/product/star/:productId', authCheck, productStar);
 router.get("/product/related/:productId", listRelated)
 //Search [----]
 //get method is normally used for fetching or getting data but using post for similar functionality to send additional paramaters:
+//single endpoint handles all of the routing functionality for slider or input form anythings
 router.post('/search/filters', searchFilters)
 module.exports = router;

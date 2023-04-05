@@ -10,7 +10,7 @@ import { showAverage } from '../functions/rating';
 
 const ProductCard = ({ product }) => {
     //destructure
-    const { images, title, description, slug } = product;
+    const { images, title, description, slug, price } = product;
     const { Meta } = Card;
     return (
         <div className=' w-[400px]  h-[400px] mb-40' >
@@ -31,8 +31,10 @@ const ProductCard = ({ product }) => {
                     ]
                 }
             >
-                <Meta title={title} description={`${description && description.substring(0, 40)}...`} />
-
+                <Meta title={`${title} `} description={`${description && description.substring(0, 40)}...`} />
+                <div className='mt-1 font-semibold'>
+                    ${price}
+                </div>
             </Card >
         </div >
     )
