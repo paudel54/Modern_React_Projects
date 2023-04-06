@@ -6,14 +6,42 @@ import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import laptop from '../../images/computer/laptop.png';
 import { useNavigate, Link } from 'react-router-dom';
 import { showAverage } from '../functions/rating';
-
+import _ from "lodash";
 
 const ProductCard = ({ product }) => {
+
+    const handleAddToCart = () => {
+        //create cart array: cart info being saved into local storage might contains one or many products
+        let cart = []
+        if (typeof window !== 'undefined') {
+            //.getItem is used to access any key paramater of localStorage!
+            if (localStorage.getItem('cart')) {
+                //items are stored in localStorage as JSON data so, we need to use JSON.parse()
+                //get item and update ot cart variable or array!
+                cart = JSON.parse(localStorage.getItem('cart'));
+                console.log('hello i am inside localStorage Get item')
+            }
+            //push new product to cart
+            cart.push({
+                ...product,
+                count: 1,
+            });
+            //remove Duplicates with npm package loadash. method uniqWith
+            //removes duplicate objects from array of objects and keep every objects unique
+            let unique = _.uniqWith(cart, _.isEqual)
+            //save to localStorage
+            // console.log('unique', unique)
+            //on saving or setting onto local storage we need to stringify data first
+            localStorage.setItem('cart', JSON.stringify(unique))
+        }
+    };
+
+
     //destructure
     const { images, title, description, slug, price } = product;
     const { Meta } = Card;
     return (
-        <div className=' w-[400px]  h-[400px] mb-40' >
+        <div className=' w-[400px]  h-[400px] mb-60' >
             {/* {JSON.stringify(product)} */}
             {/* {JSON.stringify(product.slug)} */}
 
@@ -25,9 +53,10 @@ const ProductCard = ({ product }) => {
                     [
                         <Link to={`/product/${slug}`}><EyeOutlined class='text-blue-500 flex justify-center text-xl' />
                             <br /> View Product </Link>,
-                        <>
+                        //On click save to local Storage.
+                        <a onClick={handleAddToCart} href='/#'>
                             <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
-                        </>
+                        </a>
                     ]
                 }
             >
