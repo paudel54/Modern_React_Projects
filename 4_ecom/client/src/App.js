@@ -25,6 +25,8 @@ import CategoryHome from './pages/category/CategoryHome';
 import SubHome from './pages/sub/SubHome';
 import Shop from './pages/Shop';
 
+import Cart from './pages/Cart';
+
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
 import AdminRoute from './components/routes/AdminRoute';
@@ -99,6 +101,7 @@ function App() {
           <Route path="/category/:slug" element={<CategoryHome />} />
           <Route path="/sub/:slug" element={<SubHome />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
           {/* <UserRoute path="/user/history" element={<History />} /> */}
           {/* private Route : protected Routes */}
           {/* can access this routes only if you are logged in: if not would navigte to login page */}
