@@ -1,5 +1,4 @@
 //when landing on Shop show default page:
-
 import React, { useState, useEffect } from 'react'
 import { getProductsByCount, fetchProductsByFilter } from '../components/functions/product'
 import { getCategories } from '../components/functions/category';
@@ -46,6 +45,8 @@ const Shop = () => {
     );
     //single color to send to backend to search categories based on colors
     const [color, setColor] = useState('');
+
+    const [shipping, setShipping] = useState('');
 
 
     //for slider request control
@@ -114,6 +115,7 @@ const Shop = () => {
         setSub('');
         setBrand('');
         setColor('');
+        setShipping('');
         setTimeout(() => {
             setOk(!ok);
         }, 400);
@@ -146,6 +148,7 @@ const Shop = () => {
         setSub('');
         setBrand('');
         setColor('');
+        setShipping('');
         // console.log('target value console', e.target.value);
         //check dublicate. if clicked on checkbox store to state, if unclicked remove from state and again if checked put onto state:
         let inTheState = [...categoryIds];
@@ -179,6 +182,7 @@ const Shop = () => {
         setSub('');
         setBrand('');
         setColor('');
+        setShipping('');
         fetchProducts({ stars: num })
 
     }
@@ -219,6 +223,7 @@ const Shop = () => {
         setStar('');
         setBrand('');
         setColor('');
+        setShipping('');
         //fetch all product based on sub
         fetchProducts({ sub: sub })
     }
@@ -252,6 +257,7 @@ const Shop = () => {
         setCategoryIds([]);
         setStar('');
         setColor('');
+        setShipping('');
         setBrand(e.target.value);
         // console.log('Here is targetd brand value', e.target.value)
         fetchProducts({ brand: e.target.value });
@@ -282,7 +288,49 @@ const Shop = () => {
         setStar('');
         setBrand('');
         setColor(e.target.value)
+        setShipping('');
         fetchProducts({ color: e.target.value })
+    }
+
+    //shipping is managed on state initially a blank value
+    // 9. show products based on shipping yes/no
+    const showShipping = () => (
+        <>
+            <Checkbox
+                className="pb-2 pl-4 pr-4"
+                onChange={handleShippingchange}
+                value="Yes"
+                checked={shipping === "Yes"}
+            >
+                Yes
+            </Checkbox>
+
+            <Checkbox
+                className="pb-2 pl-4 pr-4"
+                onChange={handleShippingchange}
+                value="No"
+                checked={shipping === "No"}
+            >
+                No
+            </Checkbox>
+        </>
+    );
+
+
+    const handleShippingchange = (e) => {
+        setSub('');
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" }
+        });
+        setPrice([0, 0]);
+        setCategoryIds([]);
+        setStar('');
+        setBrand('');
+        setColor('');
+        setShipping(e.target.value)
+        // console.log(e.target.value) //yes/No
+        fetchProducts({ shipping: e.target.value })
     }
 
 
@@ -367,6 +415,18 @@ const Shop = () => {
                             }>
                             <div className='flex flex-wrap w-4/5'>
                                 {showColors()}
+                            </div>
+                        </SubMenu>
+
+                        {/* Shipping  */}
+                        <SubMenu key={'7'}
+                            title={
+                                <span className='flex items-center text-xl gap-3'>
+                                    <DownSquareOutlined /> Shipping
+                                </span>
+                            }>
+                            <div className='flex flex-wrap w-4/5'>
+                                {showShipping()}
                             </div>
                         </SubMenu>
 
