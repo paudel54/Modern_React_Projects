@@ -6,7 +6,7 @@ import { getCategories } from '../components/functions/category';
 import { getSubs } from '../components/functions/sub';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../components/cards/ProductCard';
-import { Menu, Slider, Checkbox } from 'antd';
+import { Menu, Slider, Checkbox, Radio } from 'antd';
 import { DollarOutlined, DownSquareOutlined, StarOutlined } from '@ant-design/icons';
 import Star from '../components/forms/Star';
 
@@ -27,7 +27,19 @@ const Shop = () => {
     const [star, setStar] = useState('');
     //state to hold  respose of sub category data from server
     const [subs, setSubs] = useState([]);
+    //hold state of single sub
     const [sub, setSub] = useState([]);
+    //to hold state of brands
+    const [brands, setBrands] = useState([
+        "Apple",
+        "Samsung",
+        "Microsoft",
+        "Lenevo",
+        "Asus",
+        "Dell"
+    ])
+    //state to hold single brand that use clicks
+    const [brand, setBrand] = useState('');
 
     //for slider request control
     const [ok, setOk] = useState(false);
@@ -93,6 +105,7 @@ const Shop = () => {
         setPrice(value);
         setStar("");
         setSub('');
+        setBrand('');
         setTimeout(() => {
             setOk(!ok);
         }, 400);
@@ -123,6 +136,7 @@ const Shop = () => {
         setPrice([0, 0]);
         setStar("");
         setSub('');
+        setBrand('');
         // console.log('target value console', e.target.value);
         //check dublicate. if clicked on checkbox store to state, if unclicked remove from state and again if checked put onto state:
         let inTheState = [...categoryIds];
@@ -154,6 +168,7 @@ const Shop = () => {
         setCategoryIds([]);
         setStar(num);
         setSub('');
+        setBrand('');
         fetchProducts({ stars: num })
 
     }
@@ -170,7 +185,7 @@ const Shop = () => {
     )
     //6. Show Products By Sub Categories.
 
-    const showSubs = () => subs.map((s) => <div>
+    const showSubs = () => subs.map((s) => <div className='pl-4 mt-2'>
         <div key={s._id} onClick={() => handleSub(s)} style={{ cursor: "pointer" }}>
             <div className='p-3 bg-gray-400 m-1 w-max rounded'>
                 {s.name}
@@ -192,9 +207,44 @@ const Shop = () => {
         setPrice([0, 0]);
         setCategoryIds([]);
         setStar('');
+        setBrand('');
         //fetch all product based on sub
         fetchProducts({ sub: sub })
     }
+
+    //7.Show Products based on Brands Name
+    const showBrands = () => brands.map((b) =>
+    (
+        //importing radio component form antd
+
+        < Radio
+            className='pb-1 pl-4 pr-4 mt-1'
+            value={b}
+            name={b}
+            checked={b === brand}
+            //on change provides an event
+            onChange={handleBrand}
+        >
+            {b}
+        </Radio >
+
+    ));
+
+    const handleBrand = (e) => {
+        //reset other filters
+        setSub('');
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" }
+        });
+        setPrice([0, 0]);
+        setCategoryIds([]);
+        setStar('');
+        setBrand(e.target.value);
+        // console.log('Here is targetd brand value', e.target.value)
+        fetchProducts({ brand: e.target.value });
+    }
+
 
     return (
         <div>
@@ -205,7 +255,7 @@ const Shop = () => {
                     </h4>
 
                     <hr />
-                    <Menu defaultOpenKeys={['1', '2', '3', '4']} mode='inline'>
+                    <Menu defaultOpenKeys={['1', '2', '3', '4', '5']} mode='inline'>
                         {/* Price */}
                         <SubMenu key={'1'}
                             title={
@@ -254,6 +304,17 @@ const Shop = () => {
                             }>
                             <div className='flex flex-wrap w-4/5'>
                                 {showSubs()}
+                            </div>
+                        </SubMenu>
+                        {/* Brands */}
+                        <SubMenu key={'5'}
+                            title={
+                                <span className='flex items-center text-xl gap-3'>
+                                    <DownSquareOutlined /> Brands
+                                </span>
+                            }>
+                            <div className='flex flex-wrap w-4/5'>
+                                {showBrands()}
                             </div>
                         </SubMenu>
                     </Menu>
