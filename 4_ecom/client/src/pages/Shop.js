@@ -38,8 +38,15 @@ const Shop = () => {
         "Asus",
         "Dell"
     ])
-    //state to hold single brand that use clicks
+    //state to hold single brand  to query backend
     const [brand, setBrand] = useState('');
+
+    const [colors, setColors] = useState(
+        ["Black", "Brown", "Silver", "White", "Blue"]
+    );
+    //single color to send to backend to search categories based on colors
+    const [color, setColor] = useState('');
+
 
     //for slider request control
     const [ok, setOk] = useState(false);
@@ -106,6 +113,7 @@ const Shop = () => {
         setStar("");
         setSub('');
         setBrand('');
+        setColor('');
         setTimeout(() => {
             setOk(!ok);
         }, 400);
@@ -137,6 +145,7 @@ const Shop = () => {
         setStar("");
         setSub('');
         setBrand('');
+        setColor('');
         // console.log('target value console', e.target.value);
         //check dublicate. if clicked on checkbox store to state, if unclicked remove from state and again if checked put onto state:
         let inTheState = [...categoryIds];
@@ -169,6 +178,7 @@ const Shop = () => {
         setStar(num);
         setSub('');
         setBrand('');
+        setColor('');
         fetchProducts({ stars: num })
 
     }
@@ -208,6 +218,7 @@ const Shop = () => {
         setCategoryIds([]);
         setStar('');
         setBrand('');
+        setColor('');
         //fetch all product based on sub
         fetchProducts({ sub: sub })
     }
@@ -240,9 +251,38 @@ const Shop = () => {
         setPrice([0, 0]);
         setCategoryIds([]);
         setStar('');
+        setColor('');
         setBrand(e.target.value);
         // console.log('Here is targetd brand value', e.target.value)
         fetchProducts({ brand: e.target.value });
+    }
+
+    //8. show products based on colors
+    const showColors = () => colors.map((c) => (
+        <Radio
+            value={c}
+            name={c}
+            checked={c === color}
+            onChange={handleColor}
+            className='pb-1 ml-4 pr-4'
+        >
+
+            {c}
+        </Radio>
+    ))
+
+    const handleColor = (e) => {
+        setSub('');
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" }
+        });
+        setPrice([0, 0]);
+        setCategoryIds([]);
+        setStar('');
+        setBrand('');
+        setColor(e.target.value)
+        fetchProducts({ color: e.target.value })
     }
 
 
@@ -255,7 +295,7 @@ const Shop = () => {
                     </h4>
 
                     <hr />
-                    <Menu defaultOpenKeys={['1', '2', '3', '4', '5']} mode='inline'>
+                    <Menu defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7']} mode='inline'>
                         {/* Price */}
                         <SubMenu key={'1'}
                             title={
@@ -317,6 +357,19 @@ const Shop = () => {
                                 {showBrands()}
                             </div>
                         </SubMenu>
+
+                        {/* Colors */}
+                        <SubMenu key={'6'}
+                            title={
+                                <span className='flex items-center text-xl gap-3'>
+                                    <DownSquareOutlined /> Colors
+                                </span>
+                            }>
+                            <div className='flex flex-wrap w-4/5'>
+                                {showColors()}
+                            </div>
+                        </SubMenu>
+
                     </Menu>
                 </div>
                 <div className='col-span-9 ml-2'>
