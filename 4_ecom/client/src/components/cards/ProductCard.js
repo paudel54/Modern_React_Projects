@@ -1,6 +1,6 @@
 
-import React from 'react'
-import { Card } from 'antd';
+import React, { useState } from 'react'
+import { Card, Tooltip } from 'antd';
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 //defalut image if no image is available
 import laptop from '../../images/computer/laptop.png';
@@ -9,8 +9,10 @@ import { showAverage } from '../functions/rating';
 import _ from "lodash";
 
 const ProductCard = ({ product }) => {
+    const [tooltip, setTooltip] = useState('Click to add');
 
     const handleAddToCart = () => {
+
         //create cart array: cart info being saved into local storage might contains one or many products
         let cart = []
         if (typeof window !== 'undefined') {
@@ -33,6 +35,9 @@ const ProductCard = ({ product }) => {
             // console.log('unique', unique)
             //on saving or setting onto local storage we need to stringify data first
             localStorage.setItem('cart', JSON.stringify(unique))
+
+            //show toolTip
+            setTooltip("Added");
         }
     };
 
@@ -54,9 +59,11 @@ const ProductCard = ({ product }) => {
                         <Link to={`/product/${slug}`}><EyeOutlined class='text-blue-500 flex justify-center text-xl' />
                             <br /> View Product </Link>,
                         //On click save to local Storage.
-                        <a onClick={handleAddToCart} href='/#'>
-                            <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
-                        </a>
+                        <Tooltip title={tooltip}>
+                            <a onClick={handleAddToCart} href='/#'>
+                                <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
+                            </a>
+                        </Tooltip>
                     ]
                 }
             >
