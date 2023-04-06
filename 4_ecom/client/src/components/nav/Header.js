@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import firebase from 'firebase/compat/app';
 import Search from "../forms/Search";
 
@@ -9,6 +9,8 @@ import {
     UserOutlined,
     UserAddOutlined,
     ShoppingOutlined,
+    ShoppingCartOutlined,
+
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +22,8 @@ const Header = () => {
     const [current, setCurrent] = useState("home");
     let dispatch = useDispatch();
     // useSelector hooks takes fn as arguments
-    let { user } = useSelector((state) => ({ ...state }));
+    //accessing from redux state
+    let { user, cart } = useSelector((state) => ({ ...state }));
     console.log(user);
     const navigate = useNavigate();
 
@@ -51,6 +54,15 @@ const Header = () => {
                 {/* {JSON.stringify(state)} */}
                 {/* -{JSON.stringify(user)} */}
             </Item>
+
+            <Item key="cart" icon={<ShoppingCartOutlined />}>
+                <Link to="/cart">
+                    <Badge count={cart.length} offset={[9, 0]}>
+                        Cart
+                    </Badge>
+                </Link>
+            </Item>
+
 
             {(!user && (<Item key="register" icon={<UserAddOutlined />} className="float-right">
                 <Link to="/register">Register</Link>

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // react carousel
 import { Carousel } from 'react-responsive-carousel';
-import { Card, Tabs } from 'antd'
+import { Card, Tabs, Tooltip } from 'antd'
 import { Link } from 'react-router-dom';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import Laptop from '../../images/computer/laptop.png'
@@ -10,12 +10,57 @@ import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
 
 import { showAverage } from '../functions/rating';
+import _ from "lodash";
+//redux store to select and update 
+import { useSelector, useDispatch } from 'react-redux';
+;
+
 
 const { TabPane } = Tabs;
 //this is single component of product page:
 const SingleProduct = ({ product, onStarClick, star }) => {
+    const [tooltip, setTooltip] = useState('Click to add');
+    //redux
+    const { user, cart } = useSelector((state) => ({ ...state }));
+    const dispatch = useDispatch();
+
     const { title, images, description, _id } = product;
     // const { Meta } = Card
+
+    const handleAddToCart = () => {
+
+        //create cart array: cart info being saved into local storage might contains one or many products
+        let cart = []
+        if (typeof window !== 'undefined') {
+            //.getItem is used to access any key paramater of localStorage!
+            if (localStorage.getItem('cart')) {
+                //items are stored in localStorage as JSON data so, we need to use JSON.parse()
+                //get item and update ot cart variable or array!
+                cart = JSON.parse(localStorage.getItem('cart'));
+                console.log('hello i am inside localStorage Get item')
+            }
+            //push new product to cart
+            cart.push({
+                ...product,
+                count: 1,
+            });
+            //remove Duplicates with npm package loadash. method uniqWith
+            //removes duplicate objects from array of objects and keep every objects unique
+            let unique = _.uniqWith(cart, _.isEqual)
+            //save to localStorage
+            // console.log('unique', unique)
+            //on saving or setting onto local storage we need to stringify data first
+            localStorage.setItem('cart', JSON.stringify(unique))
+            //show toolTip
+            setTooltip("Added");
+
+            //Add to redux state
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: unique,
+            });
+        }
+    };
     return (
         <div className='grid grid-cols-12 '>
             <div className='col-span-7'>
@@ -50,10 +95,15 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                 </div>
                 <div className='text-2xl font-bold'>
                     <Card actions={[
-                        <>
-                            <ShoppingCartOutlined className='text-green-500' /><br />
-                            Add to Cart
-                        </>,
+                        // <>
+                        //     <ShoppingCartOutlined className='text-green-500' /><br />
+                        //     Add to Cart
+                        // </>,
+                        <Tooltip title={tooltip}>
+                            <a onClick={handleAddToCart} href='#/'>
+                                <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
+                            </a>
+                        </Tooltip>,
                         <Link to="/"><HeartOutlined className='text-blue-400' /> <br />
                             Add to Wishlist</Link>,
                         <RatingModal>

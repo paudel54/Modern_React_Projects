@@ -7,9 +7,15 @@ import laptop from '../../images/computer/laptop.png';
 import { useNavigate, Link } from 'react-router-dom';
 import { showAverage } from '../functions/rating';
 import _ from "lodash";
+//redux store to select and update 
+import { useSelector, useDispatch } from 'react-redux';
 
 const ProductCard = ({ product }) => {
     const [tooltip, setTooltip] = useState('Click to add');
+
+    //redux
+    const { user, cart } = useSelector((state) => ({ ...state }));
+    const dispatch = useDispatch();
 
     const handleAddToCart = () => {
 
@@ -37,6 +43,12 @@ const ProductCard = ({ product }) => {
             localStorage.setItem('cart', JSON.stringify(unique))
             //show toolTip
             setTooltip("Added");
+
+            //Add to redux state
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: unique,
+            });
         }
     };
 
@@ -59,7 +71,7 @@ const ProductCard = ({ product }) => {
                             <br /> View Product </Link>,
                         //On click save to local Storage.
                         <Tooltip title={tooltip}>
-                            <a onClick={handleAddToCart} href='/#'>
+                            <a onClick={handleAddToCart} href='#/'>
                                 <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
                             </a>
                         </Tooltip>
