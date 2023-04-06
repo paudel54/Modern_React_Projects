@@ -35,7 +35,6 @@ const ProductCard = ({ product }) => {
             // console.log('unique', unique)
             //on saving or setting onto local storage we need to stringify data first
             localStorage.setItem('cart', JSON.stringify(unique))
-
             //show toolTip
             setTooltip("Added");
         }
