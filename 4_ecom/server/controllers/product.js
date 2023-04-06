@@ -246,7 +246,14 @@ const handleStar = (req, res, stars) => {
     //         });
 
     // })
-
+}
+const handleSub = async (req, res, sub) => {
+    //query db to find product based on subs
+    const products = await Product.find({ subs: sub })
+        .populate('category')
+        .populate('subs')
+        .exec();
+    res.json(products);
 }
 
 
@@ -255,7 +262,7 @@ const handleStar = (req, res, stars) => {
 //for example one can be from slider, next be form , next filter star and so on!
 exports.searchFilters = async (req, res) => {
 
-    const { query, price, category, stars } = req.body
+    const { query, price, category, stars, sub } = req.body
     if (query) {
         console.log('query', query)
         await handleQuery(req, res, query);
@@ -276,5 +283,11 @@ exports.searchFilters = async (req, res) => {
         console.log('Stars -------->', stars)
         await handleStar(req, res, stars)
     }
+
+    if (sub) {
+        console.log('Sub ----->', sub);
+        await handleSub(req, res, sub);
+    }
 }
+
 

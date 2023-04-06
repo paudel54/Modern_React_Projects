@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { getProductsByCount, fetchProductsByFilter } from '../components/functions/product'
 import { getCategories } from '../components/functions/category';
+import { getSubs } from '../components/functions/sub';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../components/cards/ProductCard';
 import { Menu, Slider, Checkbox } from 'antd';
@@ -24,6 +25,9 @@ const Shop = () => {
     const [categoryIds, setCategoryIds] = useState([]);
     //state sys for star
     const [star, setStar] = useState('');
+    //state to hold  respose of sub category data from server
+    const [subs, setSubs] = useState([]);
+    const [sub, setSub] = useState([]);
 
     //for slider request control
     const [ok, setOk] = useState(false);
@@ -36,6 +40,8 @@ const Shop = () => {
         loadAllProducts();
         //fetch Categories
         getCategories().then((res) => setCategories(res.data));
+        //fetch Subcategories
+        getSubs().then((res) => setSubs(res.data));
     }, []);
 
     const loadAllProducts = () => {
@@ -86,6 +92,7 @@ const Shop = () => {
         setCategoryIds([]);
         setPrice(value);
         setStar("");
+        setSub('');
         setTimeout(() => {
             setOk(!ok);
         }, 400);
@@ -115,6 +122,7 @@ const Shop = () => {
         });
         setPrice([0, 0]);
         setStar("");
+        setSub('');
         // console.log('target value console', e.target.value);
         //check dublicate. if clicked on checkbox store to state, if unclicked remove from state and again if checked put onto state:
         let inTheState = [...categoryIds];
@@ -145,6 +153,7 @@ const Shop = () => {
         setPrice([0, 0]);
         setCategoryIds([]);
         setStar(num);
+        setSub('');
         fetchProducts({ stars: num })
 
     }
@@ -159,6 +168,33 @@ const Shop = () => {
             <Star starClick={handleStarClick} numberOfStars={1} />
         </div>
     )
+    //6. Show Products By Sub Categories.
+
+    const showSubs = () => subs.map((s) => <div>
+        <div key={s._id} onClick={() => handleSub(s)} style={{ cursor: "pointer" }}>
+            <div className='p-3 bg-gray-400 m-1 w-max rounded'>
+                {s.name}
+            </div>
+        </div>
+    </div>
+
+    )
+
+    //6.Show SUb
+    const handleSub = (sub) => {
+        // console.log(sub)
+        setSub(sub);
+        //reset other value
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" }
+        });
+        setPrice([0, 0]);
+        setCategoryIds([]);
+        setStar('');
+        //fetch all product based on sub
+        fetchProducts({ sub: sub })
+    }
 
     return (
         <div>
@@ -169,7 +205,7 @@ const Shop = () => {
                     </h4>
 
                     <hr />
-                    <Menu defaultOpenKeys={['1', '2', '3']} mode='inline'>
+                    <Menu defaultOpenKeys={['1', '2', '3', '4']} mode='inline'>
                         {/* Price */}
                         <SubMenu key={'1'}
                             title={
@@ -209,13 +245,24 @@ const Shop = () => {
                                 {showStars()}
                             </div>
                         </SubMenu>
+                        {/* SubCategory */}
+                        <SubMenu key={'4'}
+                            title={
+                                <span className='flex items-center text-xl gap-3'>
+                                    <DownSquareOutlined /> Sub Categories
+                                </span>
+                            }>
+                            <div className='flex flex-wrap w-4/5'>
+                                {showSubs()}
+                            </div>
+                        </SubMenu>
                     </Menu>
                 </div>
-                <div className='col-span-9 pt-2'>
+                <div className='col-span-9 ml-2'>
                     {loading ? (<h4>Loading....</h4>) : (<h4 className='text-red-500 text-3xl font-bold'>Products</h4>)}
                     {products.length < 1 && <p>No Products Found</p>}
 
-                    <div className='flex flex-wrap gap-8'>
+                    <div className='flex flex-wrap gap-7'>
                         {products.map((p) => (<div key={p._id} className='grid-span-4'> <ProductCard product={p} /> </div>))}
                     </div>
                 </div>
@@ -225,3 +272,6 @@ const Shop = () => {
 }
 
 export default Shop
+
+
+
