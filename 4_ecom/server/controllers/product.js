@@ -256,13 +256,38 @@ const handleSub = async (req, res, sub) => {
     res.json(products);
 }
 
+const handleShipping = async (req, res, shipping) => {
+    //FIND based on Shipping, query to product model
+    const products = await Product.find({ shipping })
+        .populate('category')
+        .populate('subs')
+        .exec();
+    res.json(products);
+}
+
+const handleColor = async (req, res, color) => {
+    const products = await Product.find({ color })
+        .populate('category')
+        .populate('subs')
+        .exec()
+    res.json(products)
+}
+
+const handleBrand = async (req, res, brand) => {
+    const products = await Product.find({ brand })
+        .populate('category')
+        .populate('subs')
+        .exec()
+    res.json(products)
+}
+
 
 
 //everytime the query input we might get be different
 //for example one can be from slider, next be form , next filter star and so on!
 exports.searchFilters = async (req, res) => {
 
-    const { query, price, category, stars, sub } = req.body
+    const { query, price, category, stars, sub, shipping, color, brand } = req.body
     if (query) {
         console.log('query', query)
         await handleQuery(req, res, query);
@@ -287,6 +312,19 @@ exports.searchFilters = async (req, res) => {
     if (sub) {
         console.log('Sub ----->', sub);
         await handleSub(req, res, sub);
+    }
+
+    if (shipping) {
+        console.log('Shipping --------->', shipping)
+        await handleShipping(req, res, shipping)
+    }
+    if (color) {
+        console.log('Color--------->', color)
+        await handleColor(req, res, color)
+    }
+    if (brand) {
+        console.log('Brand --------->', brand)
+        await handleBrand(req, res, brand)
     }
 }
 
