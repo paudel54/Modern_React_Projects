@@ -20,7 +20,8 @@ const Login = () => {
 
     useEffect(() => {
         let { redirect } = location.state || {};
-        // console.log('logging redirect data', redirect)
+        // console.log('Lets see value in Location useEffect', location)
+        // console.log('logging redirect data useEffect', redirect)
         if (redirect) {
             return;
         } else {
@@ -33,6 +34,8 @@ const Login = () => {
         //check if intented page on 
 
         let { redirect } = location.state;
+        // console.log('Lets see value in Location role based redirect', location)
+        // console.log('checking the redirect value form cart role based', redirect)
 
         if (redirect) {
             navigate(`/${redirect}`);
@@ -54,7 +57,7 @@ const Login = () => {
         // console.log(email, password)
         try {
             const result = await auth.signInWithEmailAndPassword(email, password)
-            console.log('this is result', result)
+            // console.log('this is result', result)
             // console.log('Hello sansrit si fuu!!!!!!!')
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult()
@@ -63,7 +66,7 @@ const Login = () => {
             createOrUpdateUser(idTokenResult.token)
                 // .then(res => console.log("create or update response", res))
                 .then((res) => {
-                    console.log('RESPONSE FROM SERVER ', res)
+                    // console.log('RESPONSE FROM SERVER ', res)
                     dispatch({
                         type: "LOGGED_IN_USER",
                         payload: {
@@ -87,12 +90,12 @@ const Login = () => {
             //         token: idTokenResult.token
             //     }
             // });
-            console.log('you are about to navigate');
+            // console.log('you are about to navigate');
             // navigate('/');
             // role based redirect
         }
         catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error(error.message);
             setLoading(false);
         }
@@ -135,7 +138,7 @@ const Login = () => {
                 // navigate('/');
             })
             .catch((e) => {
-                console.log(e);
+                // console.log(e);
                 toast.error(e.message);
             }
             );
