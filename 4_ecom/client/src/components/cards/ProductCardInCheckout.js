@@ -3,6 +3,7 @@ import ModalImage from "react-modal-image";
 import laptop from '../../images/computer/laptop.png';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { CheckCircleOutlined, CloseCircleOutlined, CloseOutlined } from '@ant-design/icons';
 
 const ProductCardInCheckout = ({ p }) => {
     let dispatch = useDispatch();
@@ -69,9 +70,33 @@ const ProductCardInCheckout = ({ p }) => {
                 payload: cart,
             });
         }
+    }
 
+    const handleRemove = () => {
+        // console.log('product id to remove ', p._id)
+        //remove from local storage and redux store
+        let cart = [];
+        if (typeof window !== "undefined") {
+            if (localStorage.getItem("cart")) {
+                cart = JSON.parse(localStorage.getItem("cart"));
+            }
 
+            //update to Local Storage
+            cart.map((product, i) => {
+                if (product._id === p._id) {
+                    //i is index from where it removes , 2nd argument  is how many items you want to remove
+                    cart.splice(i, 1);
+                }
+                return product;
 
+            });
+            //update to redux store
+            localStorage.setItem("cart", JSON.stringify(cart));
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: cart,
+            });
+        }
     }
 
     return (
@@ -101,11 +126,15 @@ const ProductCardInCheckout = ({ p }) => {
                         {colors.filter((c) => c !== p.color).map((c) => <option key={c} value={c}>{c}</option>)}
                     </select>
                 </td>
-                <td className='px-6 py-4 '>
-                    <input type='number' value={p.count} onChange={handleQuantityChange} />
+                <td className='px-6 py-4 text-center'>
+                    <input type='number' value={p.count} onChange={handleQuantityChange} className='w-[90%]' />
                 </td>
-                <td className='px-6 py-4'>Shipping Icon</td>
-                <td className='px-6 py-4'>Delete Icon</td>
+                <td className='px-6 py-4 text-center'>
+                    {p.shipping === "Yes" ? <CheckCircleOutlined className='text-green-700' /> : <CloseCircleOutlined className='text-red-700' />}
+                </td>
+                <td className='px-6 py-4 text-center'>
+                    <CloseOutlined onClick={handleRemove} className='text-red-700 pointer' />
+                </td>
 
             </tr>
         </tbody>
