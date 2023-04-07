@@ -11,4 +11,7 @@ obj2.password = '333';
 console.log('log from obj1', obj1); ///output { name: 'Mark', password: '333' }
 console.log('log from obj2', obj2);//{ name: 'Mark', password: '333' }
 //Object1 and Object2 are pointing to same
-//memory locations. 
+//memory locations.
+
+
+//https://www.executeprogram.com/courses/typescript-basics/lessons/basic-types?interactive=1 learn TS best resource

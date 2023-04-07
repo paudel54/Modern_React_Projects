@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema(
             type: ObjectId,
             ref: "Sub",
         }],
-
+        //total stock amount. use to control on user purchase 
         quantity: Number,
 
         sold: {
