@@ -27,6 +27,7 @@ import SubHome from './pages/sub/SubHome';
 import Shop from './pages/Shop';
 
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 
 // implement protected Routes:
@@ -113,6 +114,7 @@ function App() {
             <Route path='/user/history' element={<History />} />
             <Route path='/user/password' element={<Password />} />
             <Route path='/user/wishlist' element={<Wishlist />} />
+            <Route path='/checkout' element={<Checkout />} />
           </Route>
           {/* Protected Route For Admin */}
           <Route element={<AdminRoute />}>
