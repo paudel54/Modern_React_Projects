@@ -1,10 +1,11 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Login from './pages/auth/Login'
-import Register from './pages/auth/Register'
-import Home from './pages/Home'
-import Header from './components/nav/Header'
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Home from './pages/Home';
+import Header from './components/nav/Header';
+import SideDrawer from './components/drawer/SideDrawer';
 import RegisterComplete from './pages/auth/RegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword'
 
@@ -26,6 +27,7 @@ import SubHome from './pages/sub/SubHome';
 import Shop from './pages/Shop';
 
 import Cart from './pages/Cart';
+
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -87,6 +89,8 @@ function App() {
       <>
         {/* <RegisterComplete /> */}
         <Header />
+        {/* adding component sidebar so it's accessibale form anywhere */}
+        <SideDrawer />
         <ToastContainer />
 
         <Routes>
