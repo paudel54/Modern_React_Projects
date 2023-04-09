@@ -49,6 +49,13 @@ const ProductCard = ({ product }) => {
                 type: "ADD_TO_CART",
                 payload: unique,
             });
+            //show cart items on sideDrawer
+            dispatch(
+                {
+                    type: "SET_VISIBLE",
+                    payload: true,
+                }
+            );
         }
     };
 
