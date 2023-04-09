@@ -17,10 +17,11 @@ exports.userCart = async (req, res) => {
     //     console.log("removed old cart");
     //     console.log('this is Cart existed by USer inside Condition', cartExistByThisUser);
     // }
-    let cartExistByThisUser = await Cart.findOne({ orderedBy: user._id }).exec();
+    //modifying final before proceed to checkout
+    let cartExistByThisUser = await Cart.findOne({ oooooorderedBy: user._id }).exec();
     console.log('this is Cart existed by USer inside Condition', cartExistByThisUser);
     if (cartExistByThisUser) {
-        cartExistByThisUser.remove();
+        cartExistByThisUser.remove()
         console.log("removed old cart");
     }
 
