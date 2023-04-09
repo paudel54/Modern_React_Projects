@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ProductCardInCheckout from '../components/cards/ProductCardInCheckout';
+import { userCart } from '../components/functions/user';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -18,8 +19,16 @@ const Cart = () => {
     }
 
     const saveOrderToDb = () => {
-        alert('Save Order to Db');
-        navigate('/checkout')
+        // alert('Save Order to Db');
+        // console.log("cart", JSON.stringify(cart))
+        userCart(cart, user.token)
+            .then(res => {
+                console.log('Cart Post respose', res)
+                if (res.data.ok) navigate('/checkout')
+            })
+            .catch((e) => console.log("Cart Save Error", e));
+
+
     }
 
     const showCartItems = () => {
