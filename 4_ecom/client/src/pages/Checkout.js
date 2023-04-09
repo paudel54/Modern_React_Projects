@@ -36,14 +36,18 @@ const Checkout = () => {
                 </div>
                 <div className='col-span-6 space-y-2 p-2'>
                     <h4 className='text-2xl font-bold'>Order Summary</h4>
-                    <h1>total amount {total} total products {products.length}</h1>
-                    {JSON.stringify(products)}
+                    {/* <h1>total amount {total} total products {products.length}</h1>
+                    {JSON.stringify(products)} */}
                     <hr />
-                    <p>Products</p>
+                    <p>Products {products.length}</p>
                     <hr />
-                    <p>List of Products</p>
+                    <p>{products.map((p, i) => (
+                        <div key={i}>
+                            <p>{p.product.title} ({p.color}) x {p.count} = {p.product.price * p.count} </p>
+                        </div>
+                    ))}</p>
                     <hr />
-                    <p>Cart Total: $x</p>
+                    <p>Cart Total: {total}</p>
 
                     <div>
                         <div>
