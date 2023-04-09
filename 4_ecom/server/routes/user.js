@@ -5,10 +5,12 @@ const router = express.Router();
 //middleWares
 const { authCheck } = require("../middlewares/auth");
 //controllers
-const { userCart } = require("../controllers/user");
+const { userCart, getUserCart } = require("../controllers/user");
 
-//saving user Cart
-router.post('/cart', authCheck, userCart);//saveCart
+//saving user Cart, before checkout to db
+router.post('/user/cart', authCheck, userCart);//saveCart
+//get cart to checkout from db
+router.get('/user/cart', authCheck, getUserCart);
 
 
 // router.get('/user', (req, res) => res.json({
