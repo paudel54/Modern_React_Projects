@@ -17,4 +17,13 @@ export const getUserCart = async (authtoken) =>
         },
     });
 
+//put method to update data on server and requires a body
+export const emptyUserCart = async (authtoken) =>
+    await axios.delete(`${process.env.REACT_APP_API}/user/cart`, {
+        headers: {
+            authtoken,
+        },
+    });
+
+
 

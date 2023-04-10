@@ -18,7 +18,7 @@ exports.userCart = async (req, res) => {
     //     console.log('this is Cart existed by USer inside Condition', cartExistByThisUser);
     // }
     //modifying final before proceed to checkout
-    let cartExistByThisUser = await Cart.findOne({ oooooorderedBy: user._id }).exec();
+    let cartExistByThisUser = await Cart.findOne({ orderedBy: user._id }).exec();
     console.log('this is Cart existed by USer inside Condition', cartExistByThisUser);
     if (cartExistByThisUser) {
         cartExistByThisUser.remove()
@@ -66,3 +66,16 @@ exports.getUserCart = async (req, res) => {
     //access onto frontend with . req.data.products, req.data.cartTotal, ...
 }
 
+
+// exports.emptyCart = async (req, res) => {
+//     const user = await User.findOne({ email: req.user.email }).exec();
+//     const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
+//     res.json(cart);
+// }
+
+exports.emptyCart = async (req, res) => {
+    console.log("empty cart");
+    const user = await User.findOne({ email: req.user.email }).exec();
+    const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
+    res.json(cart);
+};
