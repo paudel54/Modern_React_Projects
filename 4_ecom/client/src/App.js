@@ -28,7 +28,7 @@ import Shop from './pages/Shop';
 
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-
+import CreateCouponPage from './pages/coupon/CreateCouponPage';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -125,6 +125,7 @@ function App() {
             <Route path="/admin/sub" element={< SubCreate />} />
             <Route path="admin/products" element={<AllProducts />} />
             <Route path="admin/product" element={<ProductCreate />} />
+            <Route path="admin/coupon" element={<CreateCouponPage />} />
             <Route path="admin/product/:slug" element={<ProductUpdate />} />
           </Route>
 
