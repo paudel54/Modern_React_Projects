@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { emptyUserCart, getUserCart, saveUserAddress } from '../components/functions/user';
+import { applyCoupon, emptyUserCart, getUserCart, saveUserAddress } from '../components/functions/user';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -15,9 +15,11 @@ const Checkout = () => {
     const [address, setAddress] = useState("");
     //to confirm address have been Saved
     const [addressSaved, setAddressSaved] = useState(false);
-
     //coupon on state from input
     const [coupon, setCoupon] = useState('');
+    //one we get response form server for discounted price handle it on state
+    const [totalAfterDiscount, setTotalAfterDiscount] = useState('');
+    const [discountError, setDiscountError] = useState('');
 
     useEffect(() => {
         getUserCart(user.token)
@@ -104,7 +106,21 @@ const Checkout = () => {
     }
 
     const applyDiscountCoupon = () => {
-        console.log('Send Coupon to Backend', coupon)
+        // console.log('Send Coupon to Backend', coupon)
+        //send coupon and user token to backend and get discounted price on client as reponse. 
+        //we want to get access to discounted price from multiple sections so, we need redux store.
+        applyCoupon(user.token, coupon)
+            .then(res => {
+                console.log('Response on coupon Applied', res.data);
+                if (res.data) {
+                    setTotalAfterDiscount(res.data)
+                    //push the totalAfterDiscount to redux|| update redux coupon applied
+                }
+                if (res.data.error) {
+                    setDiscountError(res.data.err);
+                    //update redux coupon applied
+                }
+            })
     }
 
     return (
