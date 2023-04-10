@@ -88,6 +88,9 @@ const Shop = () => {
         //setting up delay to slower request rate
         const delayed = setTimeout(() => {
             fetchProducts({ query: text })
+            if (!text) {
+                loadAllProducts();
+            }
         }, 400)
         return () => clearTimeout(delayed)
 

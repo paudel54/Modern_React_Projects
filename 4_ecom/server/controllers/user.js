@@ -18,7 +18,7 @@ exports.userCart = async (req, res) => {
     //     console.log('this is Cart existed by USer inside Condition', cartExistByThisUser);
     // }
     //modifying final before proceed to checkout
-    let cartExistByThisUser = await Cart.findOne({ orderedBy: user._id }).exec();
+    let cartExistByThisUser = await Cart.findOne({ oooooorderedBy: user._id }).exec();
     console.log('this is Cart existed by USer inside Condition', cartExistByThisUser);
     if (cartExistByThisUser) {
         cartExistByThisUser.remove()
@@ -34,8 +34,8 @@ exports.userCart = async (req, res) => {
         object.color = cart[i].color;
         //get price for creating total
         //query from db to check the price, if not someone can edit on front end and send low rate request to backend
-        let { price } = await Product.findById(cart[i]._id).select('price').exec();
-        object.price = price;
+        let productFromDb = await Product.findById(cart[i]._id).select('price').exec();
+        object.price = productFromDb.price;
 
         products.push(object);
     }
@@ -79,3 +79,9 @@ exports.emptyCart = async (req, res) => {
     const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
     res.json(cart);
 };
+
+exports.saveAddress = async (req, res) => {
+    //findOneAndUpdate, contains two parameter, how to find by and what to Update
+    const userAddress = await User.findOneAndUpdate({ email: req.user.email }, { address: req.body.address }).exec();
+    res.json({ ok: true });
+}
