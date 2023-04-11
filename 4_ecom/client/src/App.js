@@ -29,6 +29,7 @@ import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import CreateCouponPage from './pages/coupon/CreateCouponPage';
+import Payment from './pages/Payment';
 
 // implement protected Routes:
 import UserRoute from './components/routes/UserRoute';
@@ -115,6 +116,7 @@ function App() {
             <Route path='/user/password' element={<Password />} />
             <Route path='/user/wishlist' element={<Wishlist />} />
             <Route path='/checkout' element={<Checkout />} />
+            <Route path='/payment' element={<Payment />} />
           </Route>
           {/* Protected Route For Admin */}
           <Route element={<AdminRoute />}>

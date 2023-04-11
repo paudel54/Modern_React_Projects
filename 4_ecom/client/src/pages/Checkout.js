@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { applyCoupon, emptyUserCart, getUserCart, saveUserAddress } from '../components/functions/user';
+import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -20,6 +21,7 @@ const Checkout = () => {
     //one we get response form server for discounted price handle it on state
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
     const [discountError, setDiscountError] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         getUserCart(user.token)
@@ -95,11 +97,19 @@ const Checkout = () => {
             console.log("RES ON COUPON APPLIED", res);
             if (res.data) {
                 setTotalAfterDiscount(res.data.totalAfterDiscount);
-                //update redux coupon applied
+                //update redux coupon applied true/false
+                dispatch({
+                    type: "COUPON_APPLIED",
+                    payload: true,
+                })
             }
             if (res.data.err) {
                 setDiscountError(res.data.err)
                 //update redux coupon applied
+                dispatch({
+                    type: "COUPON_APPLIED",
+                    payload: false,
+                })
             }
         });
     };
@@ -156,10 +166,12 @@ const Checkout = () => {
 
                     <div>
                         <div>
-                            <button disabled={!addressSaved || !products.length} className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
+                            <button onClick={() => navigate('/payment')} disabled={!addressSaved || !products.length}
+                                className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
                                 Place Order
                             </button>
-                            <button onClick={emptyCart} disabled={!products.length} className='text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
+                            <button onClick={emptyCart} disabled={!products.length}
+                                className='text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
                                 Empty Cart
                             </button>
                         </div>
