@@ -97,30 +97,19 @@ const Checkout = () => {
             <hr />
         </>
     }
+    const applyDiscountCoupon = () => {
+        console.log("send coupon to backend", coupon);
+        applyCoupon(user.token, coupon).then((res) => {
+            console.log("RES ON COUPON APPLIED", res);
+        });
+    };
+
 
     const showApplyCoupon = () => {
         return <>
             <input type='text' onChange={(e) => setCoupon(e.target.value)} value={coupon} className='bg-green-50 border border-green-500  placeholder-black-700  text-sm rounded-lg block w-1/4 p-2.5 outline-none' />
             <button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none' onClick={applyDiscountCoupon}>Apply</button>
         </>
-    }
-
-    const applyDiscountCoupon = () => {
-        // console.log('Send Coupon to Backend', coupon)
-        //send coupon and user token to backend and get discounted price on client as reponse. 
-        //we want to get access to discounted price from multiple sections so, we need redux store.
-        applyCoupon(user.token, coupon)
-            .then(res => {
-                console.log('Response on coupon Applied', res.data);
-                if (res.data) {
-                    setTotalAfterDiscount(res.data)
-                    //push the totalAfterDiscount to redux|| update redux coupon applied
-                }
-                if (res.data.error) {
-                    setDiscountError(res.data.err);
-                    //update redux coupon applied
-                }
-            })
     }
 
     return (
@@ -134,7 +123,10 @@ const Checkout = () => {
                     <br />
 
                     <div>{showApplyCoupon()}</div>
-                    Coupon input and apply Button
+                    <br />
+                    {discountError && <p className='text-red-600 text-xl font-bold p-2'>{discountError}</p>}
+
+                    {JSON.stringify(discountError)}
                 </div>
                 <div className='col-span-6 space-y-2 p-2'>
                     <h4 className='text-2xl font-bold'>Order Summary</h4>

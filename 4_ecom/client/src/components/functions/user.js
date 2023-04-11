@@ -27,7 +27,7 @@ export const emptyUserCart = async (authtoken) =>
 
 //sending address to backend
 
-export const saveUserAddress = async (authtoken, address) => {
+export const saveUserAddress = async (authtoken, address) =>
     await axios.post(
         `${process.env.REACT_APP_API}/user/address`,
         { address },
@@ -37,11 +37,9 @@ export const saveUserAddress = async (authtoken, address) => {
             },
         }
     );
-}
 
 //applyCoupon
-
-export const applyCoupon = async (authtoken, coupon) => {
+export const applyCoupon = async (authtoken, coupon) =>
     await axios.post(
         `${process.env.REACT_APP_API}/user/cart/coupon`,
         { coupon },
@@ -51,5 +49,3 @@ export const applyCoupon = async (authtoken, coupon) => {
             },
         }
     );
-}
-
