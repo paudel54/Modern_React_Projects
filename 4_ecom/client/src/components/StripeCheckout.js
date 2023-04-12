@@ -98,7 +98,6 @@ const StripeCheckout = () => {
         },
     };
 
-
     return (
         <div>
             <div>
@@ -151,7 +150,5 @@ const StripeCheckout = () => {
 }
 
 export default StripeCheckout
-
-
 
 
