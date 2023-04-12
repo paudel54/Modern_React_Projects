@@ -8,7 +8,7 @@ import { useNavigate, Link } from 'react-router-dom';
 const StripeCheckout = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => ({ ...state }));
+    const { user, coupon } = useSelector((state) => ({ ...state }));
     //state management
     const [succeeded, setSucceeded] = useState(false);
     const [error, setError] = useState(null);
@@ -23,9 +23,9 @@ const StripeCheckout = () => {
     // Request ot backend when component mounts with useEffect
 
     useEffect(() => {
-        createPaymentIntent(user.token)
+        createPaymentIntent(user.token, coupon)
             .then(res => {
-                // console.log('create payment intent', res.data);
+                console.log('create payment intent', res.data);
                 setClientSecret(res.data.clientSecret);
             })
     }, []);
