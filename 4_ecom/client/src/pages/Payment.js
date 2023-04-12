@@ -10,19 +10,13 @@ const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 const Payment = () => {
     return (
         <div>
-            <div className='font-bold text-xl text-center'>
+            <div className='font-bold text-2xl text-center mt-10'>
                 Complete Your Purchase!
             </div>
             <Elements stripe={promise}>
-                <div className='grid grid-cols-12'>
-                    <div className='col-span-8'>
-                        <div className='font-bold text-xl text-green-700'>
-                            Stripe Checkout Component
-                            <StripeCheckout />
-                        </div>
-                    </div>
-                    <div className='col-span-4'>
-                        Krishna JI
+                <div className='text-center'>
+                    <div className='font-bold text-xl w-1/2  mx-auto mt-10 p-5'>
+                        <StripeCheckout />
                     </div>
                 </div>
             </Elements>
