@@ -23,11 +23,37 @@ const History = () => {
     const showOrderInTable = (order) => {
         return <div>
             <p>Each order and it's Products</p>
+
+            <table className=''>
+                <thead>
+                    <tr>
+                        <th scope='col'>Title</th>
+                        <th scope='col'>Price</th>
+                        <th scope='col'>Brand</th>
+                        <th scope='col'>Color</th>
+                        <th scope='col'>Count</th>
+                        <th scope='col'>Shipping</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {order.products.map((p, i) => (
+                        <tr key={i}>
+                            <td><b>{p.product.title}</b></td>
+                            <td>{p.product.price}</td>
+                            <td>{p.product.brand}</td>
+                            <td>{p.color}</td>
+                            <td>{p.count}</td>
+                            <td>{p.product.shipping === "Yes" ? <CheckCircleOutlined style={{ color: 'green' }} /> : <CloseCircleOutlined style={{ color: 'red' }} />}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     }
 
     const showEachOrders = () => orders.map((order, i) => (
-        <div key={i} className='m-5 w-[20rem] p-6 bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100'>
+        <div key={i} className='m-5 w-[80rem]  p-6 bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100'>
             <p>Show Payment Info</p>
             {/* function */}
             {showOrderInTable(order)}
