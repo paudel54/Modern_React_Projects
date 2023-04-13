@@ -5,15 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 import ShowPaymentInfo from '../../components/cards/ShowPaymentInfo';
-import {
-    Document,
-    Page,
-    Text,
-    View,
-    StyleSheet,
-    PDFDownloadLink,
-    PDFViewer
-} from '@react-pdf/renderer';
+import Invoice from '../../components/order/Invoice';
+
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 // create 2 columns left add navigation bar
 
@@ -64,16 +58,8 @@ const History = () => {
 
     const showDownloadLink = (order) => {
         return <div>
-            <PDFDownloadLink document={
-                <Document>
-                    <Page size='A4'>
-                        <View>
-                            <Text>Section #1</Text>
-                            <Text>Section #2</Text>
-                        </View>
-                    </Page>
-                </Document>
-            }
+            <PDFDownloadLink
+                document={<Invoice order={order} />}
                 className='<mt-15 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2'
                 fileName='invoice.pdf'
             >
