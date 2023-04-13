@@ -78,8 +78,9 @@ const ProductCard = ({ product }) => {
                             <br /> View Product </Link>,
                         //On click save to local Storage.
                         <Tooltip title={tooltip}>
-                            <a onClick={handleAddToCart} href='#/'>
-                                <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
+                            <a onClick={handleAddToCart} href='#/' disabled={product.quantity < 1}>
+                                <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br />
+                                {product.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
                             </a>
                         </Tooltip>
                     ]
