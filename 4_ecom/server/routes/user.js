@@ -5,7 +5,7 @@ const router = express.Router();
 //middleWares
 const { authCheck } = require("../middlewares/auth");
 //controllers
-const { userCart, getUserCart, emptyCart, saveAddress, applyCouponToUserCart, createOrder } = require("../controllers/user");
+const { userCart, getUserCart, emptyCart, saveAddress, applyCouponToUserCart, createOrder, orders } = require("../controllers/user");
 
 //saving user Cart, before checkout to db
 router.post('/user/cart', authCheck, userCart);//saveCart
@@ -19,6 +19,8 @@ router.post("/user/address", authCheck, saveAddress);
 router.post("/user/cart/coupon", authCheck, applyCouponToUserCart);
 //oder after getting stripe Response:
 router.post("/user/order", authCheck, createOrder);
+//to show user's history of purchase:
+router.get('/user/orders', authCheck, orders);
 
 // router.get('/user', (req, res) => res.json({
 //     data: 'You hit user Api endpoint',

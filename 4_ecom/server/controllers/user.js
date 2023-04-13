@@ -3,6 +3,7 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Coupon = require('../models/coupon');
 const Order = require('../models/order');
+const user = require('../models/user');
 
 exports.userCart = async (req, res) => {
     //console.log(req.body);
@@ -155,3 +156,13 @@ exports.createOrder = async (req, res) => {
     console.log('NEW ORDER SAVED', newOrder);
     res.json({ ok: true });
 }
+//to show user purchase history
+exports.orders = async (req, res) => {
+    let user = await User.findOne({ email: req.user.email }).exec()
+    //query orders, based on user order id: products is array and one level down
+    let userOrders = await Order.find({ orderedBy: user._id })
+        .populate('products.product')
+        .exec();
+    res.json(userOrders);
+}
+
