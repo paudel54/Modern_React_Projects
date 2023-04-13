@@ -5,6 +5,7 @@ import { getOrders, changeStatus } from '../../components/functions/admin';
 //Access Redux store.
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import Orders from '../../components/order/Orders';
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -35,8 +36,9 @@ const AdminDashboard = () => {
       <div className='col-span-2'><AdminNav /></div>
 
       <div className='col-span-10'>
-        <div className=''>Admin Dashboard</div>
-        {JSON.stringify(orders)}
+        {/* <div className=''>Admin Dashboard</div> */}
+        {/* {JSON.stringify(orders)} */}
+        <Orders orders={orders} handleStatusChange={handleStatusChange} />
       </div>
     </div>
   )
