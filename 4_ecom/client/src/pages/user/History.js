@@ -5,6 +5,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 import ShowPaymentInfo from '../../components/cards/ShowPaymentInfo';
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    PDFDownloadLink,
+    PDFViewer
+} from '@react-pdf/renderer';
 
 // create 2 columns left add navigation bar
 
@@ -53,6 +62,27 @@ const History = () => {
         </div>
     }
 
+    const showDownloadLink = (order) => {
+        return <div>
+            <PDFDownloadLink document={
+                <Document>
+                    <Page size='A4'>
+                        <View>
+                            <Text>Section #1</Text>
+                            <Text>Section #2</Text>
+                        </View>
+                    </Page>
+                </Document>
+            }
+                className='<mt-15 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2'
+                fileName='invoice.pdf'
+            >
+                Download PDF
+            </PDFDownloadLink>
+        </div>
+
+    }
+
     const showEachOrders = () => orders.map((order, i) => (
         <div key={i} className='m-5 w-[80rem]  p-6 bg-gray-100 border border-gray-200 rounded-lg shadow-xl hover:bg-white'>
             <ShowPaymentInfo order={order} />
@@ -60,7 +90,8 @@ const History = () => {
             {showOrderInTable(order)}
             <div>
                 <div>
-                    <p>PDF download</p>
+                    <p className='mb-3'>PDF download</p>
+                    <div>{showDownloadLink(order)}</div>
                 </div>
             </div>
         </div>
@@ -74,10 +105,12 @@ const History = () => {
                 <div className='flex flex-col items-center justify-center '>
                     {showEachOrders()}
                 </div>
-
             </div>
         </div>
     )
 }
 
 export default History
+
+
+
