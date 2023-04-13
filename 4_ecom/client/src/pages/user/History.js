@@ -4,6 +4,7 @@ import { getuserOrders } from '../../components/functions/user';
 import { useSelector, useDispatch } from 'react-redux';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
+import ShowPaymentInfo from '../../components/cards/ShowPaymentInfo';
 
 // create 2 columns left add navigation bar
 
@@ -24,27 +25,27 @@ const History = () => {
         return <div>
             <p>Each order and it's Products</p>
 
-            <table className=''>
-                <thead>
+            <table className='min-w-full text-center text-sm font-light mt-5 mb-5'>
+                <thead className='border-b bg-neutral-800 font-medium text-white'>
                     <tr>
-                        <th scope='col'>Title</th>
-                        <th scope='col'>Price</th>
-                        <th scope='col'>Brand</th>
-                        <th scope='col'>Color</th>
-                        <th scope='col'>Count</th>
-                        <th scope='col'>Shipping</th>
+                        <th scope='col' className='px-6 py-3'>Title</th>
+                        <th scope='col' className='px-6 py-3'>Price</th>
+                        <th scope='col' className='px-6 py-3'>Brand</th>
+                        <th scope='col' className='px-6 py-3'>Color</th>
+                        <th scope='col' className='px-6 py-3'>Count</th>
+                        <th scope='col' className='px-6 py-3'>Shipping</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {order.products.map((p, i) => (
-                        <tr key={i}>
-                            <td><b>{p.product.title}</b></td>
-                            <td>{p.product.price}</td>
-                            <td>{p.product.brand}</td>
-                            <td>{p.color}</td>
-                            <td>{p.count}</td>
-                            <td>{p.product.shipping === "Yes" ? <CheckCircleOutlined style={{ color: 'green' }} /> : <CloseCircleOutlined style={{ color: 'red' }} />}</td>
+                        <tr key={i} className='border-b'>
+                            <td className='p-2'><b>{p.product.title}</b></td>
+                            <td className='p-2'>{p.product.price}</td>
+                            <td className='p-2'>{p.product.brand}</td>
+                            <td className='p-2'>{p.color}</td>
+                            <td className='p-2'>{p.count}</td>
+                            <td className='p-2'>{p.product.shipping === "Yes" ? <CheckCircleOutlined style={{ color: 'green' }} /> : <CloseCircleOutlined style={{ color: 'red' }} />}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -53,8 +54,8 @@ const History = () => {
     }
 
     const showEachOrders = () => orders.map((order, i) => (
-        <div key={i} className='m-5 w-[80rem]  p-6 bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100'>
-            <p>Show Payment Info</p>
+        <div key={i} className='m-5 w-[80rem]  p-6 bg-gray-100 border border-gray-200 rounded-lg shadow-xl hover:bg-white'>
+            <ShowPaymentInfo order={order} />
             {/* function */}
             {showOrderInTable(order)}
             <div>
