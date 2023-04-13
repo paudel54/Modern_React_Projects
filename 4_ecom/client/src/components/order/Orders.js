@@ -20,7 +20,7 @@ const Orders = ({ orders, handleStatusChange }) => {
             <tbody>
                 {order.products.map((p, i) => (
                     <tr key={i} className='border-b-2 border-gray-400'>
-                        <td>
+                        <td className=' p-2'>
                             <b>{p.product.title}</b>
                         </td>
                         <td>{p.product.price}</td>
