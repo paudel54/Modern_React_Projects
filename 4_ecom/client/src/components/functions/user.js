@@ -61,3 +61,11 @@ export const createOrder = async (stripeResponse, authtoken) =>
             },
         }
     );
+//getuserOrders, to show up in user purchase history
+
+export const getuserOrders = async (authtoken) =>
+    await axios.get(`${process.env.REACT_APP_API}/user/orders`, {
+        headers: {
+            authtoken,
+        }
+    })
