@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const { ObjectId } = mongoose.Schema;
-
+// "Added Order Schema to save data after getting stripe payment response"
 //each order will have  Array of Products
 const orderSchema = new mongoose.Schema({
     products: [
