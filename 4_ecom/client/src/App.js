@@ -49,6 +49,7 @@ import { currentUser } from './components/functions/auth';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { PresetColors } from 'antd/es/theme/internal';
 // import RegisterComplete from './pages/auth/RegisterComplete';
+import Test from './testing/test';
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,7 @@ function App() {
           <Route path="/sub/:slug" element={<SubHome />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path='/ok' element={<Test />} />
           {/* <UserRoute path="/user/history" element={<History />} /> */}
           {/* private Route : protected Routes */}
           {/* can access this routes only if you are logged in: if not would navigte to login page */}
