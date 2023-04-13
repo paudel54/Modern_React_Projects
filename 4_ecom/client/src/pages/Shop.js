@@ -237,6 +237,7 @@ const Shop = () => {
         //importing radio component form antd
 
         < Radio
+            key={b}
             className='pb-1 pl-4 pr-4 mt-1'
             value={b}
             name={b}
@@ -269,6 +270,7 @@ const Shop = () => {
     //8. show products based on colors
     const showColors = () => colors.map((c) => (
         <Radio
+            key={c}
             value={c}
             name={c}
             checked={c === color}

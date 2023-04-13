@@ -126,6 +126,7 @@ exports.applyCouponToUserCart = async (req, res) => {
 //Cart item save as order and Empty the Cart
 exports.createOrder = async (req, res) => {
     //request constains info from client side
+    //console.log(req.body);
     const { paymentIntent } = req.body.stripeResponse;
     const user = await User.findOne({ email: req.user.email }).exec();
 

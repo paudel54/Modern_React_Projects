@@ -3,10 +3,12 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useSelector, useDispatch } from 'react-redux';
 import { createPaymentIntent } from './functions/stripe';
 import { useNavigate, Link } from 'react-router-dom';
+import { createOrder, emptyUserCart } from './functions/user';
 
 import { Card } from 'antd';
 import { DollarOutlined, CheckOutlined } from '@ant-design/icons';
 import Laptop from '../images/computer/ban1.png'
+
 
 
 const StripeCheckout = () => {
@@ -64,6 +66,28 @@ const StripeCheckout = () => {
         } else {
             //here you get Result after Successful Payment
             //create order and save in database for admin to process
+            createOrder(payload, user.token)
+                .then(
+                    (res) => {
+                        if (res.data.ok) {
+                            //empty cart from local Storage
+                            if (typeof window !== 'undefined') localStorage.removeItem('cart');
+                            //empty Cart from Redux
+                            dispatch({
+                                type: 'ADD_TO_CART',
+                                payload: [],
+                            })
+                            //reset coupon to false
+                            dispatch({
+                                type: 'COUPON_APPLIED',
+                                payload: false,
+                            })
+                            //empty Cart from Database/ with controller fn
+                            emptyUserCart(user.token);
+                        }
+                    }
+                )
+
             //empty user cart from redux store and local storage
             //onSuccess logs this into console
             // console.log(JSON.stringify(payload, null, 4))
