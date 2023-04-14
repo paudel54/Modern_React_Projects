@@ -3,7 +3,7 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Coupon = require('../models/coupon');
 const Order = require('../models/order');
-const User = require('../models/user');
+
 
 exports.userCart = async (req, res) => {
     //console.log(req.body);
