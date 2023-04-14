@@ -22,6 +22,12 @@ router.post("/user/order", authCheck, createOrder);
 //to show user's history of purchase:
 router.get('/user/orders', authCheck, orders);
 
+//wishlist//    addToWishlist||removeFromWishlist
+router.post('/user/wishlist', authCheck, addToWishlist);
+router.get('/user/wishlist', authCheck, wishlist);
+//remove from wishList
+router.put('/user/wishlist/:productId', authCheck, removeFromWishlist);
+
 // router.get('/user', (req, res) => res.json({
 //     data: 'You hit user Api endpoint',
 //     name: "Sangeeta Karki",

@@ -3,7 +3,7 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Coupon = require('../models/coupon');
 const Order = require('../models/order');
-const user = require('../models/user');
+const User = require('../models/user');
 
 exports.userCart = async (req, res) => {
     //console.log(req.body);
@@ -166,3 +166,36 @@ exports.orders = async (req, res) => {
     res.json(userOrders);
 }
 
+// addToWishlist
+// wishlist
+// removeFromWishlist
+
+exports.addToWishlist = async (req, res) => {
+    const { productId } = req.body
+    //addtoSet method of mongoose ensures we don't have duplicates
+    //find by productId and add to wishlist
+    const user = await User.findOneAndUpdate(
+        { email: req.user.email },
+        { $addToSet: { wishlist: productId } },
+    ).exec();
+    res.json({ ok: true })
+}
+
+exports.wishlist = async (req, res) => {
+    const list = await User.findOne({ email: req.user.email })
+        .select('wishlist')
+        .populate('wishlist')
+        .exec();
+    res.json(list);
+}
+
+exports.removeFromWishlist = async (req, res) => {
+    //receive productId from URl
+    const { productId } = req.params;
+    //find by user email, 1st arg and 2nd arg is what we want to update
+    const user = await User.findOneAndUpdate(
+        { email: req.user.email },
+        { $pull: { wishlist: productId } }
+    ).exec();
+    res.json({ ok: true })
+};
