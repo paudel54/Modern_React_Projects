@@ -5,7 +5,19 @@ const router = express.Router();
 //middleWares
 const { authCheck } = require("../middlewares/auth");
 //controllers
-const { userCart, getUserCart, emptyCart, saveAddress, applyCouponToUserCart, createOrder, orders, wishlist, addToWishlist, removeFromWishlist } = require("../controllers/user");
+const {
+    userCart,
+    getUserCart,
+    emptyCart,
+    saveAddress,
+    applyCouponToUserCart,
+    createOrder,
+    orders,
+    wishlist,
+    addToWishlist,
+    removeFromWishlist,
+    createCashOrder
+} = require("../controllers/user");
 
 //saving user Cart, before checkout to db
 router.post('/user/cart', authCheck, userCart);//saveCart
@@ -19,6 +31,8 @@ router.post("/user/address", authCheck, saveAddress);
 router.post("/user/cart/coupon", authCheck, applyCouponToUserCart);
 //oder after getting stripe Response:
 router.post("/user/order", authCheck, createOrder);
+//end point for Cash on Delivery
+router.post('/user/cash-order', authCheck, createCashOrder); //cod
 //to show user's history of purchase:
 router.get('/user/orders', authCheck, orders);
 
