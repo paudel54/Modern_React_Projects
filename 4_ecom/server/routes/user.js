@@ -30,9 +30,11 @@ router.post("/user/address", authCheck, saveAddress);
 //coupon
 router.post("/user/cart/coupon", authCheck, applyCouponToUserCart);
 //oder after getting stripe Response:
-router.post("/user/order", authCheck, createOrder);
+// router.post("/user/order", authCheck, createOrder);
 //end point for Cash on Delivery
-router.post('/user/cash-order', authCheck, createCashOrder); //cod
+// router.post('/user/cash-order', authCheck, createCashOrder); //cod
+router.post("/user/order", authCheck, createOrder); // stripe
+router.post("/user/cash-order", authCheck, createCashOrder); // cod
 //to show user's history of purchase:
 router.get('/user/orders', authCheck, orders);
 
@@ -48,3 +50,4 @@ router.put("/user/wishlist/:productId", authCheck, removeFromWishlist);
 //     address: "Melbrone"
 // }))
 module.exports = router
+

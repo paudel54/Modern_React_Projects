@@ -3,7 +3,7 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Coupon = require('../models/coupon');
 const Order = require('../models/order');
-var uniqid = require('uniqid');
+var uniqueid = require('uniqid');
 
 exports.userCart = async (req, res) => {
     //console.log(req.body);
@@ -203,15 +203,55 @@ exports.removeFromWishlist = async (req, res) => {
 
 //Creating new order for cash on delivary and saving it to DB and sending a response
 //Cart item save as order and Empty the Cart
+// exports.createCashOrder = async (req, res) => {
+//     //request constains info from client side
+//     //console.log(req.body);
+//     const { COD } = req.body;
+
+//     const user = await User.findOne({ email: req.user.email }).exec();
+//     //if COD is true, create order with status of Cash On Delivery
+
+//     if (!COD) return res.status(400).send('Create Cash Order Failed');
+
+//     let userCart = await Cart.findOne({ orderedBy: user._id }).exec();
+
+//     let newOrder = await new Order({
+//         products: userCart.products,
+//         paymentIntent: {
+//             id: uniqueid(),
+//             amount: userCart.cartTotal,
+//             currency: "usd",
+//             status: "Cash On Delivery",
+//             created: Date.now(),
+//             payment_method_types: ["cash"],
+//         },
+//         orderedBy: user._id,
+//     }).save();
+
+//     //decrement quantity, increment sold, mongoose bulkOption
+//     let bulkOption = userCart.products.map((item) => {
+//         return {
+//             updateOne: {
+//                 //update based on product id
+//                 filter: { _id: item.product._id }, //IMPORTANT item.product
+//                 update: { $inc: { quantity: -item.count, sold: +item.count } },
+//             }
+//         }
+//     })
+
+//     let updated = await Product.bulkWrite(bulkOption, {});
+//     console.log('PRODUCT QUANTITY-- AND SOLD++', updated);
+//     console.log('NEW ORDER SAVED', newOrder);
+//     res.json({ ok: true });
+// }
+
 exports.createCashOrder = async (req, res) => {
-    //request constains info from client side
-    //console.log(req.body);
     const { COD } = req.body;
+    // if COD is true, create order with status of Cash On Delivery
+
+    if (!COD) return res.status(400).send("Create cash order failed");
 
     const user = await User.findOne({ email: req.user.email }).exec();
-    //if COD is true, create order with status of Cash On Delivery
-
-    if (!COD) return res.status(400).send('Create Cash Order Failed');
 
     let userCart = await Cart.findOne({ orderedBy: user._id }).exec();
 
@@ -228,19 +268,22 @@ exports.createCashOrder = async (req, res) => {
         orderedBy: user._id,
     }).save();
 
-    //decrement quantity, increment sold, mongoose bulkOption
+    // decrement quantity, increment sold
     let bulkOption = userCart.products.map((item) => {
         return {
             updateOne: {
-                //update based on product id
-                filter: { _id: item.product._id }, //IMPORTANT item.product
+                filter: { _id: item.product._id }, // IMPORTANT item.product
                 update: { $inc: { quantity: -item.count, sold: +item.count } },
-            }
-        }
-    })
+            },
+        };
+    });
 
     let updated = await Product.bulkWrite(bulkOption, {});
-    console.log('PRODUCT QUANTITY-- AND SOLD++', updated);
-    console.log('NEW ORDER SAVED', newOrder);
+    console.log("PRODUCT QUANTITY-- AND SOLD++", updated);
+
+    console.log("NEW ORDER SAVED", newOrder);
     res.json({ ok: true });
-}
+};
+
+
+
