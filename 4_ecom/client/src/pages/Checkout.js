@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { applyCoupon, emptyUserCart, getUserCart, saveUserAddress } from '../components/functions/user';
+import { applyCoupon, emptyUserCart, getUserCart, saveUserAddress, createCashOrderForUser } from '../components/functions/user';
 import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -9,7 +9,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const Checkout = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => ({ ...state }));
+    const { user, COD } = useSelector((state) => ({ ...state }));
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
     //reactquill
@@ -127,7 +127,18 @@ const Checkout = () => {
                 className='bg-green-50 border border-green-500  placeholder-black-700  text-sm rounded-lg block w-1/4 p-2.5 outline-none' />
             <button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none' onClick={applyDiscountCoupon}>Apply</button>
         </>
+    };
+
+
+    const createCashOrder = () => {
+        //doit
+        createCashOrderForUser(user.token).then(res => {
+            console.log('USER CASH ORDER CREATED RES', res);
+            //empty cart from redux, local Storage, reset coupon 
+        })
+
     }
+
 
 
 
@@ -166,10 +177,22 @@ const Checkout = () => {
 
                     <div>
                         <div>
-                            <button onClick={() => navigate('/payment')} disabled={!addressSaved || !products.length}
+                            {COD ? (
+                                <button onClick={createCashOrder} disabled={!addressSaved || !products.length}
+                                    className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
+                                    Place Order
+                                </button>
+                            ) : (
+                                <button onClick={() => navigate('/payment')} disabled={!addressSaved || !products.length}
+                                    className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
+                                    Place Order
+                                </button>
+                            )}
+
+                            {/* <button onClick={() => navigate('/payment')} disabled={!addressSaved || !products.length}
                                 className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
                                 Place Order
-                            </button>
+                            </button> */}
                             <button onClick={emptyCart} disabled={!products.length}
                                 className='text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
                                 Empty Cart
