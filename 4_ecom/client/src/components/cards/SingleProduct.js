@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // react carousel
 import { Carousel } from 'react-responsive-carousel';
-import { Card, Tabs, Tooltip } from 'antd'
-import { Link } from 'react-router-dom';
+import { Card, Tabs, Tooltip } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import Laptop from '../../images/computer/laptop.png'
 import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
-
+import { useNavigate } from "react-router-dom";
 import { showAverage } from '../functions/rating';
 import _ from "lodash";
 //redux store to select and update 
 import { useSelector, useDispatch } from 'react-redux';
-;
+import { addToWishlist } from '../functions/user';
+
+import { toast } from 'react-toastify';
 
 
 const { TabPane } = Tabs;
 //this is single component of product page:
 const SingleProduct = ({ product, onStarClick, star }) => {
+    const navigate = useNavigate();
     const [tooltip, setTooltip] = useState('Click to add');
     //redux
     const { user, cart } = useSelector((state) => ({ ...state }));
@@ -68,6 +70,21 @@ const SingleProduct = ({ product, onStarClick, star }) => {
             );
         }
     };
+
+
+    const handleAddToWishlist = (e) => {
+        console.log('userClicked');
+        e.preventDefault();
+        addToWishlist(product._id, user.token).then((res) => {
+            console.log("ADDED TO WISHLIST", res.data);
+            toast.success("Added to wishlist");
+            console.log('wishlist added Successfully');
+            // navigate("/user/wishlist");
+        }
+        );
+    };
+
+
     return (
         <div className='grid grid-cols-12 '>
             <div className='col-span-7'>
@@ -111,8 +128,12 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                                 <ShoppingCartOutlined class='text-red-500 flex justify-center text-xl' /> <br /> Add to Cart
                             </a>
                         </Tooltip>,
-                        <Link to="/"><HeartOutlined className='text-blue-400' /> <br />
-                            Add to Wishlist</Link>,
+                        <>
+                            <a onClick={handleAddToWishlist} href='#/'>
+                                <HeartOutlined className='text-blue-400' /> <br /> Add to Wishlist
+                            </a>
+                        </>,
+
                         <RatingModal>
                             <StarRatings
                                 name={_id}
