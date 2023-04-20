@@ -4,7 +4,9 @@ import 'aos/dist/aos.css'
 import Hero from '../src/components/hero/Hero'
 import Header from './components/header/Header';
 import NavMobile from './components/nav/NavMobile';
-import Stats from './components/stats/Stats'
+import Stats from './components/stats/Stats';
+import Why from './components/stats/Why';
+
 import { useEffect, useState } from 'react';
 function App() {
   //state management
@@ -27,6 +29,8 @@ function App() {
         <NavMobile setNavMobile={setNavMobile} />
       </div>
       <Stats />
+      <Why />
+      <div className='h-[2000px]'></div>
     </div>
   );
 }
