@@ -40,7 +40,7 @@ function App() {
       <Features />
       <NewsLetter />
       <Footer />
-      <div className='h-[2000px]'></div>
+
     </div>
   );
 }
