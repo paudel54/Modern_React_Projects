@@ -26,7 +26,9 @@ const FeatureSection2 = () => {
               View all mining related information in realtime, at any point at
               any location and decide which polls you want to mine in.
             </p>
-            <button className="btn px-8 mb-6 lg:mb-0">Learn more</button>
+            <button className="btn px-8 mb-6 lg:mb-0 mx-auto lg:mx-0">
+              Learn more
+            </button>
           </div>
         </div>
       </div>

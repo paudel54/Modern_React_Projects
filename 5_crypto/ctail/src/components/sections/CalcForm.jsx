@@ -13,7 +13,7 @@ const CalcForm = () => {
           type="text"
           placeholder="Enter your hash rate"
         />
-        <select className="select">
+        <select className="select px-2">
           <option value="">TH/s</option>
           <option value="">H/s</option>
           <option value="">KH/s</option>

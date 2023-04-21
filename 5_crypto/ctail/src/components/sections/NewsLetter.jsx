@@ -4,7 +4,7 @@ import NewsLetterForm from "./NewsLetterForm";
 const NewsLetter = () => {
   return (
     <section className="py-[40px] lg:py-[88px] bg-newsletter bg-cover">
-      <div className="container mx-auto">
+      <div className="container mx-auto ">
         <div
           className="flex flex-col lg:flex-row items-center justify-between bg-blue p-12 rounded-2xl lg:bg-newsletterBox lg:bg-no-repeat lg:h-[216px] text-white"
           data-aos="fade-up"

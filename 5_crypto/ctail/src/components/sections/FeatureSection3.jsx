@@ -14,7 +14,7 @@ const FeatureSection3 = () => {
             Use advance analytical tools. Clearr TradingView charts let you
             track current and historical profit investments.
           </p>
-          <button className="btn px-8 mb-4">Learn More</button>
+          <button className="btn px-8 mb-5 mx-auto lg:mx-0">Learn More</button>
         </div>
         {/* Image */}
         <div
@@ -22,7 +22,7 @@ const FeatureSection3 = () => {
           data-aos="fade-left"
           data-aos-offset="450"
         >
-          <img src={Image3} alt="layouts" />
+          <img src={Image3} alt="layouts" draggable="false" />
         </div>
       </div>
     </section>

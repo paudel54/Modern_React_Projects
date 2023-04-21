@@ -17,7 +17,7 @@ const FeatureSection1 = () => {
             Get full statistic information about the behaviour of buyer and
             seller will help you to make the decision.
           </p>
-          <button className="btn px-8">Learn More</button>
+          <button className="btn px-8 mx-auto lg:mx-0">Learn More</button>
         </div>
         {/* image sections */}
         <div

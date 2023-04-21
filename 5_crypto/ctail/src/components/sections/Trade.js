@@ -10,8 +10,8 @@ const Trade = () => {
 
     const [itemName, setItemName] = useState('Bitcoin');
     return (
-        <section className='section lg:pt-[320px] bg-gradient-to-b from-[#f8f9fb] to-[#e2e3e7]  text-gray-600 lg: -mt-[320px]'>
-            <div className='container mx-auto'>
+        <section className='section lg:pt-[320px] bg-gradient-to-b from-[#f8f9fb] to-[#e2e3e7]  text-gray-600 lg:-mt-[350px]'>
+            <div className='container mx-auto '>
                 <h2 className='section-title text-center mb-16'
                     data-aos='fade-up'
                     data-aos-offset='400'>
