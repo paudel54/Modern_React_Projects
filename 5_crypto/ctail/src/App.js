@@ -10,6 +10,9 @@ import Trade from './components/sections/Trade';
 
 import { useEffect, useState } from 'react';
 import Calculate from './components/sections/Calculate';
+import Features from './components/sections/Features';
+import NewsLetter from './components/sections/NewsLetter';
+import Footer from './components/sections/Footer';
 function App() {
   //state management
   const [navMobile, setNavMobile] = useState(false);
@@ -34,6 +37,9 @@ function App() {
       <Why />
       <Calculate />
       <Trade />
+      <Features />
+      <NewsLetter />
+      <Footer />
       <div className='h-[2000px]'></div>
     </div>
   );
