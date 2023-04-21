@@ -6,8 +6,10 @@ import Header from './components/header/Header';
 import NavMobile from './components/nav/NavMobile';
 import Stats from './components/stats/Stats';
 import Why from './components/stats/Why';
+import Trade from './components/sections/Trade';
 
 import { useEffect, useState } from 'react';
+import Calculate from './components/sections/Calculate';
 function App() {
   //state management
   const [navMobile, setNavMobile] = useState(false);
@@ -30,6 +32,8 @@ function App() {
       </div>
       <Stats />
       <Why />
+      <Calculate />
+      <Trade />
       <div className='h-[2000px]'></div>
     </div>
   );
