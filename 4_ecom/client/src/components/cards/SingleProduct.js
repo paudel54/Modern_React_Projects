@@ -8,6 +8,7 @@ import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
 import { useNavigate } from "react-router-dom";
+
 import { showAverage } from '../functions/rating';
 import _ from "lodash";
 //redux store to select and update 
@@ -73,13 +74,15 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
 
     const handleAddToWishlist = (e) => {
-        console.log('userClicked');
+        console.log('this is user from redux', user);
         e.preventDefault();
-        addToWishlist(product._id, user.token).then((res) => {
+        console.log('userClicked');
+        addToWishlist(product._id, user?.token).then((res) => {
             console.log("ADDED TO WISHLIST", res.data);
             toast.success("Added to wishlist");
             console.log('wishlist added Successfully');
-            // navigate("/user/wishlist");
+            navigate("/user/wishlist");
+            console.log('executed Navigation Link');
         }
         );
     };
@@ -129,7 +132,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                             </a>
                         </Tooltip>,
                         <>
-                            <a onClick={handleAddToWishlist} href='#/'>
+                            <a onClick={handleAddToWishlist} href='/'>
                                 <HeartOutlined className='text-blue-400' /> <br /> Add to Wishlist
                             </a>
                         </>,

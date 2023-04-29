@@ -132,16 +132,14 @@ const Checkout = () => {
 
     const createCashOrder = () => {
         //doit
-        createCashOrderForUser(user.token).then(res => {
+        //COD will have value of True/False
+        console.log('Sending async req for making Cash order req')
+        createCashOrderForUser(user.token, COD).then(res => {
             console.log('USER CASH ORDER CREATED RES', res);
             //empty cart from redux, local Storage, reset coupon 
         })
 
     }
-
-
-
-
     return (
         <div>
             <div className='grid grid-cols-12 gap-4 p-4'>
@@ -177,8 +175,9 @@ const Checkout = () => {
 
                     <div>
                         <div>
+
                             {COD ? (
-                                <button onClick={createCashOrder} disabled={!addressSaved || !products.length}
+                                <button onClick={createCashOrder()} disabled={!addressSaved || !products.length}
                                     className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>
                                     Place Order
                                 </button>
