@@ -26,10 +26,12 @@ const Wishlist = () => {
         });
 
     return (
-        <div className='bg-green-200 font-bold border p-4 grid  grid-cols-4 '>
-            <UserNav />
-            <div className="col-span-3 text-center">
-                <h4>WishList</h4>
+        <div className='grid  grid-cols-10 gap-8 '>
+            <div className='col-span-3'>
+                <UserNav />
+            </div>
+            <div className="col-span-7 text-center mt-10">
+                <h4 className='font-bold'>WishList</h4>
                 {wishlist.map((p) => (
                     <div key={p._id} className="bg-red-300">
                         <Link to={`/product/${p.slug}`}>{p.title}</Link>

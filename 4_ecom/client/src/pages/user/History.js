@@ -84,15 +84,17 @@ const History = () => {
     ));
 
     return (
-        <div className='bg-green-200 font-bold border p-4 grid  grid-cols-4 '>
-            <UserNav />
-            <div className="col-span-3 text-center">
-                <div className='text-xl font-bold'>{orders.length > 0 ? 'User Purchased Orders' : ' No purchased Order'}</div>
+        <div className=' grid grid-cols-10 '>
+            <div className='col-span-3'>
+                < UserNav />
+            </div>
+            <div className="col-span-7 text-center">
+                <div className='text-xl font-bold mt-10'>{orders.length > 0 ? 'User Purchased Orders' : ' No purchased Order'}</div>
                 <div className='flex flex-col items-center justify-center '>
                     {showEachOrders()}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

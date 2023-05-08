@@ -56,9 +56,9 @@ const CategoryUpdate = ({ match }) => {
 
     return (
         //UserNav and AdminNav has consistent layout
-        <div className='bg-purple-200 font-bold border p-4 grid  grid-cols-4 '>
-            <AdminNav />
-            <div className="col-span-3 text-center flex flex-col items-center">
+        <div className='bg-purple-200 font-bold border grid  grid-cols-10 gap-8'>
+            <div className='col-span-3'><AdminNav /></div>
+            <div className="col-span-7 text-center flex flex-col items-center justify-center -mt-40">
                 {loading ? <h4 className='text-red-500 text-sm'>Loading.....</h4> : <h4>Update Category</h4>}
                 <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
                 <hr className='mt-5' />

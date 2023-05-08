@@ -5,7 +5,11 @@ import React, { useState } from 'react'
 
 import { FaHistory } from 'react-icons/fa';
 import { HiOutlineKey } from 'react-icons/hi';
-import { MdFavorite } from 'react-icons/md';
+import { MdProductionQuantityLimits } from 'react-icons/md';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import { RiCoupon3Fill } from 'react-icons/ri';
+import { BiCategoryAlt } from 'react-icons/bi';
+import { MdOutlineCategory } from 'react-icons/md';
 
 
 const AdminNav = () => {
@@ -13,17 +17,17 @@ const AdminNav = () => {
     const menus = [
         { name: 'Dashboard', link: '/admin/dashboard', icon: FaHistory },
         { name: 'Product', link: '/admin/product', icon: HiOutlineKey },
-        { name: 'Products', link: '/admin/products', icon: MdFavorite },
-        { name: 'Category', link: '/admin/category', icon: MdFavorite },
-        { name: 'Sub Category', link: '/admin/sub', icon: MdFavorite },
-        { name: 'Coupons', link: '/admin/coupon ', icon: MdFavorite },
-        { name: 'Password', link: '/user/password', icon: MdFavorite },
+        { name: 'Products', link: '/admin/products', icon: MdProductionQuantityLimits },
+        { name: 'Category', link: '/admin/category', icon: BiCategoryAlt },
+        { name: 'Sub Category', link: '/admin/sub', icon: MdOutlineCategory },
+        { name: 'Coupons', link: '/admin/coupon ', icon: RiCoupon3Fill },
+        { name: 'Password', link: '/user/password', icon: RiLockPasswordFill },
 
     ];
 
     return (
-        <section className='flex '>
-            <div className={`bg-blue-400 min-h-screen ${open ? 'w-72' : 'w-16'} text px-4 duration-500`}>
+        <section className='flex h-[60rem]'>
+            <div className={`bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400  min-h-screen ${open ? 'w-72' : 'w-16'} text px-4 duration-500`}>
                 <div className="py-3 flex justify-end text-gray-900">
                     <GiHamburgerMenu size={26} className="cursor-pointer" onClick={() => setOpen(!open)} />
                 </div>

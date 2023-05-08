@@ -113,17 +113,17 @@ const ProductCreate = () => {
 
     return (
         <div className='main'>
-            <div className=' grid grid-cols-12'>
-                <div className='col-span-2'>
+            <div className=' grid grid-cols-10 gap-8'>
+                <div className='col-span-3'>
                     <AdminNav />
                 </div>
-                < div className='col-span-10'>
+                < div className='col-span-7'>
 
-                    {loading ? <Spin /> : <h4> Product Create </h4>}
+                    {loading ? <Spin /> : <h4 className='text-2xl font-bold'> Product Create </h4>}
                     <hr />
-                    {JSON.stringify(values.images)}
+                    {/* {JSON.stringify(values.images)} */}
                     {/* {JSON.stringify(values.categories)} */}
-                    {JSON.stringify(values.subs)}
+                    {/* {JSON.stringify(values.subs)} */}
 
                     <div className='p-3  mb-4'>
                         <FileUpload values={values} setValues={setValues} setLoading={setLoading} />

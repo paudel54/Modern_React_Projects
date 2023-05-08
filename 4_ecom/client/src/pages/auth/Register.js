@@ -38,14 +38,14 @@ const Register = () => {
 
 
     return (
-        <div className='bg-blue-300 h-full w-full absolute'>
+        <div className='bg-gradient-to-r from-blue-200 to-cyan-200 h-full w-full absolute'>
 
             <div className='flex justify-center h-[80%] items-center'>
-                <div className='drop-shadow-xl rounded-lg py-48 px-28 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
-                    <h1 className='text-2xl mb-4 font-bold text-white'>Register Here</h1>
-                    <form onSubmit={handleSubmit} className="flex flex-col items-start ">
-                        <input placeholder='Enter your valid email ' className=" outline-none px-4 py-2 form-control rounded-sm" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
-                        <button className='drop-shadow-xl mt-4 py-2 px-4 bg-rose-300 rounded-md' type='submit'> Register </button>
+                <div className='drop-shadow-xl rounded-lg py-48 px-28 bg-gradient-to-r from-cyan-500 to-blue-500 flex flex-col md:flex-row items-center justify-center gap-10'>
+                    <h1 className='text-2xl mb-4 font-bold text-white'>Register Your Email</h1>
+                    <form onSubmit={handleSubmit} className="flex flex-col  ">
+                        <input placeholder='Enter your valid email ' className=" outline-none px-4 py-2 form-control border rounded-xl" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
+                        <button className='mt-2 shadow bg-green-400 rounded-xl text-white p-2' type='submit'> Register </button>
                     </form>
                 </div>
             </div>
@@ -55,3 +55,5 @@ const Register = () => {
 }
 
 export default Register
+
+

@@ -6,37 +6,37 @@ const ProductCreateForm = ({ handleSubmit, handleChange, handleCategoryChange, v
     const { title, description, price, category, categories, subs, shipping, quanity, images, colors, brands, color, brand } = values;
     return (
         <form onSubmit={handleSubmit}>
-            <div className='container'>
+            <div className='max-w-sm flex items-center justify-between'>
                 <label>Title</label>
 
                 <input
                     type="text"
                     name="title"
-                    className='border border-red-300'
+                    className='border border-red-300 outline-none rounded-lg px-2'
                     value={title}
                     onChange={handleChange} />
             </div>
-            <div className='container mt-5'>
+            <div className='flex justify-between items-center max-w-sm  mt-5'>
                 <label>Description</label>
                 <input
                     type="text"
                     name="description"
-                    className='border border-red-300'
+                    className='border border-red-300 outline-none rounded-lg px-2'
                     value={description}
                     onChange={handleChange} />
             </div>
 
-            <div className='container mt-5'>
+            <div className='flex justify-between items-center max-w-sm mt-5'>
                 <label>Price</label>
                 <input
                     type="number"
                     name="price"
-                    className='border border-red-300'
+                    className='border border-red-300 outline-none rounded-lg px-2'
                     value={price}
                     onChange={handleChange} />
             </div>
 
-            <div className='container mt-5'>
+            <div className='flex justify-between items-center max-w-sm mt-5'>
                 <label>Shipping</label>
                 <select name="shipping" className='' onChange={handleChange}>
                     <option>Please Select</option>
@@ -45,12 +45,13 @@ const ProductCreateForm = ({ handleSubmit, handleChange, handleCategoryChange, v
                 </select>
             </div>
 
-            <div className='container mt-5'>
+            <div className='flex justify-between items-center max-w-sm mt-5'>
                 <label>Quantity</label>
-                <input type="number" name="quantity" className='border border-red-300' value={quanity} onChange={handleChange} />
+                <input type="number" name="quantity" className='border border-red-300 outline-none rounded-lg px-2'
+                    value={quanity} onChange={handleChange} />
             </div>
 
-            <div className='container mt-5'>
+            <div className='flex justify-between items-center max-w-sm mt-5'>
                 <label>Color</label>
                 <select name="color" className='' onChange={handleChange}>
                     <option>Please Select</option>
@@ -62,7 +63,7 @@ const ProductCreateForm = ({ handleSubmit, handleChange, handleCategoryChange, v
                 </select>
             </div>
             {/* //Brands */}
-            <div className='container mt-5'>
+            <div className='flex justify-between items-center max-w-sm mt-5'>
                 <label>Brands</label>
                 <select name="brand" className='' onChange={handleChange}>
                     <option>Please Select</option>
@@ -74,9 +75,9 @@ const ProductCreateForm = ({ handleSubmit, handleChange, handleCategoryChange, v
                 </select>
             </div>
             {/* {categories.length} */}
-            <div>
+            <div className='flex justify-between items-center max-w-sm'>
                 <label>Category</label>
-                <select name='category' className='mt-5' onChange={handleCategoryChange}>
+                <select name='category' className=' mt-5' onChange={handleCategoryChange}>
                     <option> Please Select</option>
                     {
                         categories.length > 0 && categories.map((c) => (

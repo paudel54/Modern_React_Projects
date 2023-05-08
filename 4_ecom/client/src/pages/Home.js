@@ -10,24 +10,23 @@ const Home = () => {
 
     return (
         <div>
-            <div>testing text</div>
-            <div className='text-center bg-blue-300 p-8 text-2xl text-white font-bold'>
+            <div className='text-center bg-gradient-to-r from-cyan-500 to-blue-500 p-8 text-2xl text-white font-bold'>
                 <Jumbotron text={['New Arrivals', 'Trendings', 'Best Sellers']} />
             </div>
 
-            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>New Arrivals</h4>
+            <h4 className='text-center p-3 mt-0 mb-5 text-2xl bg-pink-50 text-red-600 font-bold'>New Arrivals</h4>
             <NewArrivals />
             <br />
 
-            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>Best Sellers</h4>
+            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-gradient-to-r from-indigo-500 font-bold text-gray-700'>Best Sellers</h4>
             <BestSellers />
             <br />
 
-            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>Categories List</h4>
+            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-gradient-to-r from-indigo-500 font-bold text-gray-700'>Categories List</h4>
             <CategoryList />
             <br />
 
-            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-purple-200 text-red-600 font-bold'>Sub-categories List</h4>
+            <h4 className='text-center p-3 mt-5 mb-5 text-3xl bg-gradient-to-r from-indigo-500 font-bold text-gray-700'>Sub-categories List</h4>
             <SubList />
             <br />
         </div>

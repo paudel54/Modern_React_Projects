@@ -15,9 +15,10 @@ const AdminProductCard = ({ product, handleRemove }) => {
             <Card className='mr-2 mb-2 h-[350px] w-[250px]'
                 hoverable
                 style={{
-                    objectFit: "cover"
+                    objectFit: "cover",
+                    height: "25rem"
                 }}
-                cover={<img alt="laptops" src={images && images.length ? images[0].url : laptop} />}
+                cover={<img style={{ height: "12rem" }} alt="laptops" src={images && images.length ? images[0].url : laptop} />}
 
                 actions={
                     [<Link to={`/admin/product/${slug}`}><EditOutlined class='text-blue-500 flex justify-center text-xl' /></Link>, <DeleteOutlined class='text-red-500 flex justify-center text-xl' onClick={() => handleRemove(slug)} />]

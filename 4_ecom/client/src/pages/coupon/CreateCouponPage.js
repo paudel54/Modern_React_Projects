@@ -34,11 +34,11 @@ const CreateCouponPage = () => {
 
     return (
         <div>
-            <div className='grid grid-cols-10'>
-                <div className='col-span-2'>
+            <div className='grid  gap-8 grid-cols-10'>
+                <div className='col-span-3'>
                     <AdminNav />
                 </div>
-                <div className='col-span-8'>
+                <div className='col-span-7 mt-20'>
                     <div className='text-2xl font-bold'>Coupon</div>
                     <form onSubmit={handleSubmit}>
                         <div className='mb-2'>

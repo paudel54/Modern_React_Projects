@@ -64,13 +64,13 @@ const ProductCard = ({ product }) => {
     const { images, title, description, slug, price } = product;
     const { Meta } = Card;
     return (
-        <div className=' w-[400px]  h-[400px] mb-60' >
+        <div className=' w-[400px]  h-[400px] mb-60 hover:shadow-2xl' >
             {/* {JSON.stringify(product)} */}
             {/* {JSON.stringify(product.slug)} */}
 
             {product && product.ratings && product.ratings.length > 0 ? showAverage(product) : <div className='text-center pb-3 pt-1'> No rating yet</div>}
             < Card
-                cover={< img className='w-[250px] h-[350px] object-cover' alt="laptops" src={images && images.length ? images[0].url : laptop
+                cover={< img className='w-[250px] h-[350px] object-cover ' alt="laptops" src={images && images.length ? images[0].url : laptop
                 } />}
                 actions={
                     [

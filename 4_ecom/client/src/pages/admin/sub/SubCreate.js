@@ -107,9 +107,9 @@ const SubCreate = () => {
 
     return (
         //UserNav and AdminNav has consistent layout-
-        <div className='bg-purple-200 font-bold border p-4 grid  grid-cols-4 '>
-            <AdminNav />
-            <div className="col-span-3 text-center flex flex-col items-center">
+        <div className='font-bold grid grid-cols-10 gap-8'>
+            <div className='col-span-3'><AdminNav /></div>
+            <div className="col-span-7 text-center flex flex-col items-center mt-10">
                 {loading ? <h4 className='text-red-500 text-sm'>Loading.....</h4> : <h4>Create Sub Category</h4>}
 
                 <div className="">
@@ -140,12 +140,12 @@ const SubCreate = () => {
                 {/* <input className=" bg-green-300 w-1/5 mt-10 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg block  p-2.5 " type="search" placeholder='Search Items' value={keyword} onChange={handleSearchChange} /> */}
                 {/* 8888888888888888localsearch component to work with reuseable code */}
                 <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-                <hr className='mt-5' />
+                <hr className='mt-1' />
                 {/* information from backend categories */}
                 {/* {JSON.stringify(categories)} */}
                 {/* Step5: use of search fn */}
                 {subs.filter(searched(keyword)).map((s) => (
-                    <div className='bg-gray-400 mb-2 p-4 flex w-1/2 justify-between' key={s._id}>
+                    <div className='bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm rounded-xl mb-2 p-4 flex w-1/2 justify-between' key={s._id}>
                         {s.name}
                         <div className='flex space-x-5 text-2xl items-center'>
                             <span onClick={() => (handleRemove(s.slug))} className='text-red-800 cursor-pointer'><MdDeleteSweep /></span>

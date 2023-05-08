@@ -15,7 +15,8 @@ const CategoryList = () => {
             })
     }, []);
 
-    const showCategories = () => categories.map((c) => <div key={c._id} className='bg-blue-300 p-4 shadow-lg m-3 w-40 text-center'>
+    const showCategories = () => categories.map((c) => <div key={c._id}
+        className='bg-gray-200 hover:bg-gray-300 text-gray-700  rounded-xl p-4 shadow-lg m-3 w-40 text-center'>
         <Link to={`/category/${c.slug}`}>
             {c.name}
         </Link>

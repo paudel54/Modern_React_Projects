@@ -10,6 +10,7 @@ import 'react-quill/dist/quill.snow.css';
 const Checkout = () => {
     const dispatch = useDispatch();
     const { user, COD } = useSelector((state) => ({ ...state }));
+    const couponTrueOrFalse = useSelector((state) => state.coupon);
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
     //reactquill
@@ -29,8 +30,8 @@ const Checkout = () => {
                 console.log('user cart response', JSON.stringify(res.data, null, 4));
                 setProducts(res.data.products);
                 setTotal(res.data.cartTotal);
-            })
-    }, [])
+            });
+    }, []);
 
 
     const emptyCart = () => {
@@ -54,7 +55,7 @@ const Checkout = () => {
                 setCoupon('');
                 toast.message('Cart is empty. Continue Shopping..')
             })
-    }
+    };
 
     const saveAddressToDb = () => {
         // console.log(address);
@@ -131,15 +132,48 @@ const Checkout = () => {
 
 
     const createCashOrder = () => {
-        //doit
-        //COD will have value of True/False
+        // doit
+        // COD will have value of True / False
         console.log('Sending async req for making Cash order req')
         createCashOrderForUser(user.token, COD).then(res => {
             console.log('USER CASH ORDER CREATED RES', res);
             //empty cart from redux, local Storage, reset coupon 
         })
+        // createCashOrderForUser(user.token, COD, couponTrueOrFalse).then((res) => {
+        //     console.log("USER CASH ORDER CREATED RES", res);
+        //     // emptying cart from redux, local storage, resetcoupon, reset COD, redirect
+        //     if (res.data.ok) {
+        //         // emptying local storage
+        //         if (typeof window !== "undefined") localStorage.removeItem("cart");
+        //         // emptying out redux Cart
+        //         dispatch(
+        //             {
+        //                 type: "ADD_TO_CART",
+        //                 payload: [],
+        //             });
+        //         // empty redux coupon
+        //         dispatch({
+        //             type: "COUPON_APPLIED",
+        //             payload: false,
+        //         });
+        //         // wiping out redux COD
+        //         dispatch(
+        //             {
+        //                 type: "COD",
+        //                 payload: false,
+        //             }
+        //         );
+        //         // empty cart from backend
+        //         emptyUserCart(user.token);
+        //         // redirect
+        //         setTimeout(() => {
+        //             navigate("/user/history")
+        //         }, 1000);
+        //     }
+        // });
 
-    }
+    };
+
     return (
         <div>
             <div className='grid grid-cols-12 gap-4 p-4'>
@@ -175,7 +209,7 @@ const Checkout = () => {
 
                     <div>
                         <div>
-
+                            {JSON.stringify}
                             {COD ? (
                                 <button onClick={createCashOrder()} disabled={!addressSaved || !products.length}
                                     className='text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-5 outline-none'>

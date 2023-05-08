@@ -76,7 +76,7 @@ const FileUpload = ({ values, setValues, setLoading }) => {
 
     return (
         <div>
-            <div className='p-5'>
+            <div className='py-5'>
                 {values.images && values.images.map((image) => (
                     <Badge count="X" key={image.public_id} onClick={() => handleImageRemove(image.public_id)} style={{ cursor: "pointer" }}>
                         <Avatar src={image.url} size={100} shape="square" className='ml-3' />
@@ -84,12 +84,11 @@ const FileUpload = ({ values, setValues, setLoading }) => {
                 ))}
             </div>
 
-            <div className=''>
+            <div className='-ml-3'>
                 <label className='bg-blue-500 text-white px-2 py-1 rounded '>
                     Choose File
                     {/* taking file and compressing by browser reducing a size */}
                     <input type="file" multiple accept="images/*" hidden onChange={fileUploadAndResize} />
-
                 </label>
 
             </div>

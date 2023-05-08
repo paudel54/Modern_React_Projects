@@ -27,8 +27,8 @@ const CategoryHome = () => {
             <div>
                 <div className='mb-10'>
                     {loading ?
-                        <h4 className='text-center bg-gray-300 p-3 mb-5'>Loading...</h4> :
-                        <h4 className='text-center bg-gray-300 p-3 mb-5 text-3xl'>
+                        <h4 className='text-center bg-gradient-to-r from-indigo-500 text-gray-700 p-3 mb-5'>Loading...</h4> :
+                        <h4 className='text-center bg-gradient-to-r from-indigo-500 p-3 mb-5 text-3xl text-gray-700'>
                             {products.length} Products in {category.name} category
                         </h4>}
                 </div>
